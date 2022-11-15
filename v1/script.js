@@ -7,7 +7,7 @@ d3.csv("totals_sorted.csv").then(
 
     // Scatter plot dimensions
     var dimensions = {
-      width: 800,
+      width: 1000,
       height: 800,
       margin: {
         top: 10,
@@ -16,6 +16,9 @@ d3.csv("totals_sorted.csv").then(
         left: 50
       }
     }
+
+    dimensions.boundedWidth = dimensions.width - dimensions.margin.right - dimensions.margin.left
+    dimensions.boundedHeight = dimensions.height - dimensions.margin.top - dimensions.margin.bottom
 
     console.log(dataset)
 
@@ -29,87 +32,103 @@ d3.csv("totals_sorted.csv").then(
     var years = d3.map(dataset, d => +d.Year)
     console.log("years", years)
 
+    var nl_hits = d3.map(dataset, d => +d.NL_hits)
+    var nl_max_hits = d3.max(nl_hits)
+    console.log("nl_hits", nl_hits)
+
+    var al_hits = d3.map(dataset, d => +d.AL_hits)
+    var al_max_hits = d3.max(al_hits)
+    console.log("al_hits", al_hits)
+
+    var max_hits = Math.max(d3.max(nl_hits), d3.max(al_hits))
+    console.log("al_max_hits", al_max_hits)
+    console.log("nl_max_hits", nl_max_hits)
+    console.log("max_hits", max_hits)
+
     var xScale = d3.scaleBand()
       .domain(years)
-      .range([dimensions.margin.left, dimensions.width - dimensions.margin.right])
-      .padding([0.1])
+      //.range([dimensions.margin.left, dimensions.width - dimensions.margin.right])
+      //.padding([0.1])
+      .range([0,dimensions.boundedWidth]).padding(0.2)
 
-    var nl_hits = d3.map(dataset, d => +d.NL_hits)
-    //console.log("nl_hits", nl_hits)
     var yScale = d3.scaleLinear()
-      .domain([0, d3.max(nl_hits)])
-      .range([dimensions.height - dimensions.margin.bottom, dimensions.margin.top])
+      //.domain([0, d3.max(nl_hits)])
+      .domain([0, max_hits])
+      //.range([dimensions.height - dimensions.margin.bottom, dimensions.margin.top])
+      .range([dimensions.boundedHeight,0]);
 
     var svg = d3.select("#line_chart")
       .attr("width", dimensions.width)
       .attr("height", dimensions.height)
       //.style("background-color", "green")
 
-    //xAxis = d3.axisBottom()
-    //  .scale(xScale)
+    var bounds = svg.append("g")
+      .style("transform", `translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`)
 
-    //svg.append("g")
-    //  .attr("class", "axis")
-    //  .attr("transform", "translate(0,620)")
-    //  .call(xAxis)
-    //  .append("text")
-    //  .attr("x", (900+70)/2)
-    //  .attr("y", "50")
-    //  .text("year")
-
-    //yAxis = d3.axisLeft()
-    //  .scale(yScale)
-    //  .ticks(25)
-
-    //svg.append("g")
-    //  .attr("class", "axis")
-    //  //.attr("transform", `translate(${dimensions.margin.left},20)`)
-    //  .attr("transform", `translate(${70},20)`)
-    //  .call(yAxis)
-    //  .append("text")
-    //  .attr("transform", "rotate(-90)")
-    //  .attr("x", "-150")
-    //  .attr("y", "-50")
-    //  .attr("text-anchor", "end")
-    //  .attr("some text")
-
-      //var line = d3.line()
-      //  .x(d => xScale(+d.Year))
-      //  .y(d => yScale(+d.NL_hits)).curve(d3.curveCardinal)
-
-      //console.log("line", line)
-
+    //NL_hits
     // select path - three types: curveBasis, curveStep, curveCardinal
-    svg.selectAll(".line")
+    bounds.selectAll(".line")
       .append("g")
       .attr("class", "line")
       .data([dataset])
       .enter()
       .append("path")
       .attr("fill", "none")
-      .attr("stroke", "green")
+      .attr("stroke", "blue")
       .attr("stroke-width", 2)
       .attr("d", d3.line()
           .x(d => xScale(+d.Year))
           //.y(d => yScale(+d.NL_hits)).curve(d3.curveCardinal)
-          .y(d => yScale(+d.NL_hits)).curve(d3.curveStep)
+          .y(d => yScale(+d.NL_hits)).curve(d3.curveLinear)
        )
 
-    svg.selectAll("circle")
+    bounds.selectAll("circle")
       .append("g")
       .data(dataset)
       .enter()
       .append("circle")
-      .attr("r", 2)
+      .attr("r", 1.5)
       .attr("cx", d => xScale(+d.Year))
       .attr("cy", d => yScale(+d.NL_hits))
       .style("fill", "red")
 
+    //AL_hits
+    bounds.selectAll(".line")
+      .append("g")
+      .attr("class", "line")
+      .data([dataset])
+      .enter()
+      .append("path")
+      .attr("fill", "none")
+      .attr("stroke", "red")
+      .attr("stroke-width", 2)
+      .attr("d", d3.line()
+          .x(d => xScale(+d.Year))
+          //.y(d => yScale(+d.NL_hits)).curve(d3.curveCardinal)
+          .y(d => yScale(+d.AL_hits)).curve(d3.curveLinear)
+       )
 
-    var xAxisGen = d3.axisBottom().scale(xScale)
-    var xAxis = svg.append("g")
-      .call(xAxisGen)
-      .style("transform", `translateY(${dimensions.height-dimensions.margin.bottom}px)`)
+    bounds.selectAll("circle")
+      .append("g")
+      .data(dataset)
+      .enter()
+      .append("circle")
+      .attr("r", 1.5)
+      .attr("cx", d => xScale(+d.Year))
+      .attr("cy", d => yScale(+d.AL_hits))
+      .style("fill", "blue")
+
+    var xAxis = d3.axisBottom(xScale)
+      .tickValues(xScale.domain().filter(function(d,i){ return !(i%3)})).tickSizeOuter(0)
+
+    svg.append("g")
+      .attr("transform", "translate("+ dimensions.margin.left + "," + (dimensions.boundedHeight+dimensions.margin.bottom/4) + ")")
+      .call(xAxis)
+      .selectAll("text")	
+      .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", ".15em")
+      .attr("transform", "rotate(-65)");
 
     var yAxisGen = d3.axisLeft().scale(yScale)
     var yAxis = svg.append("g")
