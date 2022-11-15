@@ -74,23 +74,11 @@ d3.csv("totals_sorted.csv").then(
       .attr("text-anchor", "end")
       .attr("some text")
 
-  //var line = d3.line()
-  //  //.x(d => xScale(+d.Year))
-  //  .x(d => {
-  //    console.log("why don't you print this")
-  //    return xScale(+d.Year)
-  //  })
-  //  .y(d => yScale(+d.NL_hits)).curve(d3.curveCardinal)
-  //  .curve(d3.curveCardinal)
-
-      //.attr("d", d3.line()
+      //var line = d3.line()
       //  .x(d => xScale(+d.Year))
       //  .y(d => yScale(+d.NL_hits)).curve(d3.curveCardinal)
-      //)
 
-      //.attr("d", line)
-    //
-  //  console.log("line", line)
+      //console.log("line", line)
 
     // select path - three types: curveBasis, curveStep, curveCardinal
     svg.selectAll(".line")
@@ -102,12 +90,7 @@ d3.csv("totals_sorted.csv").then(
       .attr("fill", "none")
       .attr("stroke", "green")
       .attr("stroke-width", 2)
-      //.attr("d", function (d) {
-      //  var line = d3.line()
-      //  console.log("line", line)
-      //  return line
-      //})
-      .attr("d", function(d) {
+      .attr("d", function (d) {
         var line = d3.line()
           .x(d => xScale(+d.Year))
           .y(d => yScale(+d.NL_hits)).curve(d3.curveCardinal)
@@ -157,28 +140,6 @@ d3.csv("totals_sorted.csv").then(
 //      */
 //    )
 //
-//
-//    var xScale = d3.scaleLinear()
-//    //.domain(d3.extent(dataset, d => d.dewPoint)) // interval of values 
-//      .domain(d3.extent(dataset, xAccessor)) // interval of values 
-//      .range([dimensions.margin.left, dimensions.width - dimensions.margin.right]) // place on screen where values should mapped
-//
-//    var yScale = d3.scaleLinear()
-//    //.domain(d3.extent(dataset, d => d.humidity))
-//      .domain(d3.extent(dataset,yAccessor))
-//      .range([dimensions.height - dimensions.margin.bottom ,dimensions.margin.top])
-//
-//    var dots = svg.append("g")
-//      .selectAll("circle") // search in DOM for occurances of 'circle'
-//      .data(dataset)  // join to the dataset
-//      .enter() //
-//      .append("circle")
-//    //.attr("cx", d => xScale(d.dewPoint))
-//      .attr("cx", d => xScale(xAccessor(d)))
-//    //.attr("cy", d => yScale(d.humidity))
-//      .attr("cy", d => yScale(yAccessor(d)))
-//      .attr("r", 3)
-//      .attr("fill", "black")
 //
 //    var xAxisGen = d3.axisBottom().scale(xScale) // create axis
 //
