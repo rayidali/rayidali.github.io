@@ -77,6 +77,7 @@ d3.csv("totals_sorted.csv").then(
     var bounds = svg.append("g")
       .style("transform", `translate(${dimensions.margin.left}px, ${dimensions.margin.top}px)`)
 
+
     //NL = blue
     // select path - three types: curveBasis, curveStep, curveCardinal
     var NL = bounds.selectAll(".line")
@@ -177,6 +178,26 @@ d3.csv("totals_sorted.csv").then(
       .text(ALTextLegend)
       .style("font-size", "15px")
       .attr("alignment-baseline","middle")
+
+
+    // 1973 year line
+    bounds.append("line")
+      .style('stroke', 'black')
+      .attr("x1", xScale(1973))
+      .attr("y1", 10)
+      .attr("x2", xScale(1973))
+      .attr("y2", dimensions.height)
+
+    // 1973 label
+    bounds.append("text")
+      //.attr("id", "ALLegend")
+      .attr("x", xScale(1973))
+      .attr("y", 0)
+      .text("DH rule")
+      .style("font-size", "15px")
+      .attr("alignment-baseline","middle")
+      .attr("text-align","center")
+    //
 
     //ON CLICK
     d3.select("#hrs").on("click", function() {
