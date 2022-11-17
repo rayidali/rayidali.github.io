@@ -148,7 +148,7 @@ d3.csv("totals_sorted.csv").then(
 
     // NL Legend
     bounds.append("circle")
-      .attr("cx",dimensions.boundedWidth - 170)
+      .attr("cx", 30)
       .attr("cy", 20)
       .attr("r", 6)
       .style("fill", NLColor)
@@ -156,7 +156,7 @@ d3.csv("totals_sorted.csv").then(
     var NLLegend = bounds
       .append("text")
       .attr("id", "NLLegend")
-      .attr("x", dimensions.boundedWidth - 150)
+      .attr("x", 50)
       .attr("y", 20)
       .text(NLTextLegend)
       .style("font-size", "15px")
@@ -164,7 +164,7 @@ d3.csv("totals_sorted.csv").then(
 
     // AL Legend
     bounds.append("circle")
-      .attr("cx",dimensions.boundedWidth - 170)
+      .attr("cx", 30)
       .attr("cy", 40)
       .attr("r", 6)
       .style("fill", ALColor)
@@ -172,7 +172,7 @@ d3.csv("totals_sorted.csv").then(
     var ALLegend = bounds
       .append("text")
       .attr("id", "ALLegend")
-      .attr("x", dimensions.boundedWidth - 150)
+      .attr("x", 50)
       .attr("y", 40)
       .text(ALTextLegend)
       .style("font-size", "15px")
@@ -186,9 +186,8 @@ d3.csv("totals_sorted.csv").then(
       
       NLTextLegend = "National League HRs"
       ALTextLegend = "National League HRs"
-      updateChart()
-      updateYScale()
-      updateLabels()
+
+      update()
     })
 
     d3.select("#hits").on("click", function() {
@@ -198,9 +197,7 @@ d3.csv("totals_sorted.csv").then(
 
       NLTextLegend = "National League Hits"
       ALTextLegend = "American League Hits"
-      updateChart()
-      updateYScale()
-      updateLabels()
+      update()
     })
 
     d3.select("#runs").on("click", function() {
@@ -210,14 +207,11 @@ d3.csv("totals_sorted.csv").then(
 
       NLTextLegend = "National League Runs"
       ALTextLegend = "American League Runs"
-
-      updateChart()
-      updateYScale()
-      updateLabels()
+      update()
     })
 
+    function update() {
 
-    function updateYScale() {
       console.log("updating yScale")
       nl_x = d3.map(dataset, xNLAccessor)
       nl_max_x = d3.max(nl_x)
@@ -225,26 +219,18 @@ d3.csv("totals_sorted.csv").then(
       al_max_x = d3.max(al_x)
       max_x = Math.max(d3.max(nl_x), d3.max(al_x))
 
+      console.log("max_x", max_x)
       yScale
         .domain([0, max_x])
 
-    }
-
-    function updateChart() {
       console.log("updating chart")
-
-      //console.log("NL start")
-      //console.log("NL", NL)
       NL.transition()
         .attr("d", d3.line()
             .x(d => xScale(+d.Year))
             .y(d => yScale(xNLAccessor(d))).curve(d3.curveLinear)
         )
         
-      //console.log("AL start")
-      //console.log("AL", AL)
       var al_x = d3.map(dataset, xALAccessor)
-      console.log("al_x", al_x)
 
       AL.transition()
         .attr("d", d3.line()
@@ -255,16 +241,13 @@ d3.csv("totals_sorted.csv").then(
       changing_axis.transition()
         .call(yAxis)
 
-    }
-
-    function updateLabels() {
       console.log("updating labels")
       d3.select("#NLLegend") 
         .text(NLTextLegend)
       d3.select("#ALLegend") 
         .text(ALTextLegend)
-
     }
+
 
 
   }
