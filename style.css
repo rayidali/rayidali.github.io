@@ -100,56 +100,17 @@ header li:not(:first-child) {
   margin-left: 2%;
 }
 
-/* header .nav-ul a {
-  display: block;
-  padding: 1.75em 0.5em;
-  font-size: 1.5em;
-  text-align: center;
-  text-transform: uppercase;
-  color: #333;
-}
-header .nav-ul a:focus, header .nav-ul a:hover {
-  color: #ad0000;
-}
-header .nav-ul a:active {
-  color: #c70000;
-} */
-
-/* header li:first-child a {
-  background: #ad0000;
-  color: #fff;
-}
-header li:first-child a:hover {
-  color: #fff;
-} */
 
 /*Sections*/
 section {
   margin: 1em 0;
 }
 
-/* section h1 {
-  text-transform: uppercase;
-} */
-
-/* hr {
-  border-color: #d3d3d3;
-  border-style: dashed;
-} */
 
 .vertical {
   width: 0;
   height: 10px;
 }
-
-/*Intro*/
-/* .sec-intro {
-  position: relative;
-} */
-
-/* .sec-intro img {
-  width: 100%;
-} */
 
 .sec-intro h1 {
   position: absolute;
