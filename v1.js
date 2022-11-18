@@ -41,21 +41,21 @@ d3.csv("totals_sorted.csv").then(
     //  return +d.Year
     //})
     var years = d3.map(dataset, d => +d.Year)
-    console.log("years", years)
+    //console.log("years", years)
 
     //var nl_hits = d3.map(dataset, d => +d.NL_hits)
     var nl_x = d3.map(dataset, xNLAccessor)
     var nl_max_x = d3.max(nl_x)
-    console.log("nl_x", nl_x)
+    //console.log("nl_x", nl_x)
 
     var al_x = d3.map(dataset, xALAccessor)
     var al_max_x = d3.max(al_x)
-    console.log("al_hits", al_x)
+    //console.log("al_hits", al_x)
 
     var max_x = Math.max(d3.max(nl_x), d3.max(al_x))
-    console.log("al_max_x", al_max_x)
-    console.log("nl_max_x", nl_max_x)
-    console.log("max_x", max_x)
+    //console.log("al_max_x", al_max_x)
+    //console.log("nl_max_x", nl_max_x)
+    //console.log("max_x", max_x)
 
     var xScale = d3.scaleBand()
       .domain(years)
