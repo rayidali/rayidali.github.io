@@ -69,7 +69,7 @@ d3.csv("totals_sorted.csv").then(
       //.range([dimensions.height - dimensions.margin.bottom, dimensions.margin.top])
       .range([dimensions.boundedHeight,0]);
 
-    var svg = d3.select("#line_chart")
+    var svg = d3.select("#v1")
       .attr("width", dimensions.width)
       .attr("height", dimensions.height)
       //.style("background-color", "green")
