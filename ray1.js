@@ -1,6 +1,6 @@
 // Set graph margins and dimensions
 var margin = {top: 90, right: 90, bottom: 90, left: 90},
-    width = 1000 - margin.left - margin.right,
+    width = 1100 - margin.left - margin.right,
     height = 800 - margin.top - margin.bottom;
 
 // Set ranges
