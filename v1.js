@@ -10,7 +10,7 @@ d3.csv("totals_sorted.csv").then(
       width: 1000,
       height: 800,
       margin: {
-        top: 10,
+        top: 15,
         bottom: 50,
         right: 10,
         left: 50
@@ -192,7 +192,7 @@ d3.csv("totals_sorted.csv").then(
     bounds.append("text")
       //.attr("id", "ALLegend")
       .attr("x", xScale(1973))
-      .attr("y", 0)
+      .attr("y", 5)
       .text("DH rule")
       .style("font-size", "15px")
       .attr("alignment-baseline","middle")
