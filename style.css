@@ -192,3 +192,16 @@ section {
 .box .button {
   margin: 4em auto;
 }
+
+#tooltip{
+  background-color: aliceblue;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 2px;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: italic;
+}
+
+#map-box{
+  height: 600px;
+}
