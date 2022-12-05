@@ -55,13 +55,13 @@ html {
   width: 100%;
   height: 100vh;/* height is needed to force wrapping */
 }
-.q1,
+.q2,
 .q3 {
   order: -1;/* bring them in front of other(s) */
   height: 50%;/* share the height (if three of them, then put it down to 33.33% to share evenly height avalaible) */
   width: 50%;
 }
-.q2 {
+.q1 {
   flex: 1;/* equals height:100%; it will fill entire height */
   width: 50%/* here your fixed width */
 }
