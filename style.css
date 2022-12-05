@@ -1,157 +1,10 @@
 /*Typography*/
 html {
   font: 16px "Open Sans Condensed", "Roboto Condensed", Verdana, sans-serif;
-}
-
-h1 {
-  font-size: 2.25em;
-}
-
-htitle {
-  font-size: 2.25em;
-  align-items: center;
-}
-
-p {
-  font-size: 1.25em;
-}
-
-/*Layout*/
-html,
-body {
-  width: 100%;
   height: 100%;
-}
-
-body {
-  color: #333;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-
-.line {
-  float: left;
   width: 100%;
-  border-top: 0.25em solid #333;
-}
-
-.wrapper {
-  margin: auto;
-  width: 60em;
-  /*960px*/
-}
-
-header,
-nav,
-section,
-footer {
-  float: left;
-  width: 100%;
-}
-
-a {
-  text-decoration: none;
-  transition: color 0.25s;
-}
-
-.button {
-  display: block;
-  padding: 0.75em 1.25em;
-  font-size: 1em;
-  font-weight: bold;
-  text-transform: uppercase;
-  background: #ad0000;
-  color: #fff;
-  border: 0;
-  cursor: pointer;
-}
-.button:focus, .button:hover {
-  background: #890000;
-}
-.button:active {
-  background: #c10000;
-}
-
-/*Navigation*/
-nav h1 {
-  float: left;
-  padding: 0.25em 0.25em 0 0;
-  font-size: 4.5em;
-  text-transform: uppercase;
-}
-
-nav h1 a {
-  color: #ad0000;
-}
-
-.nav-ul {
-  display: flex;
-}
-
-header li {
-  width: 20%;
-}
-
-header li:not(:first-child) {
-  margin-left: 2%;
-}
-
-
-/*Sections*/
-section {
-  margin: 1em 0;
-}
-
-
-.vertical {
-  width: 0;
-  height: 10px;
-}
-
-.sec-intro h1 {
-  position: absolute;
-  bottom: 0.5em;
-  left: 0.5em;
-  padding: 0.5em;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-}
-
-/*Boxes*/
-.box {
-  float: left;
-  padding: 1.5em 1em;
-  /* width:70%; changed from 25%
-  height: 400px; */
-  width:1050px; /*changed from 25%*/
-  height: 1000px;
-  border-top: 0.1em solid #d3d3d3;
-  border-bottom: 0.1em solid #d3d3d3;
-  border-left: 0.1em solid #d3d3d3;
-  border-right: 0.1em solid #d3d3d3;
-  transition: background 0.25s;
-}
-
-.box:last-child {
-  border-right: 0.1em solid #d3d3d3;
-}
-
-/* .box h1 {
-  text-align: center;
-} */
-
-.box p {
-  margin-top: 4em;
-  height: 6em;
-  text-align: justify;
-}
-
-.box .button {
-  margin: 4em auto;
+  padding: 0;
+  margin: 0;
 }
 
 #tooltip{
@@ -163,6 +16,62 @@ section {
   font-style: italic;
 }
 
-#map-box{
-  height: 600px;
+/* #wrapper{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  background-color: DodgerBlue;
+  height: 100vh;
+  width: 100vh;
+}
+.q1{
+  order: -1;
+  display: inline-block;
+  width: 50%;
+  height: 50vh;
+  border: 1px solid black;
+  background: pink;
+}
+.q2{
+  flex: 1;
+  width: 50%;
+  height: 100vh;
+  border: 1px solid black;
+  background: yellow;
+}
+.q3{
+  order: -1;
+  display: block;
+  width: 50%;
+  height: 50vh;
+  border: 1px solid black;
+  background: green;
+} */
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100vh;/* height is needed to force wrapping */
+}
+.q1,
+.q3 {
+  order: -1;/* bring them in front of other(s) */
+  height: 50%;/* share the height (if three of them, then put it down to 33.33% to share evenly height avalaible) */
+  width: 50%;
+}
+.q2 {
+  flex: 1;/* equals height:100%; it will fill entire height */
+  width: 50%/* here your fixed width */
+}
+
+.q1 {
+  background: #A1EB88;
+}
+.q2 {
+  background: #def3f6;
+}
+.q3 {
+  background: #F7F467
 }
