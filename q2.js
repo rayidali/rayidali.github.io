@@ -1,126 +1,255 @@
 d3.csv("People.csv").then(
     function(dataset){
 
+        // d3.csv("Appearances.csv").then(
+        //     (dataset2) => {
+        //         //obtain team of player from dataset2 using player id
+        //         dataset.forEach(player => {
+        //             dataset2.forEach(team => {
+        //                 if(player.playerID == team.playerID){
+        //                     //add team name to the dataset1
+        //                     Object.assign(player, {'Team':team.teamID})
+        //                 }
+        //             })
+        //             //console.log(player)
+        //         })
+        //     }
+        // )
+
     d3.json("map.json").then(function(mapdata){    
-
+        select = document.getElementById('year');
+        var maxValue = 0
+        var minValue = 0
+        var countries = ""
+        var colors = ""
+        var color_countries = {}
 //===================== Data prep ====================
-    
-    for (var i = 0; i < dataset.length; i++) {
+        function data_prep(){
 
-        //1. Extract year from debut year
-        dataset[i].debut = dataset[i].debut.substring(0,4)  
+            for (var i = 0; i < dataset.length; i++) {
+
+                //1. Extract year from debut year
+                dataset[i].debut = dataset[i].debut.substring(0,4)  
+                
+                //2. Handle blanks
+                if(dataset[i].debut == ""){
+                    dataset[i].debut = "Not available"
+                }
+                
+                if(dataset[i].birthCountry == ""){
+                    dataset[i].birthCountry = "Not available"
+                }
         
-        //2. Handle blanks
-        if(dataset[i].debut == ""){
-            dataset[i].debut = "Not available"
-        }
+                if(dataset[i].nameGiven == ""){
+                    dataset[i].nameGiven = dataset[i].nameLast
+                }
         
-        if(dataset[i].birthCountry == ""){
-            dataset[i].birthCountry = "Not available"
-        }
-
-        if(dataset[i].nameGiven == ""){
-            dataset[i].nameGiven = dataset[i].nameLast
-        }
-
-    }
-    //3. Remove unnecessary columns
-    var data = dataset.map(function(d) {
-        return {
-            playerID: d.playerID,
-            nameGiven: d.nameGiven,
-            debut: d.debut,
-            birthCountry: d.birthCountry
-        }
-        })
-    var debutYears = []
-    dataset.map( function(d){
-        if(d.debut != "Not available"){
-            debutYears.push(d.debut)
-        }
-        
-    })
-    var minValue = d3.min(debutYears)
-    var maxValue = d3.max(debutYears)
-    select = document.getElementById('year');
-
-    for (var i = maxValue; i >= minValue; i--) {
-        var opt = document.createElement('option');
-        opt.value = i;
-        opt.innerHTML = i;
-        select.appendChild(opt);
-      }
-
-    var size = 1000
-    var dimensions = ({
-        width: size, 
-        height: size/2,
-        margin: {
-            top: 10,
-            right: 10,
-            bottom: 10,
-            left: 10
-        }
-        })
-    var svg = d3.select("#map").attr("width", dimensions.width)
-                                .attr("height", dimensions.height)
-    var projection = d3.geoEqualEarth() //geoOrthographic() //geoMercator()
-                                .fitWidth(dimensions.width, {type: "Sphere"})
-    var pathGenerator = d3.geoPath(projection)
-    var earth = svg.append("path")
-                        .attr("d", pathGenerator({type: "Sphere"}))
-                        .attr("fill", "lightblue")
-    var graticule = svg.append("path")
-                        .attr("d", pathGenerator(d3.geoGraticule10()))
-                        .attr("stroke", "gray")
-                        .attr("fill", "none")
-    
-    var tip = d3.select("body").append("div")
-                .attr("id", "tooltip")  
-                .style("opacity", 0)
-                .attr('style', 'position: absolute;')
-
-    var mouseover = function(d, i) {
-        count = 0
-        for (var j = 0; j < dataset.length; j++){
-            try{
-                if( dataset[j].debut == select.value){
-
-                    if (dataset[j].birthCountry == i.properties.ADMIN){
-                        count += 1
-                    }
-                    else if(dataset[j].birthCountry == i.properties.ABBREV) {
-                        count += 1
-                    }
-                    else if (dataset[j].birthCountry == i.properties.ADM0_A3){ 
-                        count += 1
-                    }
-
-                } else {
-                    continue
-                }    
-            } catch(error){
-                console.log(dataset[j])
             }
+            //3. Remove unnecessary columns
+            var data = dataset.map(function(d) {
+                return {
+                    playerID: d.playerID,
+                    nameGiven: d.nameGiven,
+                    debut: d.debut,
+                    birthCountry: d.birthCountry
+                }
+                })
+            var debutYears = []
+            dataset.map( function(d){
+                if(d.debut != "Not available"){
+                    debutYears.push(d.debut)
+                }
+                
+            })
+            minValue = d3.min(debutYears)
+            maxValue = d3.max(debutYears)
+
+            for (var i = maxValue; i >= minValue; i--) {
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.innerHTML = i;
+                select.appendChild(opt);
+
+                Object.assign(color_countries, {[i]: {}})
+
+                for( var j = 0; j <= dataset.length; j++){
+                    
+                    if(dataset[j] != undefined){
+
+                        if( dataset[j].debut == i){
+
+                            if(color_countries[i][dataset[j].birthCountry] == undefined){
+                                Object.assign(color_countries[i], {[dataset[j].birthCountry]: parseInt(0)})
+                            } else if (color_countries[i][dataset[j].birthCountry] != undefined){
+                                color_countries[i][dataset[j].birthCountry] += 1
+                            } 
+                        
+                        }
+       
+                    }
+                    
+                }
+            }
+        
         }
-        console.log(d)
-        tip.style("opacity", 1)
-            .style("color", "black")
-            .style("left", d.layerX + 'px')
-            .style("top", d.layerY + 'px')
-            .text(i.properties.ADMIN + " " + count)        
+        
+//===================== Visualization ====================
+    function visualize(){
+
+        colors = d3.scaleSequential().domain([0, 10]).range(["white","red"])
+        size = window.innerHeight
+        var dimensions = ({
+            width: size, 
+            height: size,
+            margin: {
+                top: 10,
+                right: 10,
+                bottom: 10,
+                left: 10
+            }
+            })
+        var svg = d3.select("#map").attr("width", dimensions.width)
+                                    .attr("height", dimensions.height)
+
+        var projection = d3.geoOrthographic() //geoMercator()
+                                    .fitWidth(dimensions.width, {type: "Sphere"})
+                                    .scale(250)
+                                    .center([0,0])
+                                    .rotate([0, -30])
+                                    .clipAngle(90)
+        const initialScale = projection.scale();
+        var pathGenerator = d3.geoPath(projection)
+        var earth = svg.append("circle")
+                        .attr("cx", width )
+                        .attr("cy", height )
+                        .attr("r", initialScale)
+                        .attr("border", "1px solid black")
+
+                            // .attr("d", pathGenerator({type: "Sphere"}))
+                            // .attr("fill", "lightblue")
+
+        var graticule = svg.append("path")
+                            .attr("d", pathGenerator(d3.geoGraticule10()))
+                            .attr("fill", "none")
+      
+        var tip = d3.select("body").append("div")
+                    .attr("id", "tooltip")  
+                    .style("opacity", 0)
+                    .attr('style', 'position: absolute;')
+
+        var count = 0
+        var mouseover = function(d, i) {
+            
+            //get count from color_countries
+            count = color_countries[select.value][i.properties.ADMIN]
+            
+            if(count == undefined){
+                count = color_countries[select.value][i.properties.ABBREV]
+            }
+            if (count == undefined){
+                count = color_countries[select.value][i.properties.ADM0_A3]
+            }
+            if(count == undefined){
+                count = 0
+            }            
+            
+            tip.style("opacity", 1)
+                .style("color", "black")
+                .style("left", d.layerX + 'px')
+                .style("top", d.layerY + 'px')
+                .text(i.properties.ADMIN + " " + count)
+            
         }
+
+        var dragging = function(d){
+            var c = projection.rotate();
+            var sensitivity = 75
+            const k = sensitivity / projection.scale()
+            
+            projection.rotate([c[0] + d.dx*k, c[1] - d.dy*k])
+            path = d3.geoPath(projection)
+            
+            svg.selectAll("path").attr("d", pathGenerator)
+            
+            
+           }
+        
+        var drag = d3.drag()
+        .on("drag", dragging)
+       
+
+        countries = svg.append("g")
+        .selectAll(".country")
+        .data(mapdata.features)
+        .enter()
+        .append("path")
+        .on("mouseover", mouseover)
+        .attr("class", "country")
+        .attr("d", d => pathGenerator(d))
+        .style("fill", function(d, i){
+            count = color_countries[select.value][d.properties.ADMIN]
+            
+            if(count == undefined){
+                count = color_countries[select.value][d.properties.ABBREV]
+            }
+            if (count == undefined){
+                count = color_countries[select.value][d.properties.ADM0_A3]
+            }
+            if(count == undefined){
+                count = 0
+            }            
+            
+            return colors(count)
+        })
+        .style("stroke", "black")
+        .call(drag)
+        
+    }
+
+
+
+    data_prep()
+    visualize()
+    slider.oninput = ()=>{
+        output.innerHTML = slider.value
+        countries.style("fill", (d, i)=>{
+
+            //get count from color_countries
+            count = color_countries[slider.value][d.properties.ADMIN]
+            
+            if(count == undefined){
+                count = color_countries[slider.value][d.properties.ABBREV]
+            }
+            if (count == undefined){
+                count = color_countries[slider.value][d.properties.ADM0_A3]
+            }
+            if(count == undefined){
+                count = 0
+            }
+            
+            return colors(count)
+        })
+    }
+    // select.addEventListener("change", function(){
+    //     countries.style("fill", (d, i)=>{
+
+    //         //get count from color_countries
+    //         count = color_countries[select.value][d.properties.ADMIN]
+            
+    //         if(count == undefined){
+    //             count = color_countries[select.value][d.properties.ABBREV]
+    //         }
+    //         if (count == undefined){
+    //             count = color_countries[select.value][d.properties.ADM0_A3]
+    //         }
+    //         if(count == undefined){
+    //             count = 0
+    //         }
+            
+    //         return colors(count)
+    //     })
+    // })
     
-    var countries = svg.append("g")
-    .selectAll(".country")
-    .data(mapdata.features)
-    .enter()
-    .append("path")
-    .on("mouseover", mouseover)
-    .attr("class", "country")
-    .attr("d", d => pathGenerator(d))
-    .style("fill", "white")
-    .style("stroke", "black")
 
     })
 }
