@@ -5,6 +5,7 @@ html {
   width: 100%;
   padding: 0;
   margin: 0;
+  background-color: aliceblue;
 }
 
 #tooltip{
@@ -67,11 +68,12 @@ html {
 }
 
 .q1 {
-  background: #A1EB88;
+  border: 1px solid black;
 }
 .q2 {
-  background: #def3f6;
+  
 }
 .q3 {
-  background: #F7F467
+  background: #def3f6;
+  z-index: -10;
 }
