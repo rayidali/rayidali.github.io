@@ -292,7 +292,8 @@ d3.csv("totals_sorted.csv").then(
     //var toolbox = createToolBox("toolbox")
 
     //toolbox = svg.append("div")
-    var toolbox = d3.select("#chart").append("div")
+    //var toolbox = d3.select("#chart").append("div")
+    var toolbox = d3.select(".q1").append("div")
     .attr("id", "toolbox")
     .style("position", "absolute")
     .style("background-color", "#D3D3D3")
