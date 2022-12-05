@@ -1,72 +1,96 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <meta charset="UTF-8">
-  <title>Data Viz Project</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300'>
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700'>
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700'>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <title>Data Viz Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700'>
+    <link rel="stylesheet" href="./style.css">
 
+    <style>
+        .slidecontainer {
+          width: 95%;
+          padding: 10px;
+        }
+        
+        .slider {
+          -webkit-appearance: none;
+          width: 100%;
+          height: 15px;
+          border-radius: 5px;
+          background: #d3d3d3;
+          outline: none;
+          opacity: 0.7;
+          -webkit-transition: .2s;
+          transition: opacity .2s;
+        }
+        
+        .slider:hover {
+          opacity: 1;
+        }
+        
+        .slider::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          background: #04AA6D;
+          cursor: pointer;
+        }
+        
+        .slider::-moz-range-thumb {
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          background: #04AA6D;
+          cursor: pointer;
+        }
+        </style>
 </head>
 <body>
-  <div class="line"></div>
+    <div class="slidecontainer">
+        <input type="range" min="1871" max="2021" value="50" class="slider"  id="myRange">
+        <p>Value: <span id="demo"></span></p>
+    </div>
+    <script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
+    
+    
 
-  <div class="slidecontainer">
-    <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-    <p>Value: <span id="demo"></span></p>
-  </div>
-
-  <div class="wrapper">
-      <header role="banner">
-        <nav role="navigation">
-          <h1><a href="#">Data Viz Project Group 13</a></h1>
-        </nav>
-      </header>
-      <!-- <p>*based on the feedback recieved you gave us in class we plan to compact the visualizations and add interactions so we can see them together in a single dashboard</p> -->
-
-      <div class="sec-boxes">
-        <article>
-          
-          <svg id="v1" style="border:1px solid black; padding: 1px"></svg> 
-          <script src="v1.js"></script>
-          <div id="buttons">
-            <button id="hrs">HRs </button>
-            <button id="hits">Hits</button>
-            <button id="runs">Runs</button>
-          </div>
-          
-        </article>     
-      </div>
-
-    <div id="q2" class="sec-boxes">
-      <adrticle>
-        <script src="q2.js"></script>
-        
-        <select name="year" id="year"></select>
-            <svg id="map"></svg>
-            <br>
+    </script>
+    <div id="wrapper">
+        <div class="q3">
             
-      </adrticle>
-    </div>
-
-      <div id="q3" class="sec-boxes">
-        <adrticle class="box">
-          <h2>Change Year</h2>
-        <select id="selectButton"></select>
-        
-        <svg id="my_dataviz1" width ="1000" height = "800"></svg> 
-      
-          
-        <script src="ray1.js"></script>
-          
-        </adrticle>
+            <select id="selectButton"></select>
+            <svg id="my_dataviz1"></svg>
+            <script src="ray1.js"></script>
+        </div>
+        <div class="q1">
+            <!-- <script src="v1.js"></script> -->
+            <svg id="v1"></svg>
+            <div id="buttons">
+                <button id="hrs">HRs </button>
+                <button id="hits">Hits</button>
+                <button id="runs">Runs</button>
+            </div>
+        </div>
+        <div class="q2">
+            <script src="q2.js"></script>
+            <select name="year" id="year"></select>
+            <svg id="map"></svg>
+                
+        </div>
       </div>
-    </div>
-  <div class="line"></div>
-
-
+    
 </body>
 </html>
