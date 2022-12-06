@@ -70,7 +70,8 @@ d3.csv("totals_sorted.csv").then(
         console.log("year", year)
         console.log("typeof", typeof(year))
         updateToolBoxContent(year)
-        showLineCirclesText()
+        showLine()
+        showCircles()
         updateToolBoxLineCircles(null, null, year)
         
     })
@@ -105,19 +106,19 @@ d3.csv("totals_sorted.csv").then(
     var ALHrsAccessor = d => +d.AL_hrs
     var yHrsRange = [dimensions.boundedHeight,(2*dimensions.boundedHeight/3) + padding]
     var maxHrs = Math.max(d3.max(d3.map(dataset, NLHrsAccessor)), d3.max(d3.map(dataset, ALHrsAccessor)))
-    drawGraph(NLHrsAccessor, ALHrsAccessor, maxHrs, yHrsRange, ".line", "Home Runs")
+    //drawGraph(NLHrsAccessor, ALHrsAccessor, maxHrs, yHrsRange, ".line", "Home Runs")
 
     var NLRunsAccessor = d => +d.NL_runs
     var ALRunsAccessor = d => +d.AL_runs
     var yRunsRange = [(dimensions.boundedHeight/3) - padding, 0]
     var maxRuns = Math.max(d3.max(d3.map(dataset, NLRunsAccessor)), d3.max(d3.map(dataset, ALRunsAccessor)))
-    drawGraph(NLRunsAccessor, ALRunsAccessor, maxRuns, yRunsRange, ".line3", "Runs")
+    //drawGraph(NLRunsAccessor, ALRunsAccessor, maxRuns, yRunsRange, ".line3", "Runs")
 
     var NLHitsAccessor = d => +d.NL_hits
     var ALHitsAccessor = d => +d.AL_hits
     var yHitsRange = [(2*dimensions.boundedHeight/3), dimensions.boundedHeight/3]
     var maxHits = Math.max(d3.max(d3.map(dataset, NLHitsAccessor)), d3.max(d3.map(dataset, ALHitsAccessor)))
-    drawGraph(NLHitsAccessor, ALHitsAccessor, maxHits, yHitsRange, ".line2", "Hits")
+    //drawGraph(NLHitsAccessor, ALHitsAccessor, maxHits, yHitsRange, ".line2", "Hits")
 
     var lines = [
       { id: "nlRuns",
@@ -175,6 +176,7 @@ d3.csv("totals_sorted.csv").then(
         .range(yRange)
       
       var NL = bounds.selectAll(line_id)
+      //var NL = mouseG.selectAll(line_id)
         .append("g")
         .attr("class", "line")
         .data([dataset])
@@ -192,9 +194,13 @@ d3.csv("totals_sorted.csv").then(
         .on("mouseover", function() {
           console.log("Mouseover NL")
         })
+        .on("click", function() {
+          console.log("CLICK NL")
+        })
 
       //AL = red
       var AL = bounds.selectAll(line_id)
+      //var AL = bounds.selectAll(line_id)
         .append("g")
         .data([dataset])
         .enter()
@@ -210,7 +216,10 @@ d3.csv("totals_sorted.csv").then(
           .y(d => yScale(ALAccessor(d))).curve(d3.curveLinear)
          )
         .on("mouseover", function() {
-          console.log("Mouseover AL")
+          console.log("Mouseover NL")
+        })
+        .on("click", function() {
+          console.log("CLICK AL")
         })
 
       var yAxis = d3.axisLeft(yScale)
@@ -265,8 +274,8 @@ d3.csv("totals_sorted.csv").then(
       .call(xAxis)
       .selectAll("text")	
       .style("text-anchor", "end")
-      .attr("dx", "-.8em")
-      .attr("dy", ".15em")
+      .attr("dx", "-1.25em")
+      .attr("dy", "-.3em")
       .attr("transform", "rotate(-65)");
 
     // 1973 year line
@@ -306,7 +315,9 @@ d3.csv("totals_sorted.csv").then(
 
     //toolbox = svg.append("div")
     //var toolbox = d3.select("#chart").append("div")
-    var toolbox = d3.select(".q1").append("div")
+    //var toolbox = d3.select(".q1").append("div")
+    //
+    var toolbox = chart.append("div")
     .attr("id", "toolbox")
     .style("position", "absolute")
     .style("background-color", "#D3D3D3")
@@ -315,9 +326,18 @@ d3.csv("totals_sorted.csv").then(
 
     var mouseG = bounds.append("g")
       .attr("class", "mouse-over-effects")
-      .on("click", function() {
-        console.log("this is a bad click")
-      })
+      //.on("click", function() {
+      //  console.log("this is a bad click")
+      //})
+
+    ///
+    
+
+    drawGraph(NLHrsAccessor, ALHrsAccessor, maxHrs, yHrsRange, ".line", "Home Runs")
+    drawGraph(NLRunsAccessor, ALRunsAccessor, maxRuns, yRunsRange, ".line3", "Runs")
+    drawGraph(NLHitsAccessor, ALHitsAccessor, maxHits, yHitsRange, ".line2", "Hits")
+    
+    //
 
     //Line that follows mouse
     mouseG.append("path")
@@ -375,7 +395,9 @@ d3.csv("totals_sorted.csv").then(
         hideLineCirclesText()
       })
       .on("mouseover", function () { // on mouse in show line, circles and text
-        showLineCirclesText()
+        showLine()
+        showCircles()
+        showText()
       })
       .on('mousemove', function (event, d) { // update toolbox content, line, circles and text when mouse moves
         updateToolBoxLineCircles(event, d)
@@ -383,7 +405,7 @@ d3.csv("totals_sorted.csv").then(
       }) 
 
     function hideLineCirclesText() {
-      console.log("Mouse out... hiding")
+      //console.log("Mouse out... hiding")
       d3.select(".mouse-line")
         .style("opacity", "0");
       d3.selectAll(".mouse-per-line circle")
@@ -394,18 +416,24 @@ d3.csv("totals_sorted.csv").then(
         .style("display", "none")
     }
 
-    function showLineCirclesText() {
-      console.log("showing line")
+    function showLine() {
+      //console.log("showing line")
       d3.select(".mouse-line")
         .style("opacity", "1");
+    }
+
+    function showCircles() {
       d3.selectAll(".mouse-per-line circle")
         .style("opacity", "1");
+    }
+
+    function showText() {
       d3.selectAll("#toolbox")
         .style("display", "block")
     }
-
+//
     function updateToolBoxLineCircles(event, d, year) {
-        console.log("update toolbox content circle", event)
+        //console.log("update toolbox content circle", event)
         if (event == null) {
           var mouse = [0, 0]
         } else {
@@ -465,7 +493,7 @@ d3.csv("totals_sorted.csv").then(
                 return data;
               });
             //return "translate(" + xScale(+d[idx].Year) + "," + yScale(xALAccessor(d[idx])) + ")"
-            console.log("returned==>", "translate(" + xScale(dates[idx].date) + ",0)")
+            //console.log("returned==>", "translate(" + xScale(dates[idx].date) + ",0)")
             return "translate(" + xScale(dates[idx].date) + ",0)"
           });
 
@@ -502,25 +530,27 @@ d3.csv("totals_sorted.csv").then(
 
         var element = dataset[id_elems]
 
+        var accessor = line.accessor
+
         //console.log("d==", d)
         //console.log("idx===", idx)
-        console.log("element===", element)
-        console.log("working on line" + line.id)
+        //console.log("element===", element)
+        //console.log("working on line" + line.id)
+        //console.log("accessor", accessor)
 
         const yLineScale = d3.scaleLinear()
           .domain([0, line.max])
           .range(line.range)
 
         var cx = xScale(dates[id_dates].date)
-        const cy = yLineScale(line.accessor(element))
+        var cy = yLineScale(accessor(element))
 
-        //if (line.id == "nlRuns" || line.id == "alRuns") {
-        //  console.log("in if statements")
-        //  cy += 150 
-        //}
-        //} else if (line.id == "nlHrs" || line.id == "alHrs") {
-        //  cy -= 10
-        //}
+        if (line.id == "nlRuns" || line.id == "alRuns") {
+          //console.log("in if statements")
+          cy = cy + padding + 20
+        } else if (line.id == "nlHrs" || line.id == "alHrs") {
+          cy = cy - padding - 40
+        }
 
         d3.select("#"+line.id + "Circle")
           .attr("cx", cx)
@@ -536,7 +566,7 @@ d3.csv("totals_sorted.csv").then(
 
     function updateToolBoxContent(year) {
     //function updateToolBoxContent(mouse, myEvent) {
-      console.log("in updateToolBoxContent")
+      //console.log("in updateToolBoxContent")
       //console.log("mouse", mouse)
       //if (year == null) {
       //  var xDate = xScale.invert(mouse[0]) // use 'invert' to get date corresponding to distance from mouse position relative to svg
@@ -551,18 +581,18 @@ d3.csv("totals_sorted.csv").then(
         return d.Year; 
       }).left // retrieve row index of date on parsed csv
 
-      console.log("year", year)
-      console.log("parseInt(year)", parseInt(year))
+      //console.log("year", year)
+      //console.log("parseInt(year)", parseInt(year))
       if (parseInt(year) < 1900) {
-        console.log("=========why are you not here=======")
-        console.log("year " + year + "is less than 1900" )
+        //console.log("=========why are you not here=======")
+        //console.log("year " + year + "is less than 1900" )
         return
       }
       var idx = bisect(dataset, year); //HERERERERERERERERE
-      console.log("==> idx", idx)
+      //console.log("==> idx", idx)
 
       var element = dataset[idx]
-      console.log("==> element", element)
+      //console.log("==> element", element)
 
       //var coordinates = d3.pointer(event)
       //var coordinates = d3.pointer(event, this)
@@ -602,7 +632,7 @@ d3.csv("totals_sorted.csv").then(
       //var new_x = event_x + diff_x
       //var new_y = event_y + diff_y
 
-      console.log("typeof", typeof(parseInt(element.NL_runs)))
+      //console.log("typeof", typeof(parseInt(element.NL_runs)))
 
       var yearText = "Year: " + element.Year 
       var NLRunsText = " National League Runs: "+ parseInt(element.NL_runs).toLocaleString() + " "
@@ -619,7 +649,7 @@ d3.csv("totals_sorted.csv").then(
       //toolbox.html("some text")
       //d3.selectAll("#toolbox")
       toolbox  
-        .style("display", "block")
+        //.style("display", "block")
 
         //.style("left", "0px")
         //.style("top", "0px")
