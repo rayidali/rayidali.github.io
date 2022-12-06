@@ -123,14 +123,14 @@ d3.csv("totals_sorted.csv").then(
     var lines = [
       { id: "nlRuns",
         accessor:NLRunsAccessor,
-        max: maxHrs,
-        range: yHrsRange,
+        max: maxRuns,
+        range: yRunsRange,
         color: NLColor
       }, 
       { id: "alRuns",
         accessor:ALRunsAccessor,
-        max: maxHrs,
-        range: yHrsRange,
+        max: maxRuns,
+        range: yRunsRange,
         color: ALColor
       }, 
       { id: "nlHits",
@@ -147,14 +147,14 @@ d3.csv("totals_sorted.csv").then(
       }, 
       { id: "nlHrs",
         accessor:NLHrsAccessor,
-        max: maxRuns, 
-        range:yRunsRange,
+        max: maxHrs, 
+        range:yHrsRange,
         color: NLColor
       }, 
       { id: "alHrs",
         accessor:ALHrsAccessor,
-        max: maxRuns, 
-        range: yRunsRange,
+        max: maxHrs, 
+        range: yHrsRange,
         color: ALColor
       }, 
     ]
@@ -532,25 +532,24 @@ d3.csv("totals_sorted.csv").then(
 
         var accessor = line.accessor
 
-        //console.log("d==", d)
-        //console.log("idx===", idx)
-        //console.log("element===", element)
-        //console.log("working on line" + line.id)
-        //console.log("accessor", accessor)
+        console.log("element===", element)
+        console.log("working on line: " + line.id)
+        console.log("accessor: ", accessor)
+        console.log("range: ", line.range)
 
-        const yLineScale = d3.scaleLinear()
+        var yLineScale = d3.scaleLinear()
           .domain([0, line.max])
           .range(line.range)
 
         var cx = xScale(dates[id_dates].date)
         var cy = yLineScale(accessor(element))
 
-        if (line.id == "nlRuns" || line.id == "alRuns") {
-          //console.log("in if statements")
-          cy = cy + padding + 20
-        } else if (line.id == "nlHrs" || line.id == "alHrs") {
-          cy = cy - padding - 40
-        }
+        //if (line.id == "nlRuns" || line.id == "alRuns") {
+        //  //console.log("in if statements")
+        //  cy = cy + 65
+        //} else if (line.id == "nlHrs" || line.id == "alHrs") {
+        //  cy = cy - 40
+        //}
 
         d3.select("#"+line.id + "Circle")
           .attr("cx", cx)
