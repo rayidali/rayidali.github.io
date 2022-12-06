@@ -63,6 +63,19 @@ d3.csv("totals_sorted.csv").then(
     //  //.padding([0.1])
     //  .range([0,dimensions.boundedWidth]).padding(0.2)
 
+    // Gets slider input change
+    var slider = d3.select("#myRange")
+      slider.on("input", function() {
+        var year = this.value
+        console.log("year", year)
+        console.log("typeof", typeof(year))
+        updateToolBoxContent(year)
+        showLineCirclesText()
+        updateToolBoxLineCircles(null, null, year)
+        
+    })
+
+
     var xDomain = d3.extent(dates, d => d.date)
     //console.log("xDomain", xDomain)
 
@@ -359,48 +372,68 @@ d3.csv("totals_sorted.csv").then(
       .attr("fill", "none")
       .attr("pointer-events", "all")
       .on("mouseout", function () { // on mouse out hide line, circles and text
-        console.log("Mouse out... hiding")
-        d3.select(".mouse-line")
-          .style("opacity", "0");
-        d3.selectAll(".mouse-per-line circle")
-          .style("opacity", "0");
-        d3.selectAll(".mouse-per-line text")
-          .style("opacity", "0");
-        d3.selectAll("#toolbox")
-          .style("display", "none")
+        hideLineCirclesText()
       })
       .on("mouseover", function () { // on mouse in show line, circles and text
-        console.log("showing line")
-        d3.select(".mouse-line")
-          .style("opacity", "1");
-        d3.selectAll(".mouse-per-line circle")
-          .style("opacity", "1");
-        d3.selectAll("#toolbox")
-          .style("display", "block")
+        showLineCirclesText()
       })
       .on('mousemove', function (event, d) { // update toolbox content, line, circles and text when mouse moves
-        console.log("update toolbox content", event)
+        updateToolBoxLineCircles(event, d)
+      
+      }) 
+
+    function hideLineCirclesText() {
+      console.log("Mouse out... hiding")
+      d3.select(".mouse-line")
+        .style("opacity", "0");
+      d3.selectAll(".mouse-per-line circle")
+        .style("opacity", "0");
+      d3.selectAll(".mouse-per-line text")
+        .style("opacity", "0");
+      d3.selectAll("#toolbox")
+        .style("display", "none")
+    }
+
+    function showLineCirclesText() {
+      console.log("showing line")
+      d3.select(".mouse-line")
+        .style("opacity", "1");
+      d3.selectAll(".mouse-per-line circle")
+        .style("opacity", "1");
+      d3.selectAll("#toolbox")
+        .style("display", "block")
+    }
+
+    function updateToolBoxLineCircles(event, d, year) {
+        console.log("update toolbox content circle", event)
+        if (event == null) {
+          var mouse = [0, 0]
+        } else {
+          var mouse = d3.pointer(event) // Returns a two-element array of numbers [x, y] representing the coordinates of the specified event relative to the specified target.
+        }
         //console.log("updating toolbox content")
         //console.log("this", this) //this = current DOM element
-        var mouse = d3.pointer(event) // Returns a two-element array of numbers [x, y] representing the coordinates of the specified event relative to the specified target.
         //console.log("mouse", mouse)
 
         d3.selectAll(".mouse-per-line")
           .attr("transform", function (d, i) {
-            //console.log("d.Year", d.Year)
-            //console.log("i", i)
-            //console.log("mouse[0]", mouse[0])
-            //var x = xScale(mouse[0])
-            //console.log("x", x)
-            var xDate = xScale.invert(mouse[0]) // use 'invert' to get date corresponding to distance from mouse position relative to svg
+            //
+            if (year == null) {
+              //console.log("d.Year", d.Year)
+              //console.log("i", i)
+              //console.log("mouse[0]", mouse[0])
+              //var x = xScale(mouse[0])
+              //console.log("x", x)
+              var xDate = xScale.invert(mouse[0]) // use 'invert' to get date corresponding to distance from mouse position relative to svg
 
-            //console.log("d", d)
-            //console.log("i", i)
-            //console.log("d.values", d.values)
-            //console.log("xDate", xDate)
-            //console.log("getFullYear", xDate.getFullYear())
-            var year = xDate.getFullYear()
-            //console.log("year==", year)
+              //console.log("d", d)
+              //console.log("i", i)
+              //console.log("d.values", d.values)
+              //console.log("xDate", xDate)
+              //console.log("getFullYear", xDate.getFullYear())
+              year = xDate.getFullYear()
+              //console.log("year==", year)
+            }
 
             var bisect = d3.bisector(function (d) { 
               //console.log("getting here ===========>")
@@ -408,7 +441,7 @@ d3.csv("totals_sorted.csv").then(
               return d.Year; 
             }).left // retrieve row index of date on parsed csv
 
-            var idx = bisect(d, year.toString());
+            var idx = bisect(dataset, year.toString());
             //console.log("d==", d)
             //console.log("id", idx)
             //console.log("d[idx]", d[idx])
@@ -432,25 +465,31 @@ d3.csv("totals_sorted.csv").then(
                 return data;
               });
             //return "translate(" + xScale(+d[idx].Year) + "," + yScale(xALAccessor(d[idx])) + ")"
+            console.log("returned==>", "translate(" + xScale(dates[idx].date) + ",0)")
             return "translate(" + xScale(dates[idx].date) + ",0)"
           });
 
-        updateCircles(mouse)
+        updateCircles(year)
 
         //updateToolBoxContent(mouse, res_nested)
         //updateToolBoxContent(mouse, event)
-        updateToolBoxContent(mouse)
-      
-      }) 
+        updateToolBoxContent(year)
+    }
 
-
-    function updateCircles(mouse){
-
+    function updateCircles(year){
+      console.log("calling updateCircles with year = ", year)
       lines.forEach(function (line) {
-        var xDate = xScale.invert(mouse[0]) // use 'invert' to get date corresponding to distance from mouse position relative to svg
-        //console.log("xDate", xDate)
+      if (parseInt(year) < 1900) {
+        //console.log("=========why are you not here=======")
+        //console.log("year " + i + "is less than 1900" )
+        return
+      }
+        //if (year == null) {
+        //  var xDate = xScale.invert(mouse[0]) // use 'invert' to get date corresponding to distance from mouse position relative to svg
+        //  //console.log("xDate", xDate)
 
-        var year = xDate.getFullYear()
+        //  var year = xDate.getFullYear()
+        //}
 
         var bisect = d3.bisector(function (d) { 
           //console.log("getting here ===========>")
@@ -495,15 +534,16 @@ d3.csv("totals_sorted.csv").then(
 
     }
 
-    function updateToolBoxContent(mouse) {
+    function updateToolBoxContent(year) {
     //function updateToolBoxContent(mouse, myEvent) {
-      //console.log("in updateToolBoxContent")
+      console.log("in updateToolBoxContent")
       //console.log("mouse", mouse)
+      //if (year == null) {
+      //  var xDate = xScale.invert(mouse[0]) // use 'invert' to get date corresponding to distance from mouse position relative to svg
+      //  //console.log("xDate", xDate)
 
-      var xDate = xScale.invert(mouse[0]) // use 'invert' to get date corresponding to distance from mouse position relative to svg
-      //console.log("xDate", xDate)
-
-      var year = xDate.getFullYear()
+      //  year = xDate.getFullYear().toString()
+      //}
 
       var bisect = d3.bisector(function (d) { 
         //console.log("getting here ===========>")
@@ -511,11 +551,18 @@ d3.csv("totals_sorted.csv").then(
         return d.Year; 
       }).left // retrieve row index of date on parsed csv
 
-    var idx = bisect(dataset, year.toString()); //HERERERERERERERERE
+      console.log("year", year)
+      console.log("parseInt(year)", parseInt(year))
+      if (parseInt(year) < 1900) {
+        console.log("=========why are you not here=======")
+        console.log("year " + year + "is less than 1900" )
+        return
+      }
+      var idx = bisect(dataset, year); //HERERERERERERERERE
+      console.log("==> idx", idx)
 
       var element = dataset[idx]
-      //console.log("==> idx", idx)
-      //console.log("==> element", element)
+      console.log("==> element", element)
 
       //var coordinates = d3.pointer(event)
       //var coordinates = d3.pointer(event, this)
