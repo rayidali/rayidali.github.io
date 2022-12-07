@@ -207,7 +207,7 @@ d3.csv("People.csv").then(
     }
 
 
-
+    var slider = document.getElementById("myRange")
     data_prep()
     visualize()
     slider.oninput = ()=>{
