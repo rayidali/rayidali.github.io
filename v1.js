@@ -634,6 +634,23 @@ d3.csv("totals_sorted.csv").then(
       //console.log("typeof", typeof(parseInt(element.NL_runs)))
 
       var yearText = "Year: " + element.Year 
+      if (year == "1914") {
+        yearText += " Federal League"
+      } else if (year == "1977") {
+        yearText += " League Expansion"
+      } else if (year == "1981") {
+        yearText += " Players' Strike"
+      } else if (year == "1994") {
+        yearText += " Players' Strike"
+      } else if (year == "1999") {
+        yearText += " Steroid Era"
+      } else if (year == "2006") {
+        yearText += " Players testify before Congress"
+      } else if (year == "2020") {
+        yearText += " COVID-19"
+      }
+
+      var yearText = yearText
       var NLRunsText = " National League Runs: "+ parseInt(element.NL_runs).toLocaleString() + " "
       var ALRunsText = "  American League Runs: "+ parseInt(element.AL_runs).toLocaleString() + "  "
       var NLHitsText = " National League Hits: "+ parseInt(element.NL_hits).toLocaleString() + " "
