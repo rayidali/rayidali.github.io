@@ -17,6 +17,59 @@ html {
   font-family: 'Courier New', Courier, monospace;
   font-style: italic;
 }
+
+h1 {
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+.slidecontainer {
+  width: 50%;
+  padding: 10px;
+  margin-bottom: -80px;
+  z-index: 10;
+          
+ }
+
+.slider {
+    -webkit-appearance: none;
+    width: 50%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    z-index: 20;
+}
+
+.slider:hover {
+  opacity: 1;
+  z-index: inherit;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04AA6D;
+  cursor: pointer;
+  z-index: inherit;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04AA6D;
+  cursor: pointer;
+  z-index: inherit;
+}
+
 #wrapper {
   display: flex;
   flex-direction: column;
@@ -28,14 +81,14 @@ html {
 .q3 {
   order: -1;/* bring them in front of other(s) */
   height: 50%;/* share the height (if three of them, then put it down to 33.33% to share evenly height avalaible) */
-  width: 50%;
+  width: 40%;
   background: #def3f6;
   z-index: -10;
 }
 .q1 {
   flex: 1;/* equals height:100%; it will fill entire height */
-  width: 50%;/* here your fixed width */
-  border: 1px solid black;
+  width: 60%;/* here your fixed width */
+  background: #ebedeb;
 }
 .text-containers{
   display: flex;
@@ -47,3 +100,4 @@ html {
   border-radius: 30px;
   background: burlywood;
 }
+
