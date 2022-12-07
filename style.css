@@ -1,10 +1,12 @@
 /*Typography*/
 html {
-  font: 16px "Open Sans Condensed", "Roboto Condensed", Verdana, sans-serif;
+  font: "Open Sans Condensed", "Roboto Condensed", Verdana, sans-serif;
   height: 100%;
   width: 100%;
   padding: 0;
   margin: 0;
+  background-color: aliceblue;
+  overflow: hidden;
 }
 
 #tooltip{
@@ -23,24 +25,29 @@ h1 {
 }
 
 .slidecontainer {
-  width: 95%;
+  width: 50%;
   padding: 10px;
-}
+  margin-bottom: -80px;
+  z-index: 10;
+          
+ }
 
 .slider {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 15px;
-  border-radius: 5px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
+    -webkit-appearance: none;
+    width: 50%;
+    height: 15px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    z-index: 20;
 }
 
 .slider:hover {
   opacity: 1;
+  z-index: inherit;
 }
 
 .slider::-webkit-slider-thumb {
@@ -51,6 +58,7 @@ h1 {
   border-radius: 50%;
   background: #04AA6D;
   cursor: pointer;
+  z-index: inherit;
 }
 
 .slider::-moz-range-thumb {
@@ -59,39 +67,8 @@ h1 {
   border-radius: 50%;
   background: #04AA6D;
   cursor: pointer;
+  z-index: inherit;
 }
-
-/* #wrapper{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  background-color: DodgerBlue;
-  height: 100vh;
-  width: 100vh;
-}
-.q1{
-  order: -1;
-  display: inline-block;
-  width: 50%;
-  height: 50vh;
-  border: 1px solid black;
-  background: pink;
-}
-.q2{
-  flex: 1;
-  width: 50%;
-  height: 100vh;
-  border: 1px solid black;
-  background: yellow;
-}
-.q3{
-  order: -1;
-  display: block;
-  width: 50%;
-  height: 50vh;
-  border: 1px solid black;
-  background: green;
-} */
 
 #wrapper {
   display: flex;
@@ -105,22 +82,22 @@ h1 {
   order: -1;/* bring them in front of other(s) */
   height: 50%;/* share the height (if three of them, then put it down to 33.33% to share evenly height avalaible) */
   width: 40%;
+  background: #def3f6;
+  z-index: -10;
 }
 .q1 {
   flex: 1;/* equals height:100%; it will fill entire height */
-  width: 60%/* here your fixed width */
+  width: 60%;/* here your fixed width */
+  background: #ebedeb;
+}
+.text-containers{
+  display: flex;
+  bottom: 20px;
+  position: fixed;
+}
+.text-containers p{
+  border: 1px solid black;
+  border-radius: 30px;
+  background: burlywood;
 }
 
-.q1 {
-  /*background: #A1EB88;*/
-  /*background: #9de0e8;*/
-  background: #ebedeb;
-}
-.q2 {
-  /*background: #def3f6;*/
-  background: #ebedeb;
-}
-.q3 {
-  /*background: #F7F467;*/
-  background: #ebedeb;
-}
