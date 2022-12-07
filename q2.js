@@ -1,21 +1,5 @@
 d3.csv("People.csv").then(
     function(dataset){
-
-        // d3.csv("Appearances.csv").then(
-        //     (dataset2) => {
-        //         //obtain team of player from dataset2 using player id
-        //         dataset.forEach(player => {
-        //             dataset2.forEach(team => {
-        //                 if(player.playerID == team.playerID){
-        //                     //add team name to the dataset1
-        //                     Object.assign(player, {'Team':team.teamID})
-        //                 }
-        //             })
-        //             //console.log(player)
-        //         })
-        //     }
-        // )
-
     d3.json("map.json").then(function(mapdata){    
         
         var maxValue = 0
@@ -85,7 +69,9 @@ d3.csv("People.csv").then(
                     }
                     
                 }
+                
             }
+            
         
         }
         
@@ -119,15 +105,7 @@ d3.csv("People.csv").then(
         var earth = svg.append("path")
                         .attr("d", pathGenerator({type: "Sphere"}))
                         .attr("fill", "lightblue")
-        // var earth = svg.append("circle")
-        //                 .attr("cx", width )
-        //                 .attr("cy", height )
-        //                 .attr("r", initialScale)
-        //                 .attr("border", "1px solid black")
-
-                            // .attr("d", pathGenerator({type: "Sphere"}))
-                            // .attr("fill", "lightblue")
-
+        
         var graticule = svg.append("path")
                             .attr("d", pathGenerator(d3.geoGraticule10()))
                             .attr("fill", "none")
@@ -207,14 +185,32 @@ d3.csv("People.csv").then(
     }
 
 
-    var slider = document.getElementById("myRange")
+    var slider = document.getElementById("year")
+    const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(slider), 'value');
+    Object.defineProperty(slider, 'value', {
+        set: function(t) {
+            console.log('Input value was changed programmatically');
+            return descriptor.set.apply(this, arguments);
+        },
+        get: function() {
+          return descriptor.get.apply(this);
+        }
+    });
     data_prep()
     visualize()
-    slider.oninput = ()=>{
-        output.innerHTML = slider.value
+    slider.addEventListener("change", ()=>{
+        console.log("hello"+slider.value)
+    })
+    // slider.addEventListener("input", (e)=>{
+    //     console.log("hello")
+    // })
+    slider.onchange = ()=>{
+
+        
         countries.style("fill", (d, i)=>{
             
             //get count from color_countries
+            
             count = color_countries[slider.value][d.properties.ADMIN]
             
             if(count == undefined){

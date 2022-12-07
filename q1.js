@@ -512,7 +512,9 @@ d3.csv("totals_sorted.csv").then(
 
 
             d3.select("#year")
-              .text(year)
+              .attr("value", year)
+            var evt = new CustomEvent('change');
+            document.getElementById('year').dispatchEvent(evt);
 
             var bisect = d3.bisector(function (d) { 
               //console.log("getting here ===========>")
@@ -556,7 +558,7 @@ d3.csv("totals_sorted.csv").then(
     }
 
     function updateCircles(year){
-      console.log("calling updateCircles with year = ", year)
+      //console.log("calling updateCircles with year = ", year)
       lines.forEach(function (line) {
       if (parseInt(year) < 1900) {
         //console.log("=========why are you not here=======")
