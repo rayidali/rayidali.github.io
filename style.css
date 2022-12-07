@@ -19,6 +19,11 @@ html {
   z-index: 50
 }
 
+#year{
+  /*display: none;*/
+}
+
+
 h1 {
   text-align: center;
   font-size: 45px;

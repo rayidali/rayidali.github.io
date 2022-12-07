@@ -510,6 +510,10 @@ d3.csv("totals_sorted.csv").then(
               //console.log("year==", year)
             }
 
+
+            d3.select("#year")
+              .text(year)
+
             var bisect = d3.bisector(function (d) { 
               //console.log("getting here ===========>")
               //console.log("d in bisect = ", d)
