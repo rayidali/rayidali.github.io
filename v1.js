@@ -182,6 +182,7 @@ d3.csv("totals_sorted.csv").then(
         .data([dataset])
         .enter()
         .append("path")
+        .attr("class", "line-graph")
         .attr("fill", "none")
         .attr("stroke", NLColor)
         .attr("stroke-width", 2)
@@ -191,16 +192,26 @@ d3.csv("totals_sorted.csv").then(
           })
           .y(d => yScale(NLAccessor(d))).curve(d3.curveLinear)
          )
-        .on("mouseover", function() {
-          console.log("Mouseover NL")
-        })
         .on("click", function() {
-          console.log("CLICK NL")
+          console.log("===============CLICK NL")
+          var selectedLine = d3.select(this)
+            .attr("stroke-width", 3)
+          showLine(selectedLine)
         })
+        //.on("mouseover", function() {
+        //  console.log("Mouseover NL")
+        //  var selectedLine = d3.select(this)
+        //  mouseOverLine(selectedLine)
+        //})
+        //.on("mouseout", function() {
+        //  console.log("Mouseover NL")
+        //  var selectedLine = d3.select(this)
+        //  mouseOutLine(selectedLine)
+        //})
 
       //AL = red
       var AL = bounds.selectAll(line_id)
-      //var AL = bounds.selectAll(line_id)
+      //var AL = mouseG.selectAll(line_id)
         .append("g")
         .data([dataset])
         .enter()
@@ -215,12 +226,18 @@ d3.csv("totals_sorted.csv").then(
           })
           .y(d => yScale(ALAccessor(d))).curve(d3.curveLinear)
          )
-        .on("mouseover", function() {
-          console.log("Mouseover NL")
-        })
         .on("click", function() {
-          console.log("CLICK AL")
+          console.log("===============CLICK NL")
+          var selectedLine = d3.select(this)
+            .attr("stroke-width", 3)
+          showLine(selectedLine)
         })
+        //.on("click", function() {
+        //  console.log("CLICK AL")
+        //})
+        //.on("mouseover", function() {
+        //  console.log("Mouseover NL")
+        //})
 
       var yAxis = d3.axisLeft(yScale)
 
@@ -244,6 +261,9 @@ d3.csv("totals_sorted.csv").then(
         .text(NLTextLegend)
         .style("font-size", "15px")
         .attr("alignment-baseline","middle")
+        .on("click", function() {
+          console.log("CLICK NL Legend")
+        })
 
       // AL Legend
       bounds.append("circle")
@@ -260,7 +280,32 @@ d3.csv("totals_sorted.csv").then(
         .text(ALTextLegend)
         .style("font-size", "15px")
         .attr("alignment-baseline","middle")
+        .on("click", function() {
+          console.log("CLICK AL Legend")
+        })
     }
+
+    function showLine(selectedLine) {
+      console.log("In showline")
+      selectedLine
+        .attr("stroke-width", 3)
+    }
+
+    //function mouseOverLine(selectedLine) {
+    //  console.log("in mouseoverNLLine")
+    //  //d3.selectAll(".line")
+    //  selectedLine
+    //    .attr("stroke-width", 3)
+    //    //.attr("stroke", "gray")
+    //}
+
+    //function mouseOutLine(selectedLine) {
+    //  console.log("in mouseoverNLLine")
+    //  //d3.selectAll(".line")
+    //  selectedLine
+    //    .attr("stroke-width", 2)
+    //    //.attr("stroke", "gray")
+    //}
 
     var axisPad = 6 // axis formatting
 
@@ -318,17 +363,19 @@ d3.csv("totals_sorted.csv").then(
     //var toolbox = d3.select(".q1").append("div")
     //
     var toolbox = chart.append("div")
-    .attr("id", "toolbox")
-    .style("position", "absolute")
-    .style("background-color", "#D3D3D3")
-    .style("padding", 6)
-    .style("display", "none")
+      .attr("id", "toolbox")
+      .style("position", "absolute")
+      .style("background-color", "#D3D3D3")
+      .style("padding", 6)
+      .style("display", "none")
 
     var mouseG = bounds.append("g")
       .attr("class", "mouse-over-effects")
-      //.on("click", function() {
-      //  console.log("this is a bad click")
-      //})
+      .on("click", function() {
+        console.log("this is a bad click")
+        d3.selectAll(".line-graph")
+          .attr("stroke-width", 2)
+      })
 
     ///
     
@@ -532,10 +579,10 @@ d3.csv("totals_sorted.csv").then(
 
         var accessor = line.accessor
 
-        console.log("element===", element)
-        console.log("working on line: " + line.id)
-        console.log("accessor: ", accessor)
-        console.log("range: ", line.range)
+        //console.log("element===", element)
+        //console.log("working on line: " + line.id)
+        //console.log("accessor: ", accessor)
+        //console.log("range: ", line.range)
 
         var yLineScale = d3.scaleLinear()
           .domain([0, line.max])
@@ -555,6 +602,9 @@ d3.csv("totals_sorted.csv").then(
           .attr("cx", cx)
           .attr("cy", cy)
           .style("stroke", line.color)
+          .on("click", function() {
+            console.log("DETECTED CLICK ON CIRCLE")
+          })
           //.style("fill", "green")
           //.attr("transform", function (d, i) {
           //  return "translate(" + xScale(dates[idx].date) + "," + yLineScale(line.accessor(d[idx])) + ")"

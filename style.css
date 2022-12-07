@@ -89,6 +89,24 @@ h1 {
 }
 .q1 {
   flex: 1;/* equals height:100%; it will fill entire height */
+<<<<<<< HEAD
+  width: 60%/* here your fixed width */
+}
+
+.q1 {
+  /*background: #A1EB88;*/
+  /*background: #9de0e8;*/
+  /*background: #ebedeb;*/
+  background: #f4f3f1;
+}
+.q2 {
+  /*background: #def3f6;*/
+  background: #f4f3f1;
+}
+.q3 {
+  /*background: #F7F467;*/
+  background: #f4f3f1;
+=======
   width: 60%;/* here your fixed width */
   background: #ebedeb;
   /* z-index: -10 */
@@ -102,5 +120,6 @@ h1 {
   border: 1px solid black;
   border-radius: 30px;
   background: burlywood;
+>>>>>>> 756149c44c53939c09e316ca95b83bcf7d321b17
 }
 
