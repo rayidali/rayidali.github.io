@@ -636,6 +636,8 @@ d3.csv("totals_sorted.csv").then(
       var yearText = "Year: " + element.Year 
       if (year == "1914") {
         yearText += " Federal League"
+      } else if (year == "1961") {
+        yearText += " League Expansion"
       } else if (year == "1977") {
         yearText += " League Expansion"
       } else if (year == "1981") {
