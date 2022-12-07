@@ -16,20 +16,23 @@
 
     <style>
 
-        /*h1 {
+        h1 {
           text-align: center;
           font-size: 36px;
           font-weight: bold;
         }
 
         .slidecontainer {
-          width: 95%;
+          width: 50%;
           padding: 10px;
+          margin-bottom: -80px;
+          z-index: 10;
+          
         }
         
         .slider {
           -webkit-appearance: none;
-          width: 100%;
+          width: 50%;
           height: 15px;
           border-radius: 5px;
           background: #d3d3d3;
@@ -37,10 +40,12 @@
           opacity: 0.7;
           -webkit-transition: .2s;
           transition: opacity .2s;
+          z-index: 20;
         }
         
         .slider:hover {
           opacity: 1;
+          z-index: inherit;
         }
         
         .slider::-webkit-slider-thumb {
@@ -51,6 +56,7 @@
           border-radius: 50%;
           background: #04AA6D;
           cursor: pointer;
+          z-index: inherit;
         }
         
         .slider::-moz-range-thumb {
@@ -59,15 +65,19 @@
           border-radius: 50%;
           background: #04AA6D;
           cursor: pointer;
-        }*/
+          z-index: inherit;
+        }
         </style>
 </head>
 <body>
-  <h1 class="title"> How has baseball changed over the years? </h1>
+  <center>
+    <b><h1 class="title"> How has baseball changed over the years? </h1></b>
     <div class="slidecontainer">
-        <input type="range" min="1871" max="2021" value="50" class="slider"  id="myRange">
-        <p>Value: <span id="demo"></span></p>
-    </div>
+      <input type="range" min="1871" max="2021" value="50" class="slider"  id="myRange">
+      <p>Value: <span id="demo"></span></p>
+  </div>
+  </center>
+    
     <script>
     var slider = document.getElementById("myRange");
     var output = document.getElementById("demo");
@@ -79,7 +89,6 @@
     <div id="wrapper">
 
         <div class="q3">
-            
             <select id="selectButton"></select>
             <svg id="my_dataviz1"></svg>
             <script src="ray1.js"></script>
@@ -87,19 +96,20 @@
         <div class="q1">
             <script src="v1.js"></script> 
             <svg id="v1"></svg>
-            <!-- <div id="buttons">
-                <button id="hrs">HRs </button>
-                <button id="hits">Hits</button>
-                <button id="runs">Runs</button>
-            </div>-->
-        
+             
+            <div class="text-containers">
+             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium, omnis iure minus velit alias labore earum, eum enim accusamus quidem nisi aliquam totam, maxime veniam pariatur molestias voluptas natus dolorem!</p>
+             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fuga magnam excepturi laudantium deserunt, blanditiis mollitia assumenda tempore natus at recusandae corporis dolor minima, ipsa, voluptatem dicta! Repellendus, distinctio mollitia.</p>
+             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit necessitatibus placeat deleniti illum officia quasi error, totam incidunt porro culpa similique animi laboriosam blanditiis soluta? A dolore consectetur mollitia accusamus!</p> 
+
+            </div>   
       </div>
       <div class="q2">
             <script src="q2.js"></script>
-            <select name="year" id="year"></select>
+            <!-- <select name="year" id="year"></select> -->
             <svg id="map"></svg>
                 
         </div>
-    
+ </div>
 </body>
 </html>

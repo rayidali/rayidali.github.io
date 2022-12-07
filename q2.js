@@ -65,11 +65,7 @@ d3.csv("People.csv").then(
             maxValue = d3.max(debutYears)
 
             for (var i = maxValue; i >= minValue; i--) {
-                var opt = document.createElement('option');
-                opt.value = i;
-                opt.innerHTML = i;
-                select.appendChild(opt);
-
+                
                 Object.assign(color_countries, {[i]: {}})
 
                 for( var j = 0; j <= dataset.length; j++){
@@ -95,12 +91,13 @@ d3.csv("People.csv").then(
         
 //===================== Visualization ====================
     function visualize(){
-
+        var box = document.getElementsByClassName("q2")
+        console.log(box[0].clientWidth)
         colors = d3.scaleSequential().domain([0, 10]).range(["white","red"])
-        size = window.innerHeight
+        
         var dimensions = ({
-            width: size, 
-            height: size,
+            width: box[0].clientWidth, 
+            height: box[0].clientHeight,
             margin: {
                 top: 10,
                 right: 10,
@@ -111,19 +108,22 @@ d3.csv("People.csv").then(
         var svg = d3.select("#map").attr("width", dimensions.width)
                                     .attr("height", dimensions.height)
 
-        var projection = d3.geoOrthographic() //geoMercator()
+        var projection = d3.geoEqualEarth() //geoMercator() geoEqualEarth()
                                     .fitWidth(dimensions.width, {type: "Sphere"})
-                                    .scale(250)
+                                    .scale(100)
                                     .center([0,0])
-                                    .rotate([0, -30])
-                                    .clipAngle(90)
+                                    // .rotate([0, -30])
+                                    // .clipAngle(90)
         const initialScale = projection.scale();
         var pathGenerator = d3.geoPath(projection)
-        var earth = svg.append("circle")
-                        .attr("cx", width )
-                        .attr("cy", height )
-                        .attr("r", initialScale)
-                        .attr("border", "1px solid black")
+        var earth = svg.append("path")
+                        .attr("d", pathGenerator({type: "Sphere"}))
+                        .attr("fill", "lightblue")
+        // var earth = svg.append("circle")
+        //                 .attr("cx", width )
+        //                 .attr("cy", height )
+        //                 .attr("r", initialScale)
+        //                 .attr("border", "1px solid black")
 
                             // .attr("d", pathGenerator({type: "Sphere"}))
                             // .attr("fill", "lightblue")
@@ -141,13 +141,13 @@ d3.csv("People.csv").then(
         var mouseover = function(d, i) {
             
             //get count from color_countries
-            count = color_countries[select.value][i.properties.ADMIN]
+            count = color_countries[slider.value][i.properties.ADMIN]
             
             if(count == undefined){
-                count = color_countries[select.value][i.properties.ABBREV]
+                count = color_countries[slider.value][i.properties.ABBREV]
             }
             if (count == undefined){
-                count = color_countries[select.value][i.properties.ADM0_A3]
+                count = color_countries[slider.value][i.properties.ADM0_A3]
             }
             if(count == undefined){
                 count = 0
@@ -187,13 +187,13 @@ d3.csv("People.csv").then(
         .attr("class", "country")
         .attr("d", d => pathGenerator(d))
         .style("fill", function(d, i){
-            count = color_countries[select.value][d.properties.ADMIN]
+            count = color_countries[slider.value][d.properties.ADMIN]
             
             if(count == undefined){
-                count = color_countries[select.value][d.properties.ABBREV]
+                count = color_countries[slider.value][d.properties.ABBREV]
             }
             if (count == undefined){
-                count = color_countries[select.value][d.properties.ADM0_A3]
+                count = color_countries[slider.value][d.properties.ADM0_A3]
             }
             if(count == undefined){
                 count = 0
@@ -207,7 +207,7 @@ d3.csv("People.csv").then(
     }
 
 
-
+    var slider = document.getElementById("myRange")
     data_prep()
     visualize()
     slider.oninput = ()=>{
