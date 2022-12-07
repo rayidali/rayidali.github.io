@@ -21,15 +21,16 @@ html {
 
 h1 {
   text-align: center;
-  font-size: 36px;
+  font-size: 45px;
   font-weight: bold;
+  padding-bottom: 5px;
 }
 
 .slidecontainer {
   width: 50%;
   padding: 10px;
   margin-bottom: -80px;
-  z-index: 50;
+  z-index: 20;
           
  }
 
@@ -76,7 +77,7 @@ h1 {
   flex-direction: column;
   flex-wrap: wrap;
   width: 100%;
-  height: 100vh;/* height is needed to force wrapping */
+  height: 90vh;/* height is needed to force wrapping */
 }
 .q2,
 .q3 {
@@ -84,7 +85,7 @@ h1 {
   height: 50%;/* share the height (if three of them, then put it down to 33.33% to share evenly height avalaible) */
   width: 40%;
   background: #def3f6;
-  /* z-index: -10; */
+  z-index: 10;
 }
 .q1 {
   flex: 1;/* equals height:100%; it will fill entire height */
