@@ -16,15 +16,16 @@
 
     <style>
         .slidecontainer {
-          width: 95%;
+          width: 50%;
           padding: 10px;
           margin-bottom: -80px;
           z-index: 10;
+          
         }
         
         .slider {
           -webkit-appearance: none;
-          width: 100%;
+          width: 50%;
           height: 15px;
           border-radius: 5px;
           background: #d3d3d3;
@@ -62,10 +63,14 @@
         </style>
 </head>
 <body>
+  <center>
+    <b><h1 class="title"> How has baseball changed over the years? </h1></b>
     <div class="slidecontainer">
-        <input type="range" min="1871" max="2021" value="50" class="slider"  id="myRange">
-        <p>Value: <span id="demo"></span></p>
-    </div>
+      <input type="range" min="1871" max="2021" value="50" class="slider"  id="myRange">
+      <p>Value: <span id="demo"></span></p>
+  </div>
+  </center>
+    
     <script>
     var slider = document.getElementById("myRange");
     var output = document.getElementById("demo");
@@ -77,7 +82,6 @@
     <div id="wrapper">
 
         <div class="q3">
-            
             <select id="selectButton"></select>
             <svg id="my_dataviz1"></svg>
             <script src="ray1.js"></script>
@@ -89,7 +93,13 @@
                 <button id="hrs">HRs </button>
                 <button id="hits">Hits</button>
                 <button id="runs">Runs</button>
-            </div>        
+            </div> 
+            <div class="text-containers">
+             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Praesentium, omnis iure minus velit alias labore earum, eum enim accusamus quidem nisi aliquam totam, maxime veniam pariatur molestias voluptas natus dolorem!</p>
+             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum fuga magnam excepturi laudantium deserunt, blanditiis mollitia assumenda tempore natus at recusandae corporis dolor minima, ipsa, voluptatem dicta! Repellendus, distinctio mollitia.</p>
+             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit necessitatibus placeat deleniti illum officia quasi error, totam incidunt porro culpa similique animi laboriosam blanditiis soluta? A dolore consectetur mollitia accusamus!</p> 
+
+            </div>       
         
       </div>
       <div class="q2">
