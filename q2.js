@@ -17,7 +17,7 @@ d3.csv("People.csv").then(
         // )
 
     d3.json("map.json").then(function(mapdata){    
-        select = document.getElementById('year');
+        
         var maxValue = 0
         var minValue = 0
         var countries = ""
@@ -92,7 +92,7 @@ d3.csv("People.csv").then(
 //===================== Visualization ====================
     function visualize(){
         var box = document.getElementsByClassName("q2")
-        console.log(box[0].clientWidth)
+        
         colors = d3.scaleSequential().domain([0, 10]).range(["white","red"])
         
         var dimensions = ({
@@ -207,13 +207,13 @@ d3.csv("People.csv").then(
     }
 
 
-
+    var slider = document.getElementById("myRange")
     data_prep()
     visualize()
     slider.oninput = ()=>{
         output.innerHTML = slider.value
         countries.style("fill", (d, i)=>{
-
+            
             //get count from color_countries
             count = color_countries[slider.value][d.properties.ADMIN]
             
@@ -229,27 +229,7 @@ d3.csv("People.csv").then(
             
             return colors(count)
         })
-    }
-    // select.addEventListener("change", function(){
-    //     countries.style("fill", (d, i)=>{
-
-    //         //get count from color_countries
-    //         count = color_countries[select.value][d.properties.ADMIN]
-            
-    //         if(count == undefined){
-    //             count = color_countries[select.value][d.properties.ABBREV]
-    //         }
-    //         if (count == undefined){
-    //             count = color_countries[select.value][d.properties.ADM0_A3]
-    //         }
-    //         if(count == undefined){
-    //             count = 0
-    //         }
-            
-    //         return colors(count)
-    //     })
-    // })
-    
+    }  
 
     })
 }
