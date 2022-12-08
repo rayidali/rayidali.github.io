@@ -1,8 +1,7 @@
 // set the dimensions and margins of the graph
-var q3_box = document.getElementsByClassName("q3")
 const margin = {top: 50, right: 100, bottom: 20, left: 100},
-    width = q3_box[0].clientWidth - margin.left - margin.right,
-    height = q3_box[0].clientHeight - margin.top - margin.bottom;
+    width = 1000 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 const svg = d3.select("#my_dataviz")
@@ -98,24 +97,31 @@ d3.csv("df7.csv").then( function(data) {
   .style("border-radius", "5px")
   .style("padding", "10px")
 
-// Three function that change the tooltip when user hover / move / leave a cell
-const mouseover = function(event, d) {
-  const subgroupName = d3.select(this.parentNode).datum().key;
-  const subgroupValue = d.data[subgroupName];
-  tooltip
-      .html("League: " + subgroupName + "<br>" + "Salary: " + d3.format(",.1f")(subgroupValue))
-      .style("opacity", 1)
+// // Three function that change the tooltip when user hover / move / leave a cell
+// const mouseover = function(event, d) {
+//   const subgroupName = d3.select(this.parentNode).datum().key;
+//   const subgroupValue = d.data[subgroupName];
+//   // Reduce opacity of all rect to 0.2
+//   d3.selectAll("rect").style("opacity", 0.2)
 
-}
-const mousemove = function(event, d) {
-  tooltip.style("transform","translateY(-55%)")
-         .style("left",(event.x)/2+"px")
-         .style("top",(event.y)/2-30+"px")
-}
-const mouseleave = function(event, d) {
-  tooltip
-    .style("opacity", 0)
-}
+//   // Highlight all rects of this subgroup with opacity 1. It is possible to select them since they have a specific class = their name.
+//    d3.selectAll("."+subGroupName).style("opacity",1)
+// //   tooltip
+// //       .html("League: " + subgroupName + "<br>" + "Salary: " + d3.format(",.1f")(subgroupValue))
+// //       .style("opacity", 1)
+    
+    
+
+// // }
+// const mousemove = function(event, d) {
+//   tooltip.style("transform","translateY(-55%)")
+//          .style("left",(event.x)/2+"px")
+//          .style("top",(event.y)/2-30+"px")
+// }
+// const mouseleave = function(event, d) {
+//   tooltip
+//     .style("opacity", 0)
+// }
 
 
 
@@ -127,6 +133,7 @@ const mouseleave = function(event, d) {
     .data(stackedData)
     .join("g")
       .attr("fill", d => color(d.key))
+      .attr("class", d => "myRect " + d.key ) // Add a class to each subgroup: their name
       .selectAll("rect")
       // enter a second time = loop subgroup per subgroup to add all rectangles
       .data(d => d)
@@ -135,9 +142,26 @@ const mouseleave = function(event, d) {
         .attr("y", d => y(d[1]))
         .attr("height", d => y(d[0]) - y(d[1]))
         .attr("width",x.bandwidth())
-    .on("mouseover", mouseover)
-    .on("mousemove", mousemove)
-    .on("mouseleave", mouseleave)
+        .on("mouseover", function (event,d) { // What happens when user hover a bar
+
+          // what subgroup are we hovering?
+          const subGroupName = d3.select(this.parentNode).datum().key
+
+          // Reduce opacity of all rect to 0.2
+           d3.selectAll(".myRect").style("opacity", 0.2)
+
+          // Highlight all rects of this subgroup with opacity 1. It is possible to select them since they have a specific class = their name.
+           d3.selectAll("."+subGroupName).style("opacity",1)
+        })
+        .on("mouseleave", function (event,d) { // When user do not hover anymore
+
+          // Back to normal opacity: 1
+          d3.selectAll(".myRect")
+          .style("opacity",1)
+      })
+    // .on("mouseover", mouseover)
+    // .on("mousemove", mousemove)
+    // .on("mouseleave", mouseleave)
 
 // A function that update the chart
 function update(selectedGroup) {
