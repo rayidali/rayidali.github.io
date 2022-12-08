@@ -73,10 +73,14 @@ d3.csv("df7.csv").then( function(data) {
   svg.append("g")
     .call(d3.axisLeft(y));
 
+  const NLColor = "#377eb8"
+  const ALColor = "#e41a1c"
+
   // color palette = one color per subgroup
   const color = d3.scaleOrdinal()
     .domain(subgroups)
-    .range(['#e41a1c','#377eb8'])
+    //.range(['#e41a1c','#377eb8'])
+    .range([ALColor,NLColor])
 
   //stack the data? --> stack per subgroup
   const stackedData = d3.stack()
@@ -166,6 +170,46 @@ d3.csv("df7.csv").then( function(data) {
       d3.selectAll(".myRect")
         .style("opacity",1)
     })
+    // Legends
+    
+    // NL Legend
+    svg.append("circle")
+      .attr("cx", 30)
+      //.attr("cy", 20)
+      .attr("cy", 20 + 20)
+      .attr("r", 6)
+      .style("fill", NLColor)
+
+    var NLLegend = svg
+      .append("text")
+      .attr("id", "NLLegend")
+      .attr("x", 50)
+      .attr("y", 20 + 20)
+      .text("National League Salaries")
+      .style("font-size", "15px")
+      .attr("alignment-baseline","middle")
+      //.on("click", function() {
+      //  console.log("CLICK NL Legend")
+      //})
+
+    // AL Legend
+    svg.append("circle")
+      .attr("cx", 30)
+      .attr("cy", 20 + 40)
+      .attr("r", 6)
+      .style("fill", ALColor)
+
+    var ALLegend = svg
+      .append("text")
+      .attr("id", "ALLegend")
+      .attr("x", 50)
+      .attr("y", 20 + 40)
+      .text("American League Salaries")
+      .style("font-size", "15px")
+      .attr("alignment-baseline","middle")
+      //.on("click", function() {
+      //  console.log("CLICK AL Legend")
+      //})
   // .on("mouseover", mouseover)
   // .on("mousemove", mousemove)
   // .on("mouseleave", mouseleave)
