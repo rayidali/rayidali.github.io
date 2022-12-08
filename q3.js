@@ -3,7 +3,7 @@
 d3.csv("df7.csv").then( function(data) {
   // set the dimensions and margins of the graph
   var q3_box = document.getElementsByClassName("q3")
-  const margin = {top: 50, right: 100, bottom: 20, left: 100},
+  const margin = {top: 50, right: 100, bottom: 40, left: 100},
     width = q3_box[0].clientWidth - margin.left - margin.right,
     height = q3_box[0].clientHeight - margin.top - margin.bottom;
 
@@ -63,7 +63,13 @@ d3.csv("df7.csv").then( function(data) {
     .padding([0.2])
   svg.append("g")
     .attr("transform", `translate(0, ${height})`)
-    .call(d3.axisBottom(x).tickSizeOuter(0));
+    .call(d3.axisBottom(x).tickSizeOuter(0))
+    .call(x)
+    .selectAll("text")	
+    .attr("dx", "-2.25em")
+    .attr("dy", "-.1em")
+    //.style("font-size", "9px")
+    .attr("transform", "rotate(-65)")
 
   // Add Y axis
   var y = d3.scaleLinear()
