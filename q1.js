@@ -361,6 +361,7 @@ d3.csv("totals_sorted.csv").then(
       .attr("pointer-events", "all")
       .on("mouseout", function () { // on mouse out hide line, circles and text
         hideLineCirclesText()
+        removeHighlight()
       })
       .on("mouseover", function () { // on mouse in show line, circles and text
         showLine()

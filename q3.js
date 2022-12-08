@@ -14,12 +14,8 @@ var svg;
       //d3.selectAll("myRect NL")
       //  .style("opacity", 0.2)
 
-      for (let i = 1985; i < 2017; i++) {
-        console.log("not doing this")
-        var x = d3.selectAll(".rect" + i)
-          .style("opacity", 0.2)
-        //console.log("x", x)
-      }
+      removeHighlight()
+
 
       d3.selectAll(".rect" + year)
         .style("opacity", 1)
@@ -48,6 +44,15 @@ var svg;
        //   .attr("height", d => yScale(d[0]) - yScale(d[1]))
        //   .attr("width",xScale.bandwidth())
        //   .style("opacity", 0.2)
+    }
+  }
+
+  function removeHighlight() {
+    for (let i = 1985; i < 2017; i++) {
+      console.log("not doing this")
+      var x = d3.selectAll(".rect" + i)
+        .style("opacity", 0.2)
+      //console.log("x", x)
     }
   }
 
