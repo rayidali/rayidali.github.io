@@ -160,8 +160,10 @@ d3.csv("totals_sorted.csv").then(
         .on("click", function() {
           console.log("===============CLICK NL")
           var selectedLine = d3.select(this)
-            .attr("stroke-width", 3)
+            .attr("stroke-width", 4)
           showLine(selectedLine)
+
+          showNLSalaries()
         })
 
       //AL = red
@@ -171,7 +173,7 @@ d3.csv("totals_sorted.csv").then(
         .data([dataset])
         .enter()
         .append("path")
-        .attr("class", "line")//added this
+        .attr("class", "line-graph")//added this
         .attr("fill", "none")
         .attr("stroke", ALColor)
         .attr("stroke-width", 2)
@@ -182,11 +184,13 @@ d3.csv("totals_sorted.csv").then(
           .y(d => yScale(ALAccessor(d))).curve(d3.curveLinear)
          )
         .on("click", function() {
-          console.log("===============CLICK NL")
+          console.log("===============CLICK AL")
           var selectedLine = d3.select(this)
-            .attr("stroke-width", 3)
+            .attr("stroke-width", 4)
           showLine(selectedLine)
+          showALSalaries()
         })
+
 
       var yAxis = d3.axisLeft(yScale)
 
@@ -238,6 +242,18 @@ d3.csv("totals_sorted.csv").then(
       console.log("In showline")
       selectedLine
         .attr("stroke-width", 3)
+    }
+
+    function showNLSalaries(){
+      d3.selectAll(".myRect").style("opacity", 0.2)
+      //d3.selectAll("."+subGroupName).style("opacity",1)
+      d3.selectAll(".NL").style("opacity",1)
+    }
+
+    function showALSalaries(){
+      d3.selectAll(".myRect").style("opacity", 0.2)
+      //d3.selectAll("."+subGroupName).style("opacity",1)
+      d3.selectAll(".AL").style("opacity",1)
     }
 
     var axisPad = 6 // axis formatting
@@ -292,6 +308,9 @@ d3.csv("totals_sorted.csv").then(
         console.log("this is a bad click")
         d3.selectAll(".line-graph")
           .attr("stroke-width", 2)
+        
+        // Reduce opacity of all rect to 0.2
+        d3.selectAll(".myRect").style("opacity", 1)
       })
 
 

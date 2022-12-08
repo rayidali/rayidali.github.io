@@ -152,6 +152,7 @@ d3.csv("df7.csv").then( function(data) {
 
       // what subgroup are we hovering?
       const subGroupName = d3.select(this.parentNode).datum().key
+      console.log("subGroupName", subGroupName)
 
       // Reduce opacity of all rect to 0.2
       d3.selectAll(".myRect").style("opacity", 0.2)
