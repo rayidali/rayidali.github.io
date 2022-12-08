@@ -70,8 +70,7 @@ d3.csv("People.csv").then(
                     
                 }
                 
-            }
-            
+            }           
         
         }
         
@@ -79,24 +78,26 @@ d3.csv("People.csv").then(
     function visualize(){
         var box = document.getElementsByClassName("q2")
         
-        colors = d3.scaleSequential().domain([0, 10]).range(["white","red"])
+        colors = d3.scaleSequential().domain([0, 100]).range(["white","green"])
         
         var dimensions = ({
             width: box[0].clientWidth, 
             height: box[0].clientHeight,
             margin: {
-                top: 10,
-                right: 10,
-                bottom: 10,
-                left: 10
-            }
+                top: -40,
+                bottom: 0,
+                right: 0,
+                left: 0
+              }
             })
-        var svg = d3.select("#map").attr("width", dimensions.width)
-                                    .attr("height", dimensions.height)
+
+        console.log("width", box[0].clientWidth, "height", box[0].clientHeight)
+        var svg = d3.select("#map").attr("width", dimensions.width - dimensions.margin.right - dimensions.margin.left)
+                                    .attr("height", dimensions.height - dimensions.margin.top - dimensions.margin.bottom)
 
         var projection = d3.geoEqualEarth() //geoMercator() geoEqualEarth()
                                     .fitWidth(dimensions.width, {type: "Sphere"})
-                                    .scale(100)
+                                    .scale(140)
                                     .center([0,0])
                                     // .rotate([0, -30])
                                     // .clipAngle(90)
@@ -104,7 +105,7 @@ d3.csv("People.csv").then(
         var pathGenerator = d3.geoPath(projection)
         var earth = svg.append("path")
                         .attr("d", pathGenerator({type: "Sphere"}))
-                        .attr("fill", "lightblue")
+                        .attr("fill", "#7393B3")
         
         var graticule = svg.append("path")
                             .attr("d", pathGenerator(d3.geoGraticule10()))
@@ -130,11 +131,12 @@ d3.csv("People.csv").then(
             if(count == undefined){
                 count = 0
             }            
+            console.log("d",d)
             
             tip.style("opacity", 1)
                 .style("color", "black")
-                .style("left", d.layerX + 'px')
-                .style("top", d.layerY + 'px')
+                .style("left", d.clientX + 'px')
+                .style("top", d.clientY + 'px')
                 .text(i.properties.ADMIN + " " + count)
             
         }
@@ -186,31 +188,14 @@ d3.csv("People.csv").then(
 
 
     var slider = document.getElementById("year")
-    const descriptor = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(slider), 'value');
-    Object.defineProperty(slider, 'value', {
-        set: function(t) {
-            console.log('Input value was changed programmatically');
-            return descriptor.set.apply(this, arguments);
-        },
-        get: function() {
-          return descriptor.get.apply(this);
-        }
-    });
     data_prep()
     visualize()
-    slider.addEventListener("change", ()=>{
-        console.log("hello"+slider.value)
-    })
-    // slider.addEventListener("input", (e)=>{
-    //     console.log("hello")
-    // })
+    
     slider.onchange = ()=>{
 
         
         countries.style("fill", (d, i)=>{
-            
-            //get count from color_countries
-            
+                       
             count = color_countries[slider.value][d.properties.ADMIN]
             
             if(count == undefined){

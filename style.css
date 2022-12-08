@@ -5,7 +5,7 @@ html {
   width: 100%;
   padding: 0;
   margin: 0;
-  background-color: aliceblue;
+  background-color: #D8E2DC;
   overflow: hidden;
 }
 
@@ -20,7 +20,7 @@ html {
 }
 
 #year{
-  display: none;
+  /* display: none; */
 }
 
 
@@ -88,14 +88,13 @@ h1 {
 .q3 {
   order: -1;/* bring them in front of other(s) */
   height: 50%;/* share the height (if three of them, then put it down to 33.33% to share evenly height avalaible) */
-  width: 40%;
-  background: #def3f6;
+  width: 50%;
   z-index: 10;
 }
 .q1 {
   flex: 1;/* equals height:100%; it will fill entire height */
-  width: 60%;/* here your fixed width */
-  background: #ebedeb;
+  width: 50%;/* here your fixed width */
+  
   /* z-index: -10 */
 }
 .text-containers{

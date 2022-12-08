@@ -14,7 +14,7 @@ d3.csv("totals_sorted.csv").then(
         top: 15,
         bottom: 50,
         right: 10,
-        left: 50
+        left: 40
       }
     }
 
