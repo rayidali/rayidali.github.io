@@ -1,7 +1,8 @@
 // set the dimensions and margins of the graph
+var q3_box = document.getElementsByClassName("q3")
 const margin = {top: 50, right: 100, bottom: 20, left: 100},
-    width = 1000 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = q3_box[0].clientWidth - margin.left - margin.right,
+    height = q3_box[0].clientHeight - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 const svg = d3.select("#my_dataviz")
