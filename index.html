@@ -34,9 +34,15 @@
     <div id="wrapper">
       <input id="year" value="2021">
         <div class="q3">
-            <select id="selectButton"></select>
-            <svg id="my_dataviz1"></svg>
-            <script src="ray1.js"></script>
+            <div id="my_dataviz"></div>
+
+          <div class="slidecontainer">
+              <p>Year: <span id="demo"></span></p>
+              <input type="range" min="1985" max="2016" step="1" value="0" class="slider" id="slider">
+    
+            </div>
+            
+            <script src="q3.js"></script>
         </div>
         <div class="q1">
             <script src="q1.js"></script> 
