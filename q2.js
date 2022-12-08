@@ -78,7 +78,7 @@ d3.csv("People.csv").then(
     function visualize(){
         var box = document.getElementsByClassName("q2")
         
-        colors = d3.scaleSequential().domain([0, 100]).range(["white","green"])
+        colors = d3.scaleSequential().domain([0, 5]).range(["white","green"])
         
         var dimensions = ({
             width: box[0].clientWidth, 
