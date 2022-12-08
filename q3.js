@@ -1,14 +1,68 @@
 
+var xScale;
+var yScale;
+var loadedData;
+var svg;
+
+  function updateColumn(year) {
+    if (year >= 1985 && year <= 2016) {
+      console.log("year is in range", year)
+      //console.log("svg", svg) this does not work
+      //d3.selectAll("myRect AL")
+      //  .style("opacity", 0.2)
+
+      //d3.selectAll("myRect NL")
+      //  .style("opacity", 0.2)
+
+      for (let i = 1985; i < 2017; i++) {
+        console.log("not doing this")
+        var x = d3.selectAll(".rect" + i)
+          .style("opacity", 0.2)
+        //console.log("x", x)
+      }
+
+      d3.selectAll(".rect" + year)
+        .style("opacity", 1)
+      
+      //
+       //var bisect = d3.bisector(function (d) {
+       //  return d.yearID
+       //}).left
+
+       //var idx = bisect(loadedData, year)
+       //console.log("idx: ",idx)
+   
+       // svg.append("g")
+       //   .selectAll("g")
+       // // Enter in the stack data = loop key per key = group per group
+       //   //.data(stackedData)
+       //   //.join("g")
+       //   //.attr("fill", d => color(d.key))
+       //   //.attr("class", d => "myRect " + d.key ) // Add a class to each subgroup: their name
+       //   .selectAll("rect")
+       // // enter a second time = loop subgroup per subgroup to add all rectangles
+       //   .data(d => d)
+       //   .join("rect")
+       //   .attr("x", d => xScale(d.data.yearID))
+       //   .attr("y", d => yScale(d[1]))
+       //   .attr("height", d => yScale(d[0]) - yScale(d[1]))
+       //   .attr("width",xScale.bandwidth())
+       //   .style("opacity", 0.2)
+    }
+  }
+
+//
 // Parse the Data
 d3.csv("df7.csv").then( function(data) {
   // set the dimensions and margins of the graph
+  loadedData = data
   var q3_box = document.getElementsByClassName("q3")
   const margin = {top: 50, right: 100, bottom: 40, left: 100},
     width = q3_box[0].clientWidth - margin.left - margin.right,
     height = q3_box[0].clientHeight - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
-  const svg = d3.select("#my_dataviz")
+  svg = d3.select("#my_dataviz")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -57,14 +111,15 @@ d3.csv("df7.csv").then( function(data) {
   const groups = data.map(d => (d.yearID))
 
   // Add X axis
-  var x = d3.scaleBand()
+  xScale = d3.scaleBand()
     .domain(groups)
     .range([0, width])
     .padding([0.2])
+
   svg.append("g")
     .attr("transform", `translate(0, ${height})`)
-    .call(d3.axisBottom(x).tickSizeOuter(0))
-    .call(x)
+    .call(d3.axisBottom(xScale).tickSizeOuter(0))
+    .call(xScale)
     .selectAll("text")	
     .attr("dx", "-2.25em")
     .attr("dy", "-.1em")
@@ -72,12 +127,12 @@ d3.csv("df7.csv").then( function(data) {
     .attr("transform", "rotate(-65)")
 
   // Add Y axis
-  var y = d3.scaleLinear()
+  yScale = d3.scaleLinear()
   // .domain([0, 60])
     .domain([0, 10000000])
     .range([ height, 0 ]);
   svg.append("g")
-    .call(d3.axisLeft(y));
+    .call(d3.axisLeft(yScale));
 
   const NLColor = "#377eb8"
   const ALColor = "#e41a1c"
@@ -121,8 +176,6 @@ d3.csv("df7.csv").then( function(data) {
   // //       .html("League: " + subgroupName + "<br>" + "Salary: " + d3.format(",.1f")(subgroupValue))
   // //       .style("opacity", 1)
 
-
-
   // // }
   // const mousemove = function(event, d) {
   //   tooltip.style("transform","translateY(-55%)")
@@ -140,8 +193,6 @@ d3.csv("df7.csv").then( function(data) {
       console.log("value", this.value);
     });
 
-
-
   // Show the bars
   svg.append("g")
     .selectAll("g")
@@ -154,10 +205,13 @@ d3.csv("df7.csv").then( function(data) {
   // enter a second time = loop subgroup per subgroup to add all rectangles
     .data(d => d)
     .join("rect")
-    .attr("x", d => x(d.data.yearID))
-    .attr("y", d => y(d[1]))
-    .attr("height", d => y(d[0]) - y(d[1]))
-    .attr("width",x.bandwidth())
+    //.attr("class", d => "myRect " + d.key ) // Add a class to each subgroup: their name
+    .attr("class", d => "rect" + d.data.yearID ) // Add a class to each subgroup: their name
+    .attr("x", d => xScale(d.data.yearID))
+    .attr("y", d => yScale(d[1]))
+    .attr("height", d => yScale(d[0]) - yScale(d[1]))
+    .attr("width",xScale.bandwidth())
+    .style("opacity", 0.2)
     .on("mouseover", function (event,d) { // What happens when user hover a bar
 
       // what subgroup are we hovering?

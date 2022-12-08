@@ -369,7 +369,6 @@ d3.csv("totals_sorted.csv").then(
       })
       .on('mousemove', function (event, d) { // update toolbox content, line, circles and text when mouse moves
         updateToolBoxLineCircles(event, d)
-      
       }) 
 
     function hideLineCirclesText() {
@@ -421,6 +420,7 @@ d3.csv("totals_sorted.csv").then(
               //console.log("year==", year)
             }
 
+            updateColumn(year) 
 
             d3.select("#year")
               .attr("value", year)
