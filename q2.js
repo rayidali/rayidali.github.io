@@ -78,7 +78,7 @@ d3.csv("People.csv").then(
     function visualize(){
         var box = document.getElementsByClassName("q2")
         
-        colors = d3.scaleSequential().domain([0, 5]).range(["white","green"])
+        colors = d3.scaleSequential().domain([0, 10]).range(["white","purple"])
         
         var dimensions = ({
             width: box[0].clientWidth, 
@@ -131,7 +131,6 @@ d3.csv("People.csv").then(
             if(count == undefined){
                 count = 0
             }            
-            console.log("d",d)
             
             tip.style("opacity", 1)
                 .style("color", "black")
@@ -167,6 +166,10 @@ d3.csv("People.csv").then(
         .attr("class", "country")
         .attr("d", d => pathGenerator(d))
         .style("fill", function(d, i){
+
+            if(d.properties.ADMIN=="United States of America"){
+                return "#702963"
+            }
             count = color_countries[slider.value][d.properties.ADMIN]
             
             if(count == undefined){
@@ -196,6 +199,9 @@ d3.csv("People.csv").then(
         
         countries.style("fill", (d, i)=>{
                        
+            if(d.properties.ADMIN=="United States of America"){
+                return "#702963"
+            }
             count = color_countries[slider.value][d.properties.ADMIN]
             
             if(count == undefined){
