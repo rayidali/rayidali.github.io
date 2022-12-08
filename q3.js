@@ -15,13 +15,13 @@ d3.csv("df7.csv").then( function(data) {
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-  var slider = document.getElementById("slider");
-  var output = document.getElementById("demo");
-  output.innerHTML = slider.value;
+  // var slider = document.getElementById("slider");
+  // var output = document.getElementById("demo");
+  // // output.innerHTML = slider.value;
 
-  slider.oninput = function() {
-    output.innerHTML = this.value;
-  }
+  // slider.oninput = function() {
+  //   output.innerHTML = this.value;
+  // }
 
   // List of subgroups = header of the csv files = soil condition here
   const subgroups = data.columns.slice(1)
