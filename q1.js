@@ -1,4 +1,23 @@
 
+function updateLinesChart(year) {
+  console.log("should update lineChart with year ", year)
+  updateYear(year) //updates year for map
+}
+
+
+function updateYear(year) {
+  d3.select("#year")
+    .attr("value", year)
+  var evt = new CustomEvent('change');
+  document.getElementById('year').dispatchEvent(evt);
+
+  //updateToolBoxContent(year)
+  //showLine()
+  //showCircles()
+  //updateToolBoxLineCircles(null, null, year)
+}
+
+
 d3.csv("totals_sorted.csv").then(
 
   function(dataset) { // dataset is an object contained in file
@@ -399,7 +418,7 @@ d3.csv("totals_sorted.csv").then(
       d3.selectAll("#toolbox")
         .style("display", "block")
     }
-//
+
     function updateToolBoxLineCircles(event, d, year) {
         //console.log("update toolbox content circle", event)
         if (event == null) {
@@ -422,11 +441,7 @@ d3.csv("totals_sorted.csv").then(
             }
 
             updateColumn(year) 
-
-            d3.select("#year")
-              .attr("value", year)
-            var evt = new CustomEvent('change');
-            document.getElementById('year').dispatchEvent(evt);
+            updateYear(year) //updates year for map
 
             var bisect = d3.bisector(function (d) { 
               return d.Year; 

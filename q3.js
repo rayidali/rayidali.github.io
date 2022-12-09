@@ -4,9 +4,15 @@ var yScale;
 var loadedData;
 var svg;
 
+  function highlightColumn(year) {
+    updateColumn(year)
+    updateLinesChart(year)
+  }
+
+
   function updateColumn(year) {
     if (year >= 1985 && year <= 2016) {
-      console.log("year is in range", year)
+      //console.log("year is in range", year)
       //console.log("svg", svg) this does not work
       //d3.selectAll("myRect AL")
       //  .style("opacity", 0.2)
@@ -49,7 +55,7 @@ var svg;
 
   function removeHighlight() {
     for (let i = 1985; i < 2017; i++) {
-      console.log("not doing this")
+      //console.log("not doing this")
       var x = d3.selectAll(".rect" + i)
         .style("opacity", 0.2)
       //console.log("x", x)
@@ -217,24 +223,31 @@ d3.csv("df7.csv").then( function(data) {
     .attr("height", d => yScale(d[0]) - yScale(d[1]))
     .attr("width",xScale.bandwidth())
     .style("opacity", 0.2)
-    .on("mouseover", function (event,d) { // What happens when user hover a bar
+    .on("click", function(event, d) {
+      console.log("detected click")
+      console.log("d", d)
+      console.log("d.data.yearID", d.data.yearID)
+      var year = d.data.yearID
+      highlightColumn(year)
+      })
+    //.on("mouseover", function (event,d) { // What happens when user hover a bar
 
-      // what subgroup are we hovering?
-      const subGroupName = d3.select(this.parentNode).datum().key
-      console.log("subGroupName", subGroupName)
+    //  // what subgroup are we hovering?
+    //  const subGroupName = d3.select(this.parentNode).datum().key
+    //  console.log("subGroupName", subGroupName)
 
-      // Reduce opacity of all rect to 0.2
-      d3.selectAll(".myRect").style("opacity", 0.2)
+    //  // Reduce opacity of all rect to 0.2
+    //  d3.selectAll(".myRect").style("opacity", 0.2)
 
-      // Highlight all rects of this subgroup with opacity 1. It is possible to select them since they have a specific class = their name.
-      d3.selectAll("."+subGroupName).style("opacity",1)
-    })
-    .on("mouseleave", function (event,d) { // When user do not hover anymore
+    //  // Highlight all rects of this subgroup with opacity 1. It is possible to select them since they have a specific class = their name.
+    //  d3.selectAll("."+subGroupName).style("opacity",1)
+    //})
+    //.on("mouseleave", function (event,d) { // When user do not hover anymore
 
-      // Back to normal opacity: 1
-      d3.selectAll(".myRect")
-        .style("opacity",1)
-    })
+    //  // Back to normal opacity: 1
+    //  d3.selectAll(".myRect")
+    //    .style("opacity",1)
+    //})
     // Legends
     
     // NL Legend
