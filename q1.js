@@ -1,22 +1,35 @@
 
 function updateLinesChart(year) {
   console.log("should update lineChart with year ", year)
-  updateYear(year) //updates year for map
+  updateTextYear(year) //updates year for map
 }
 
 
-function updateYear(year) {
+function updateTextYear(year) {
   d3.select("#year")
     .attr("value", year)
   var evt = new CustomEvent('change');
   document.getElementById('year').dispatchEvent(evt);
+}
+
+function updateYear(year) {
 
   //updateToolBoxContent(year)
-  //showLine()
-  //showCircles()
+  showLine()
+  showCircles()
   //updateToolBoxLineCircles(null, null, year)
 }
 
+function showLine() {
+  //console.log("showing line")
+  d3.select(".mouse-line")
+    .style("opacity", "1");
+}
+
+function showCircles() {
+  d3.selectAll(".mouse-per-line circle")
+    .style("opacity", "1");
+}
 
 d3.csv("totals_sorted.csv").then(
 
@@ -257,11 +270,11 @@ d3.csv("totals_sorted.csv").then(
         })
     }
 
-    function showLine(selectedLine) {
-      console.log("In showline")
-      selectedLine
-        .attr("stroke-width", 3)
-    }
+    //function showLine(selectedLine) {
+    //  console.log("In showline")
+    //  selectedLine
+    //    .attr("stroke-width", 3)
+    //}
 
     function showNLSalaries(){
       d3.selectAll(".myRect").style("opacity", 0.2)
@@ -388,7 +401,7 @@ d3.csv("totals_sorted.csv").then(
         showText()
       })
       .on('mousemove', function (event, d) { // update toolbox content, line, circles and text when mouse moves
-        updateToolBoxLineCircles(event, d)
+        updateToolBoxLineCircles(event, d, null)
       }) 
 
     function hideLineCirclesText() {
@@ -403,16 +416,16 @@ d3.csv("totals_sorted.csv").then(
         .style("display", "none")
     }
 
-    function showLine() {
-      //console.log("showing line")
-      d3.select(".mouse-line")
-        .style("opacity", "1");
-    }
+    //function showLine() {
+    //  //console.log("showing line")
+    //  d3.select(".mouse-line")
+    //    .style("opacity", "1");
+    //}
 
-    function showCircles() {
-      d3.selectAll(".mouse-per-line circle")
-        .style("opacity", "1");
-    }
+    //function showCircles() {
+    //  d3.selectAll(".mouse-per-line circle")
+    //    .style("opacity", "1");
+    //}
 
     function showText() {
       d3.selectAll("#toolbox")
@@ -441,7 +454,7 @@ d3.csv("totals_sorted.csv").then(
             }
 
             updateColumn(year) 
-            updateYear(year) //updates year for map
+            updateTextYear(year) //updates year for map //loop
 
             var bisect = d3.bisector(function (d) { 
               return d.Year; 
