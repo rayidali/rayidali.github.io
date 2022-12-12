@@ -1,46 +1,33 @@
-
 function updateLinesChart(year) {
   console.log("should update lineChart with year ", year)
   updateTextYear(year) //updates year for map
-<<<<<<< HEAD
   updateChart(year)
-=======
->>>>>>> d9d72bf02348567164a4b815f6978c08c020d0ea
 }
 
-
 function updateTextYear(year) {
-<<<<<<< HEAD
   //update <b> with year
   var bTag = d3.select("#currentYear")
   console.log("bTag", bTag)
   bTag
     .text(year)
 
-=======
->>>>>>> d9d72bf02348567164a4b815f6978c08c020d0ea
   d3.select("#year")
     .attr("value", year)
   var evt = new CustomEvent('change');
   document.getElementById('year').dispatchEvent(evt);
 }
 
-<<<<<<< HEAD
 function updateChart(year) {
   console.log("in updateChart(year)")
-  
-=======
-function updateYear(year) {
 
->>>>>>> d9d72bf02348567164a4b815f6978c08c020d0ea
+}
+  
+function updateYear(year) {
   //updateToolBoxContent(year)
   showLine()
   showCircles()
   //updateToolBoxLineCircles(null, null, year)
-<<<<<<< HEAD
   updateCircles(year)
-=======
->>>>>>> d9d72bf02348567164a4b815f6978c08c020d0ea
 }
 
 function showLine() {
@@ -54,7 +41,6 @@ function showCircles() {
     .style("opacity", "1");
 }
 
-<<<<<<< HEAD
 var myData;
 var dates;
 var xScale;
@@ -191,8 +177,6 @@ function updateCircles(year){
 //  })
 //}
 
-=======
->>>>>>> d9d72bf02348567164a4b815f6978c08c020d0ea
 d3.csv("totals_sorted.csv").then(
 
   function(dataset) { // dataset is an object contained in file
@@ -771,7 +755,6 @@ d3.csv("totals_sorted.csv").then(
         .append("div")
         .style("color", ALColor)
         .text(ALRunsText)
-
     }
   }
 )
