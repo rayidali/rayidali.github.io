@@ -1,7 +1,186 @@
 
+function updateLinesChart(year) {
+  console.log("should update lineChart with year ", year)
+  updateTextYear(year) //updates year for map
+  updateChart(year)
+}
+
+
+function updateTextYear(year) {
+  //update <b> with year
+  var bTag = d3.select("#currentYear")
+  console.log("bTag", bTag)
+  bTag
+    .text(year)
+
+  d3.select("#year")
+    .attr("value", year)
+  var evt = new CustomEvent('change');
+  document.getElementById('year').dispatchEvent(evt);
+}
+
+function updateChart(year) {
+  console.log("in updateChart(year)")
+  
+  //updateToolBoxContent(year)
+  showLine()
+  showCircles()
+  //updateToolBoxLineCircles(null, null, year)
+  updateCircles(year)
+}
+
+function showLine() {
+  //console.log("showing line")
+  d3.select(".mouse-line")
+    .style("opacity", "1");
+}
+
+function showCircles() {
+  d3.selectAll(".mouse-per-line circle")
+    .style("opacity", "1");
+}
+
+var myData;
+var dates;
+var xScale;
+var lines;
+
+var parseDate = d3.timeParse("%Y")
+
+function updateCircles(year){
+  //console.log("calling updateCircles with year = ", year)
+
+  var bisect = d3.bisector(function (d) { 
+    return d.Year; 
+  }).left // retrieve row index of date on parsed csv
+
+  //var bisectDates = d3.bisector(function (d) { 
+  //  //console.log("in bisector func d", d)
+  //  //console.log("in bisector func typeof(d)", typeof(d))
+  //  //console.log("in bisector func d.date", d.date)
+  //  //console.log("in bisector func d.date.getFullYear", d.date.getFullYear())
+  //  return d.date.getFullYear(); 
+  //}).left // retrieve row index of date on parsed csv
+
+  //var index_date = bisectDates(dates, dateFromYear.getFullYear()); //HERERERERERERERERE
+  //var date_elem = dates[index_date]
+
+  var index = bisect(myData, year.toString()); //HERERERERERERERERE
+  var cx = xScale(dates[index].date)
+
+  lines.forEach(function (line) {
+  if (parseInt(year) < 1900) {
+    return
+  }
+    //var id_dates = bisect(dates, year.toString()); //HERERERERERERERERE
+
+    //var bisectDates = d3.bisector(function (d) { 
+    //  //console.log("in bisector func d", d)
+    //  //console.log("in bisector func typeof(d)", typeof(d))
+    //  //console.log("in bisector func d.date", d.date)
+    //  //console.log("in bisector func d.date.getFullYear", d.date.getFullYear())
+    //  return d.date.getFullYear(); 
+    //}).left // retrieve row index of date on parsed csv
+
+    var element = myData[index]
+
+    var accessor = line.accessor
+
+    var yLineScale = d3.scaleLinear()
+      .domain([0, line.max])
+      .range(line.range)
+
+    //var dateFromYear = parseDate(year.toString())
+    //console.log("dateFromYear", dateFromYear)
+
+    //var id_dates = bisect(dates, year.toString()); //HERERERERERERERERE
+    //var index_date = bisectDates(dates, dateFromYear.getFullYear()); //HERERERERERERERERE
+    //var date_elem = dates[index_date]
+
+    var cy = yLineScale(accessor(element))
+
+    d3.select("#"+line.id + "Circle")
+      .attr("cx", cx)
+      .attr("cy", cy)
+      .style("stroke", line.color)
+      .on("click", function() {
+        console.log("DETECTED CLICK ON CIRCLE")
+      })
+  })
+}
+
+//function updateCircles(year){
+//  //console.log("calling updateCircles with year = ", year)
+//  console.log("lines", lines)
+//  lines.forEach(function (line) {
+//  if (parseInt(year) < 1900) {
+//    return
+//  }
+//    console.log("in forEach: year", year)
+//
+//    var bisectDates = d3.bisector(function (d) { 
+//      //console.log("in bisector func d", d)
+//      //console.log("in bisector func typeof(d)", typeof(d))
+//      //console.log("in bisector func d.date", d.date)
+//      //console.log("in bisector func d.date.getFullYear", d.date.getFullYear())
+//      return d.date.getFullYear(); 
+//    }).left // retrieve row index of date on parsed csv
+//
+//    var bisectData = d3.bisector(function (d) { 
+//    //console.log("check d", d)
+//      //console.log("in bisector data func d", d)
+//      //console.log("in bisector data func d.Year", d.Year)
+//      return d.Year; 
+//    }).left // retrieve row index of date on parsed csv
+//
+//    //console.log("dates", dates)
+//    //console.log("myData", myData)
+//    //console.log("typeof(year)", typeof(year))
+//    //console.log("year.toString()", year.toString())
+//    //console.log("dates", dates)
+//
+//    var dateFromYear = parseDate(year.toString())
+//    //console.log("dateFromYear", dateFromYear)
+//
+//    //var id_dates = bisect(dates, year.toString()); //HERERERERERERERERE
+//    var id_dates = bisectDates(dates, dateFromYear.getFullYear()); //HERERERERERERERERE
+//    console.log("id_dates", id_dates)
+//    var id_elems = bisectData(myData, year.toString()); //HERERERERERERERERE
+//    console.log("id_elems", id_dates)
+//
+//    var element = myData[id_elems]
+//
+//    var accessor = line.accessor
+//
+//    var yLineScale = d3.scaleLinear()
+//      .domain([0, line.max])
+//      .range(line.range)
+//
+//    console.log("xScale", xScale)
+//    console.log("id_dates", id_dates)
+//    console.log("dates[id_dates]", dates[id_dates])
+//    var cy = yLineScale(accessor(element))
+//    var cx = xScale(dates[id_dates].date)
+//
+//
+//    console.log("cx", cx)
+//    console.log("cy", cy)
+//
+//    d3.select("#"+line.id + "Circle")
+//      .attr("cx", cx)
+//      .attr("cy", cy)
+//      .style("stroke", line.color)
+//      .on("click", function() {
+//        console.log("DETECTED CLICK ON CIRCLE")
+//      })
+//  })
+//}
+
 d3.csv("totals_sorted.csv").then(
 
   function(dataset) { // dataset is an object contained in file
+
+    myData = dataset
 
     // Scatter plot dimensions
     var dimensions = {
@@ -21,17 +200,16 @@ d3.csv("totals_sorted.csv").then(
     dimensions.boundedWidth = dimensions.width - dimensions.margin.right - dimensions.margin.left
     dimensions.boundedHeight = dimensions.height - dimensions.margin.top - dimensions.margin.bottom
 
-    console.log("dataset", dataset)
+    //console.log("dataset", dataset)
 
-    var parseDate = d3.timeParse("%Y")
 
-    var dates = dataset.map((d, i) => {
+    dates = dataset.map((d, i) => {
       return {
         date: parseDate(d.Year),
       }
     })
 
-    console.log("dates", dates)
+    //console.log("dates", dates)
 
     var xNLAccessor = d => +d.NL_hits
     var xALAccessor = d => +d.AL_hits
@@ -55,7 +233,7 @@ d3.csv("totals_sorted.csv").then(
     var xDomain = d3.extent(dates, d => d.date)
     //console.log("xDomain", xDomain)
 
-    var xScale = d3.scaleTime()
+    xScale = d3.scaleTime()
       .domain(xDomain)
       //.domain(d3.extent(date, d => d.date))
       .range([0,dimensions.boundedWidth])//.padding(0.2)
@@ -90,7 +268,7 @@ d3.csv("totals_sorted.csv").then(
     var maxHits = Math.max(d3.max(d3.map(dataset, NLHitsAccessor)), d3.max(d3.map(dataset, ALHitsAccessor)))
     //drawGraph(NLHitsAccessor, ALHitsAccessor, maxHits, yHitsRange, ".line2", "Hits")
 
-    var lines = [
+    lines = [
       { id: "nlRuns",
         accessor:NLRunsAccessor,
         max: maxRuns,
@@ -238,11 +416,11 @@ d3.csv("totals_sorted.csv").then(
         })
     }
 
-    function showLine(selectedLine) {
-      console.log("In showline")
-      selectedLine
-        .attr("stroke-width", 3)
-    }
+    //function showLine(selectedLine) {
+    //  console.log("In showline")
+    //  selectedLine
+    //    .attr("stroke-width", 3)
+    //}
 
     function showNLSalaries(){
       d3.selectAll(".myRect").style("opacity", 0.2)
@@ -369,7 +547,7 @@ d3.csv("totals_sorted.csv").then(
         showText()
       })
       .on('mousemove', function (event, d) { // update toolbox content, line, circles and text when mouse moves
-        updateToolBoxLineCircles(event, d)
+        updateToolBoxLineCircles(event, d, null)
       }) 
 
     function hideLineCirclesText() {
@@ -384,24 +562,24 @@ d3.csv("totals_sorted.csv").then(
         .style("display", "none")
     }
 
-    function showLine() {
-      //console.log("showing line")
-      d3.select(".mouse-line")
-        .style("opacity", "1");
-    }
+    //function showLine() {
+    //  //console.log("showing line")
+    //  d3.select(".mouse-line")
+    //    .style("opacity", "1");
+    //}
 
-    function showCircles() {
-      d3.selectAll(".mouse-per-line circle")
-        .style("opacity", "1");
-    }
+    //function showCircles() {
+    //  d3.selectAll(".mouse-per-line circle")
+    //    .style("opacity", "1");
+    //}
 
     function showText() {
       d3.selectAll("#toolbox")
         .style("display", "block")
     }
-//
+
     function updateToolBoxLineCircles(event, d, year) {
-        //console.log("update toolbox content circle", event)
+        //console.log("in update toolbo content circle", event)
         if (event == null) {
           var mouse = [0, 0]
         } else {
@@ -421,20 +599,18 @@ d3.csv("totals_sorted.csv").then(
               //console.log("year==", year)
             }
 
+            console.log("year==", year)
             updateColumn(year) 
-
-            d3.select("#year")
-              .attr("value", year)
-            var evt = new CustomEvent('change');
-            document.getElementById('year').dispatchEvent(evt);
+            updateTextYear(year) //updates year for map //loop
 
             var bisect = d3.bisector(function (d) { 
+            //console.log("check d", d)
               return d.Year; 
             }).left // retrieve row index of date on parsed csv
 
             var idx = bisect(dataset, year.toString());
 
-
+            console.log("check idx", idx)
             var yScale = d3.scaleLinear()
               .domain([0, dimensions.boundedHeight])
               .range([dimensions.boundedHeight,0])
@@ -444,18 +620,18 @@ d3.csv("totals_sorted.csv").then(
 
                 var data = "M" + xScale(dates[idx].date) + "," + (dimensions.boundedHeight);
                 data += " " + xScale(dates[idx].date) + "," + 0;
-                //console.log("data", data)
+                console.log("data", data)
                 return data;
               });
             return "translate(" + xScale(dates[idx].date) + ",0)"
           });
 
-        updateCircles(year)
+        updateCirclesLines(year)
 
         updateToolBoxContent(year)
     }
 
-    function updateCircles(year){
+    function updateCirclesLines(year){
       //console.log("calling updateCircles with year = ", year)
       lines.forEach(function (line) {
       if (parseInt(year) < 1900) {
@@ -481,14 +657,13 @@ d3.csv("totals_sorted.csv").then(
         var cy = yLineScale(accessor(element))
 
         d3.select("#"+line.id + "Circle")
-          .attr("cx", cx)
+          //.attr("cx", cx)
           .attr("cy", cy)
           .style("stroke", line.color)
           .on("click", function() {
             console.log("DETECTED CLICK ON CIRCLE")
           })
       })
-
     }
 
     function updateToolBoxContent(year) {
