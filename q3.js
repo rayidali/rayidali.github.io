@@ -140,7 +140,7 @@ d3.csv("df8.csv").then( function(data) {
   // Add Y axis
   yScale = d3.scaleLinear()
   // .domain([0, 60])
-    .domain([0, 10000000])
+    .domain([0, 12000000])
     .range([ height, 0 ]);
   svg.append("g")
     .call(d3.axisLeft(yScale));
