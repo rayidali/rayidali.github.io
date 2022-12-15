@@ -83,17 +83,33 @@ h1 {
   flex-direction: column;
   flex-wrap: wrap;
   width: 100%;
-  height: 90vh;/* height is needed to force wrapping */
+  height: 90vh/* height is needed to force wrapping */
 }
-.q2,
 .q3 {
   order: -1;/* bring them in front of other(s) */
   height: 50%;/* share the height (if three of them, then put it down to 33.33% to share evenly height avalaible) */
   width: 50%;
   z-index: 10;
 }
+.q2{
+  order: -1;/* bring them in front of other(s) */
+  height: 50%;/* share the height (if three of them, then put it down to 33.33% to share evenly height avalaible) */
+  width: 50%;
+  z-index: 10;
+  display: flex;
+}
+
+#map{
+  flex: 1 1 90em;
+}
+
+#legend{
+  width: 3%;
+  flex: 1 1 10em;
+}
 .q1 {
-  flex: 1;/* equals height:100%; it will fill entire height */
+  flex: 1;
+  height: 80%;/* equals height:100%; it will fill entire height */
   width: 50%;/* here your fixed width */
   
   /* z-index: -10 */
@@ -109,3 +125,37 @@ h1 {
   background: burlywood;
 }
 
+#ranks{
+  width: 20%;
+  height: 10%;
+  float: left;
+}
+
+/* .title{
+  /* text-align: center; */
+  /* font-size: 35px;
+  font-weight: bold;
+  padding-bottom: 5px;
+  
+}  */
+/* #currentYear{
+  /* text-align: center; */
+  
+  /* font-size: 35px;
+  font-weight: bold;
+  padding-bottom: 5px;
+}  */
+.title{
+  float: left;
+  font-size: 35px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #8E4C6A;
+  color: white;
+}
+#currentYear{
+  float: right;
+  font-size: 35px;
+  margin-right: 50%;
+  border: 1px solid black;
+}

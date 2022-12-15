@@ -1,3 +1,4 @@
+
 d3.csv("People.csv").then(
     function(dataset){
     d3.json("map.json").then(function(mapdata){    
@@ -78,13 +79,13 @@ d3.csv("People.csv").then(
     function visualize(){
         var box = document.getElementsByClassName("q2")
         
-        colors = d3.scaleSequential().domain([0, 10]).range(["white","purple"])
+        colors = d3.scaleSequential().domain([0, 10]).range(["white","#8E4C6A"])
         
         var dimensions = ({
             width: box[0].clientWidth, 
             height: box[0].clientHeight,
             margin: {
-                top: -40,
+                top: 0,
                 bottom: 0,
                 right: 0,
                 left: 0
@@ -94,18 +95,60 @@ d3.csv("People.csv").then(
         console.log("width", box[0].clientWidth, "height", box[0].clientHeight)
         var svg = d3.select("#map").attr("width", dimensions.width - dimensions.margin.right - dimensions.margin.left)
                                     .attr("height", dimensions.height - dimensions.margin.top - dimensions.margin.bottom)
+        
+        var legend_svg = d3.select("#legend").attr("width",(3*box[0].clientWidth)/4)
+        var defs = legend_svg.append('defs');
+        var linearGradient = defs.append('linearGradient')
+		                        .attr('id', 'linear-gradient');
+
+        linearGradient
+            .attr("x1", "0%")
+            .attr("y1", "0%")
+            .attr("x2", "0%")
+            .attr("y2", "100%");
+        
+        //Set the color for the start (0%)
+        linearGradient.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", "white"); //light blue
+
+        //Set the color for the end (100%)
+        linearGradient.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", "#8E4C6A"); //dark blue
+
+        // draw the rectangle and fill with gradient
+        legend_svg.append("rect")
+            .attr("x", 10)
+            .attr("y",  80)
+            .attr("width", 20)
+            .attr("height", 200)
+            .attr("z-index", 100)
+            .style("fill", "url(#linear-gradient)");
+        
+        legend_svg.append("text")
+                .attr("x", 0)
+                .attr("y", 90)
+                .text("0")
+
+        legend_svg.append("text")
+        .attr("x", 0)
+        .attr("y", 275)
+        .text("225")
 
         var projection = d3.geoEqualEarth() //geoMercator() geoEqualEarth()
                                     .fitWidth(dimensions.width, {type: "Sphere"})
-                                    .scale(140)
+                                    .scale(80)
                                     .center([0,0])
                                     // .rotate([0, -30])
                                     // .clipAngle(90)
+        var ranks = document.getElementById("ranks")
         const initialScale = projection.scale();
         var pathGenerator = d3.geoPath(projection)
         var earth = svg.append("path")
                         .attr("d", pathGenerator({type: "Sphere"}))
-                        .attr("fill", "#7393B3")
+                        .attr("fill", "#00000000")
+                        //#7393B3 #ddddff #00000000
         
         var graticule = svg.append("path")
                             .attr("d", pathGenerator(d3.geoGraticule10()))
@@ -166,12 +209,13 @@ d3.csv("People.csv").then(
         .attr("class", "country")
         .attr("d", d => pathGenerator(d))
         .style("fill", function(d, i){
-
             if(d.properties.ADMIN=="United States of America"){
-                return "#702963"
+                return "#8E4C6A"
             }
             count = color_countries[slider.value][d.properties.ADMIN]
-            
+            if(count>10){
+                return "#8E4C6A"
+            }
             if(count == undefined){
                 count = color_countries[slider.value][d.properties.ABBREV]
             }
