@@ -187,8 +187,8 @@ d3.csv("totals_sorted.csv").then(
     console.log("q1", "height", box[0].clientHeight, "width", box[0].clientWidth)
     // Scatter plot dimensions
     var dimensions = {
-      width: box[0].clientWidth,
-      height: 500,
+      width: box[0].clientWidth/1.15,
+      height: 550,
       margin: {
         top: 15,
         bottom: 50,
