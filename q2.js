@@ -103,9 +103,9 @@ d3.csv("People.csv").then(
 
         linearGradient
             .attr("x1", "0%")
-            .attr("y1", "0%")
+            .attr("y1", "100%")
             .attr("x2", "0%")
-            .attr("y2", "100%");
+            .attr("y2", "0%");
         
         //Set the color for the start (0%)
         linearGradient.append("stop")
@@ -129,12 +129,12 @@ d3.csv("People.csv").then(
         legend_svg.append("text")
                 .attr("x", 0)
                 .attr("y", 90)
-                .text("0")
+                .text("225")
 
         legend_svg.append("text")
         .attr("x", 0)
         .attr("y", 275)
-        .text("225")
+        .text("0")
 
         var projection = d3.geoEqualEarth() //geoMercator() geoEqualEarth()
                                     .fitWidth(dimensions.width, {type: "Sphere"})
