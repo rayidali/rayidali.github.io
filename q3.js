@@ -12,7 +12,13 @@ var svg;
 
   function updateColumn(year) {
     if (year >= 1985 && year <= 2016) {
+      //console.log("year is in range", year)
+      //console.log("svg", svg) this does not work
+      //d3.selectAll("myRect AL")
+      //  .style("opacity", 0.2)
 
+      //d3.selectAll("myRect NL")
+      //  .style("opacity", 0.2)
 
       removeHighlight()
 
@@ -168,29 +174,6 @@ d3.csv("df8.csv").then( function(data) {
     .style("border-radius", "5px")
     .style("padding", "10px")
 
-
-  //   tooltip.append("rect")
-  // .attr("width", 30)
-  // .attr("height", 20)
-
-  // // Three function that change the tooltip when user hover / move / leave a cell
-  // var mouseover = function(d) {
-  //   var subgroupName = d3.select(this.parentNode).datum().key;
-  //   var subgroupValue = d.data[subgroupName];
-  //   tooltip
-  //       .html("subgroup: " + subgroupName + "<br>" + "Value: " + subgroupValue)
-  //       .style("opacity", 1)
-  // }
-  // var mousemove = function(d) {
-  //   tooltip
-  //     .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
-  //     .style("top", (d3.mouse(this)[1]) + "px")
-  // }
-  // var mouseleave = function(d) {
-  //   tooltip
-  //     .style("opacity", 0)
-  // }
-
   // // Three function that change the tooltip when user hover / move / leave a cell
   // const mouseover = function(event, d) {
   //   const subgroupName = d3.select(this.parentNode).datum().key;
@@ -240,53 +223,19 @@ d3.csv("df8.csv").then( function(data) {
     .attr("height", d => yScale(d[0]) - yScale(d[1]))
     .attr("width",xScale.bandwidth())
     .style("opacity", 0.2)
-    // .on("mouseover", mouseover)
-    //   .on("mousemove", mousemove)
-    //   .on("mouseleave", mouseleave)
     .on("click", function(event, d) {
       console.log("detected click")
       console.log("d", d)
       console.log("d.data.yearID", d.data.yearID)
       var year = d.data.yearID
       highlightColumn(year)
-
-      // var subgroupName = d3.select(this.parentNode).datum().key;
-      // var subgroupValue = d.data[subgroupName];
-      // tooltip
-      //     .html("subgroup: " + subgroupName + "<br>" + "Value: " + subgroupValue)
-      //     .style("opacity", 0.3)
       })
-    .on("mouseover", function (event,d) { // What happens when user hover a bar
-      var subgroupName = d3.select(this.parentNode).datum().key;
-      var subgroupValue = d.data[subgroupName];
+    //.on("mouseover", function (event,d) { // What happens when user hover a bar
 
-      d3.selectAll(".myRect").style("opacity", 0.2)
-      // Highlight all rects of this subgroup with opacity 0.8. It is possible to select them since they have a specific class = their name.
-      d3.selectAll("."+subgroupName)
-        .style("opacity", 1)
-        
+    //  // what subgroup are we hovering?
+    //  const subGroupName = d3.select(this.parentNode).datum().key
+    //  console.log("subGroupName", subGroupName)
 
-      tooltip
-          .html("League: " + subgroupName + "<br>" + "Salary: " + d3.format(",.0f")(subgroupValue))
-          .style("opacity", 1)
-          
-    })
-    .on("mousemove", function (event,d) { // What happens when user hover a bar
-
-      tooltip
-      .style("left", (d3.mouse(this)[0]+90) + "px") // It is important to put the +90: other wise the tooltip is exactly where the point is an it creates a weird effect
-      .style("top", (d3.mouse(this)[1]) + "px")
-    })
-    .on("mouseleave", function (event,d) { // What happens when user hover a bar
-
-      // Back to normal opacity: 0.8
-    d3.selectAll(".myRect")
-    .style("opacity",0.8)
-
-      tooltip
-      .style("opacity", 0)
-    })
-    
     //  // Reduce opacity of all rect to 0.2
     //  d3.selectAll(".myRect").style("opacity", 0.2)
 
