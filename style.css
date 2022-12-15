@@ -150,12 +150,15 @@ h1 {
   font-size: 35px;
   border: 1px solid black;
   border-radius: 5px;
+  padding: 10px;
   background-color: #8E4C6A;
   color: white;
 }
 #currentYear{
   float: right;
   font-size: 35px;
+  padding: 10px;
+  background-color: #53AC75;
   margin-right: 50%;
   border: 1px solid black;
 }
