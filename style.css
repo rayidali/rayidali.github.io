@@ -9,7 +9,11 @@ html {
 
   overflow: hidden;
 }
+/* .fa-youtube{
+  width: 10px;
+  height: 20px;
 
+} */
 #tooltip{
   background-color: aliceblue;
   border-radius: 5px;
@@ -145,14 +149,21 @@ h1 {
   font-weight: bold;
   padding-bottom: 5px;
 }  */
-.title{
+.heading{
+  display: flex;
+  justify-content: space-between;
+}
+/* .title{
   float: left;
   font-size: 35px;
   border: 1px solid black;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
   background-color: #8E4C6A;
   color: white;
+}
+.fa{
+  float: center;
 }
 #currentYear{
   float: right;
@@ -161,4 +172,28 @@ h1 {
   background-color: #53AC75;
   margin-right: 50%;
   border: 1px solid black;
+} */
+
+.title{
+  display: flex;
+  justify-content: left;
+  font-size: 35px;
+  border: 1px solid black;
+  border-radius: 5px;
+  /* padding: 5px; */
+  background-color: #8E4C6A;
+  color: white;
+}
+
+#currentYear{
+  font-size: 35px;
+  padding: 10px;
+  background-color: #53AC75;
+  /* margin-right: 50%; */
+  border: 1px solid black;
+}
+
+.icon{
+  width: 50px;
+  height: 50px;
 }

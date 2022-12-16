@@ -50,7 +50,9 @@ d3.csv("People.csv").then(
             maxValue = d3.max(debutYears)
 
             for (var i = maxValue; i >= minValue; i--) {
-                
+                //maintain an object color_countries to store the number 
+                //of players in each year according to country
+                //add year in the object
                 Object.assign(color_countries, {[i]: {}})
 
                 for( var j = 0; j <= dataset.length; j++){
@@ -58,10 +60,12 @@ d3.csv("People.csv").then(
                     if(dataset[j] != undefined){
 
                         if( dataset[j].debut == i){
-
+                            
                             if(color_countries[i][dataset[j].birthCountry] == undefined){
                                 Object.assign(color_countries[i], {[dataset[j].birthCountry]: parseInt(0)})
                             } else if (color_countries[i][dataset[j].birthCountry] != undefined){
+
+                                //add count
                                 color_countries[i][dataset[j].birthCountry] += 1
                             } 
                         
