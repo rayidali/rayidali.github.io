@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rayid Ali's Resume</title>
+    <style>
+
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* ensures the navbar appears on top of other content */
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.7); /* gives the background color some transparency */
+            border-bottom: 0.5px solid black; /* adds a black border to the bottom */
+        }
+
+        /* Add some padding to the body equal to the height of the navbar to prevent content being hidden behind it */
+        body {
+            padding-top: 60px; /* adjust this value to match the height of your navbar */
+            font-family: 'Helvetica', sans-serif; /* This will set Helvetica as the default font, and if it's not available, the browser will default to a generic sans-serif font */
+
+        }
+        .nav a {
+            float: right;
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 30px;
+            text-decoration: none;
+        }
+        .content {
+            display: flex;
+            padding: 50px;
+        }
+        .content .text {
+            flex: 1;
+        }
+        .content .text h1 {
+            font-size: 2em;
+            margin-bottom: 0;
+        }
+        .content .text .caption {
+            
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 5px;
+        }
+        .content .text .caption2 {
+            /* text-align: center; */
+            font-size: 0.85em;
+            color: #080808;
+            margin-top: 2px;
+        }
+        .content img {
+            max-width: 300px;
+            max-height: 200px;
+            margin-left: 20px;
+            margin-top: 85px;
+            padding: 5px;
+            border-radius: 15%;
+        }
+        .content2 {
+            display: flex;
+            padding-left: 50px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+        }
+        .content2 .text {
+            flex: 1;
+        }
+        .content2 .text h2 {
+            font-size: 2em;
+            margin-bottom: 0;
+        }
+        .contact-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 5px;
+        }
+        .project {
+            width: 30%;
+            margin: 1.66%;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .project .text {
+            flex: 1;
+        }
+        .project .text h2 {
+            font-size: 2em;
+            margin-bottom: 0;
+        }
+        .project img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            height: 200px;
+        }
+        .project .title {
+            padding: 20px;
+            text-align: center;
+            background: #e9e9e9;
+        }
+        .projects {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px 50px;
+        }
+        .projects h2 {
+            padding: 50px;
+        }
+        .contact {
+            display: flex;
+            justify-content: center;
+            padding: 50px;
+        }
+        .contact a {
+            color: black;
+            text-align: center;
+            padding: 14px 30px;
+            text-decoration: none;
+
+        
+        }
+        .contact2 {
+            display: flex;
+            justify-content: center;
+            padding:1px;
+            padding-top: 1px;
+        }
+        .contact2 h2 {
+            text-align: center;
+            padding-bottom: 10px;
+            padding-bottom: 1px;
+        }
+        .skills-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px; /* adjust this value to control the maximum width of the skills grid */
+        }
+
+        .skill {
+            margin: 0;
+        }
+
+        .skill .name {
+            font-weight: bold;
+        }
+
+        .skill .bar {
+            height: 20px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .skill .bar .fill {
+            height: 100%;
+            background: #5cb85c; /* green */
+            width: 0;
+        }
+
+        .contact h2 {
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        
+        .fas, .fab {
+            font-size: 2em;
+        
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+    <div class="nav">
+        <a href="https://drive.google.com/file/d/1hMDuPHg2Ubauws2pb-kdtJyzhJN1WS4f/view?usp=sharing">resume</a>
+        <!-- <a href="#projects">Projects</a> -->
+        <a href="snake.html">play a game while ur here</a>
+        <a href="#home">home</a>
+    </div>
+
+    <div class="content">
+        <div class="text">
+            <h1>Rayid Ali</h1>
+            
+            <p class="caption">Machine Learning, AI & Data Science Enthusiast &nbsp;&middot;&nbsp; 29631, Clemson, SC &nbsp;&middot;&nbsp; rayidam [at] g.clemson [dot] edu</p>
+            <p>I am a Master's student at Clemson University, where I am specializing in Machine Learning, AI, and Data Science. This choice of specialization isn't just a coincidence; it's an informed decision driven by my deep-seated fascination with these cutting-edge technologies. I'm captivated by their practical applications and how they can bring transformational changes in various fields - from healthcare and education to entertainment and business. This fascination has instigated a burning passion within me, propelling me to develop a range of innovative projects that align with my academic pursuits.</p>
+
+<p>My academic journey and personal ventures have offered me ample opportunities to apply my theoretical knowledge in real-world scenarios. One of my notable experiences includes creating predictive models for stock market trends. This project was a thrilling journey that taught me the nuances of market dynamics, the importance of data, and the effectiveness of predictive analytics. In another project, I built an Amazon product recommendation engine that showcased the power of AI in enhancing customer experience. These projects have not just enhanced my technical skill set but also enriched my perspective on the transformative potential of Machine Learning and AI.</p>
+
+<p>As someone who thrives on challenges, I am constantly on the lookout for new opportunities that will push the boundaries of my knowledge and skills. I am particularly eager to delve deeper into this rapidly evolving field, eager to explore new ideas and concepts. My ultimate aim is to use my skills and knowledge in Machine Learning, AI, and Data Science to drive technological advancements and foster innovation in the industry. I envision a future where these technologies are no longer novel, but a norm that can create a more efficient, accessible, and inclusive world.</p>
+
+        </div>
+        <img src="photo.jpg" alt="Rayid Ali">
+    </div>
+    
+    <div class="contact2">
+        <h2>recent projects</h2>
+    </div>
+
+    <div class="projects">
+        <a href="https://github.com/rayidali/Amazon-Recommendation-Engine-using-Complex-Networks" class="project">
+            <img src="project1.jpg" alt="Project 1">
+            <div class="title">Amazon Recommendation Engine Using Complex Networks</div>
+        </a>
+        <a class="project">
+            <img src="project2.jpg" alt="Project 2">
+            <div class="title">Predicting stock market trends using graph features and sentiment analysis of stock market news</div>
+        </a>
+        <a class="project">
+            <img src="project3.jpg" alt="Project 3">
+            <div class="title">Finding Similar Songs Using Generative Adversarial Learning</div>
+        </a>
+    </div>
+
+    <div class="contact2">
+        <h2>skills</h2>
+    </div>
+
+    <div class="content2">
+        <div class="skills-container">
+            <div class="skills">
+                <div class="skill">
+                    <div class="name">Python</div>
+                    <div class="bar"><div class="fill" style="width: 98%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">R</div>
+                    <div class="bar"><div class="fill" style="width: 95%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">C/C++</div>
+                    <div class="bar"><div class="fill" style="width: 95%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">Java</div>
+                    <div class="bar"><div class="fill" style="width: 89%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">GoLang</div>
+                    <div class="bar"><div class="fill" style="width: 92%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">SQL</div>
+                    <div class="bar"><div class="fill" style="width: 89%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">Javascript</div>
+                    <div class="bar"><div class="fill" style="width: 92%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">Data Science</div>
+                    <div class="bar"><div class="fill" style="width: 98%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">Machine Learning</div>
+                    <div class="bar"><div class="fill" style="width: 98%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">Artificial Intelligence</div>
+                    <div class="bar"><div class="fill" style="width: 98%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">Deep Learning</div>
+                    <div class="bar"><div class="fill" style="width: 97%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">Computer Vision</div>
+                    <div class="bar"><div class="fill" style="width: 93%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">Human-Centered Computing</div>
+                    <div class="bar"><div class="fill" style="width: 95%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">Social Computing</div>
+                    <div class="bar"><div class="fill" style="width: 94%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">Data Analytics</div>
+                    <div class="bar"><div class="fill" style="width: 93%;"></div></div>
+                </div>
+                <div class="skill">
+                    <div class="name">Data Visualization</div>
+                    <div class="bar"><div class="fill" style="width: 98%;"></div></div>
+                </div>
+                <!-- ...similar divs for other skills... -->
+            </div>
+        </div>
+    </div>
+
+    <div class="contact2">
+        <h2>contact</h2>
+    </div>
+    
+    <div class="contact">
+        
+        <a href="mailto:rayidam@g.clemson.edu"><i class="fas fa-envelope"></i></a>
+        <a href="https://www.linkedin.com/in/rayidali/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/rayidali" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.instagram.com/justrayid/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com/justrayid" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+
+</body>
+</html>
+
