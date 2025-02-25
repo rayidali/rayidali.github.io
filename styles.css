@@ -1,0 +1,487 @@
+/* -----------------------
+   GLOBAL STYLES
+------------------------ */
+body {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    font-family: "Chivo", sans-serif;
+    transition: 0.6s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+  }
+  
+  ::selection {
+    color: #ffd600;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  /* Utility classes */
+  .unselectable {
+    user-select: none;
+  }
+  .spacer {
+    height: 24px;
+  }
+  .link {
+    text-decoration: underline;
+  }
+  .linkWithArrow::after {
+    content: " →";
+    transition: 0.2s ease;
+  }
+  .linkWithArrow:hover::after {
+    padding-left: 16px;
+  }
+  h1, h2, h4 {
+    margin: 0;
+    font-weight: normal;
+  }
+  p {
+    margin: 0;
+    line-height: 1.5em;
+  }
+  .mobileOnly {
+    display: none;
+  }
+  
+  /* Row/column layout */
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+  }
+  .col-30 {
+    flex-basis: 30vw;
+  }
+  .col-50 {
+    flex-basis: 50vw;
+  }
+  
+  /* Colors */
+  .whiteSVGFill { fill: white; }
+  .darkSVGFill { fill: #0e0e0e; }
+  .whiteText { color: white; }
+  .whiteBackground { background-color: white; }
+  .darkText { color: #0e0e0e; }
+  .darkBackground { background-color: #0e0e0e; }
+  .readingText { color: #444c58; }
+  .lightText { color: #888; }
+  .mainColorText { color: #ffd600; }
+  .mainColorBackground { background-color: #ffd600; }
+  .mainColorBackground-blur { background-color: rgba(255, 255, 255, 0.5); }
+  
+  /* Aspect ratio 1:1 */
+  .aspectSquare {
+    width: 30vw;
+    height: 30vw;
+    max-width: 300px;
+    max-height: 300px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  /* Blur background behind text */
+  .addBlur {
+    position: relative;
+    z-index: 0;
+  }
+  .addBlur:before {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; top: 0; right: 0;
+    z-index: -1;
+    background: white;
+    filter: blur(60px);
+    transition: 0.3s ease;
+  }
+  .addBlur.darkBlur:before {
+    background: #161616 !important;
+  }
+  
+  /* profile-img ensures the <img> fills container */
+  .profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* ========== NAV MENU & HAMBURGER ========== */
+  .menuButton {
+    width: 32px;
+    height: 32px;
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 1000;
+    cursor: pointer;
+  }
+  .mline {
+    width: 100%;
+    height: 5%;
+    margin: 20% 0;
+    transition: 0.2s ease;
+  }
+  .xline {
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 5%;
+  }
+  .xline-t {
+    transform-origin: left center;
+    transform: translate(4.5px, 10px) rotate(-45deg);
+    transition: 0.1s ease;
+  }
+  .xline-b {
+    transform-origin: left center;
+    transform: translate(4.5px, -12.5px) rotate(45deg);
+    transition: 0.1s ease;
+  }
+  .toggleOpen {
+    width: 0px !important;
+  }
+  .toggleClose {
+    width: 100% !important;
+  }
+  
+  /* Main menu container */
+  #mainMenu {
+    z-index: 10;
+    position: fixed;
+    left: 0; right: 0; top: 0;
+    width: 100vw;
+    height: 0;
+    transition: 0.6s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .mainMenuOpen {
+    height: 100vh !important;
+    backdrop-filter: blur(10px);
+  }
+  .mainMenu-container {
+    display: flex;
+    justify-content: space-between;
+    width: 64%;
+    height: 48%;
+  }
+  .mainMenu-menu {
+    align-self: flex-start;
+  }
+  .mainMenu-links {
+    align-self: flex-end;
+  }
+  #mainMenu ul {
+    list-style: none;
+    margin: 0; 
+    padding: 0;
+  }
+  .menu-options {
+    font-size: 3em;
+    text-transform: uppercase;
+  }
+  .menu-options li {
+    margin-bottom: 16px;
+  }
+  .links-options {
+    text-align: right;
+  }
+  .links-options li {
+    margin-bottom: 16px;
+  }
+  /* Underline effect in menu links */
+  #mainMenu .menu-options a::after {
+    content: "";
+    display: block;
+    width: 0;
+    transform: translateY(-8px);
+    height: 3px;
+    background: black;
+    transition: 0.3s ease;
+  }
+  #mainMenu .menu-options a:hover::after {
+    width: 100%;
+  }
+  .addAnimatedUnderline::after {
+    content: "";
+    display: block;
+    width: 100%;
+    margin-left: 100%;
+    height: 2px;
+    background: black;
+    transition: 0.3s ease;
+  }
+  .addAnimatedUnderline:hover::after {
+    margin-left: 0%;
+  }
+  
+  /* Side utility */
+  .utility-sidebar {
+    z-index: 9;
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    width: 32px;
+    height: calc(100vh - 48px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .vertical-section-indicator {
+    transform: rotate(-90deg);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.8em;
+  }
+  
+  /* Animations */
+  .animateEntry {
+    position: relative;
+    top: -50px;
+    opacity: 0;
+    transition: 1s ease;
+  }
+  #night-mode-toggle {
+    width: 16px;
+    height: 16px;
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 1000;
+    cursor: pointer;
+  }
+  
+  /* ========== LANDING SECTION ========== */
+  #landing {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    background: url('background.gif') center center / cover no-repeat;
+    border: 16px solid white;
+    position: relative;
+  }
+  
+  /* Make the 3D container transparent so the GIF shows underneath */
+  #scene-container.bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: transparent !important;
+  }
+  
+  .fg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .landing-text {
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 0.05em;
+  }
+  .emphasis {
+    font-size: 1.4em;
+  }
+  .mobileOnly {
+    display: none;
+  }
+  
+  /* ========== CONTENT SECTIONS ========== */
+  .contents {
+    margin-left: 80px;
+  }
+  .section-withStickyIndicator {
+    margin-right: 16px;
+  }
+  .stickySectionIndicator-container {
+    width: 100%;
+    height: 50vh;
+    top: 25vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 72%;
+    position: sticky;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Scale the heading on hover = "crazier" effect */
+  .stickySectionIndicator-heading {
+    color: #ffd600;
+    font-size: 3em;
+    letter-spacing: 0.3em;
+    transition: transform 0.6s ease;
+  }
+  .stickySectionIndicator-heading:hover {
+    transform: scale(1.08);
+  }
+  
+  /* Projects / Publications / etc. */
+  .project-list, .publication-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .project, .publication {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 48px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+  .project-img, .publication-img {
+    margin-bottom: 16px;
+  }
+  .project-description, .publication-description {
+    max-width: 500px;
+    padding: 8px 32px 32px 32px;
+  }
+  .project-counter {
+    margin-bottom: 0.5em;
+  }
+  
+  /* 3D tilt effect on the entire card */
+  .card3D {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+  }
+  .card3D:hover {
+    transform: translateY(-6px) rotateX(6deg) rotateY(6deg) scale(1.03);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+  
+  /* Additional scale effect on the image itself */
+  .imageLink .project-img:hover,
+  .imageLink .publication-img:hover {
+    transform: scale(1.05) rotate(1deg);
+    transition: 0.3s ease;
+  }
+  
+  /* Contact */
+  .contact-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .contact-container ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 4em;
+  }
+  .contact-container li {
+    margin: 16px;
+    position: relative;
+  }
+  .contact-container a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 80px;
+    background: #ffd600;
+    bottom: 0;
+    left: 0; right: 0;
+    z-index: -1;
+    transition: 0.3s ease;
+  }
+  .contact-container a:hover::after {
+    width: 100%;
+  }
+  
+  /* Fade-in-up animation for scrolled elements: intersection observer adds .inView */
+  .fadeInUp {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: 1s ease;
+  }
+  .fadeInUp.inView {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Footer */
+  footer {
+    margin: 2em 0;
+  }
+  
+  /* ========== RESPONSIVE MEDIA QUERIES ========== */
+  @media only screen and (max-width: 1024px) {
+    #landing {
+      border: 8px solid white;
+    }
+    .utility-sidebar {
+      top: 16px; left: 16px;
+      width: 24px;
+      height: calc(100vh - 32px);
+    }
+    .vertical-section-indicator {
+      font-size: 0.4em;
+      letter-spacing: 0.025em;
+    }
+    .menuButton {
+      top: 16px; left: 16px;
+    }
+    .contents {
+      margin-left: 64px;
+    }
+    .aspectSquare {
+      width: 40vw;
+      height: 40vw;
+      max-width: 300px;
+      max-height: 300px;
+    }
+  }
+  
+  @media only screen and (max-width: 599px) {
+    .mobileOnly {
+      display: inline;
+    }
+    .menu-options {
+      font-size: 2em;
+    }
+    .stickySectionIndicator-heading {
+      font-size: 1.5em;
+      letter-spacing: 0.15em;
+    }
+  
+    .project-description, .publication-description {
+      width: 100%;
+      padding: 16px;
+    }
+    .about-text {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+    .contact-container ul {
+      font-size: 2em;
+    }
+    .contact-container a::after {
+      height: 40px;
+    }
+    .landing-text {
+      font-size: 0.75em;
+    }
+  
+    .aspectSquare {
+      width: 70vw;
+      height: 70vw;
+      max-width: 400px;
+      max-height: 400px;
+    }
+  }
+  
