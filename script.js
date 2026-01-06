@@ -253,5 +253,46 @@ function addAnimationDelays(array, ms) {
     faders.forEach(fader => {
       appearOnScroll.observe(fader);
     });
+
+    // ---------- Section heading fade when content is in view ----------
+    const sectionHeadings = document.querySelectorAll('.stickySectionIndicator-heading');
+    const sectionContents = document.querySelectorAll('.building-list, .project-list, .publication-list, .row');
+
+    const headingFadeObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        // Find the closest section heading
+        const section = entry.target.closest('.section-withStickyIndicator');
+        if (section) {
+          const heading = section.querySelector('.stickySectionIndicator-heading');
+          if (heading) {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+              heading.classList.add('faded');
+            } else {
+              heading.classList.remove('faded');
+            }
+          }
+        }
+      });
+    }, { threshold: [0, 0.1, 0.5] });
+
+    sectionContents.forEach(content => {
+      headingFadeObserver.observe(content);
+    });
+
+    // ---------- Horizontal scroll buttons ----------
+    $('.scroll-btn-left').click(function() {
+      const scrollList = $(this).siblings('.project-list, .building-list');
+      scrollList.animate({ scrollLeft: scrollList.scrollLeft() - 400 }, 300);
+    });
+
+    $('.scroll-btn-right').click(function() {
+      const scrollList = $(this).siblings('.project-list, .building-list');
+      scrollList.animate({ scrollLeft: scrollList.scrollLeft() + 400 }, 300);
+    });
+
+    // Hide scroll hint after user scrolls
+    $('.project-list, .building-list').on('scroll', function() {
+      $(this).siblings('.scroll-hint').addClass('hidden');
+    });
   });
   
