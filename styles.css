@@ -335,179 +335,65 @@ body {
   /* ========== CURRENTLY BUILDING SECTION ========== */
   .building-list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 32px;
-    padding: 20px 0;
-  }
-
-  .building-card {
-    text-decoration: none;
-    display: block;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-  }
-
-  .building-card:hover {
-    transform: translateY(-8px);
-  }
-
-  /* Poster Card - Taller aspect ratio */
-  .poster-card {
-    width: 280px;
-    height: 420px;
-    border-radius: 16px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 0.4s ease;
-  }
-
-  .building-card:hover .poster-card {
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-  }
-
-  .poster-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 32px 24px;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-    color: white;
-  }
-
-  .poster-title {
-    font-size: 1.5em;
-    margin: 0 0 8px 0;
-    font-weight: 700;
-  }
-
-  .poster-description {
-    font-size: 0.9em;
-    margin: 0 0 16px 0;
-    opacity: 0.9;
-    line-height: 1.4;
-  }
-
-  .poster-status {
-    display: inline-block;
-    padding: 6px 12px;
-    background: rgba(255, 214, 0, 0.9);
-    color: #0e0e0e;
-    border-radius: 20px;
-    font-size: 0.75em;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  /* ========== PROJECTS HORIZONTAL SCROLL ========== */
-  .projects-scroll-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    padding: 20px 0;
-  }
-
-  .projects-scroll-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 60px;
-    z-index: 2;
-    pointer-events: none;
-    background: linear-gradient(to left, white, transparent);
-  }
-
-  .project-list-horizontal {
-    display: flex;
-    gap: 24px;
+    flex-direction: row;
     overflow-x: auto;
-    padding: 20px 10px 30px 10px;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-    scrollbar-color: #ffd600 #f0f0f0;
+    -webkit-overflow-scrolling: touch;
+    gap: 36px;
+    padding: 20px 0;
   }
 
-  .project-list-horizontal::-webkit-scrollbar {
-    height: 8px;
+  .building-list::-webkit-scrollbar {
+    display: none;
   }
 
-  .project-list-horizontal::-webkit-scrollbar-track {
-    background: #f0f0f0;
-    border-radius: 4px;
+  .building {
+    display: flex;
+    flex-direction: column;
   }
 
-  .project-list-horizontal::-webkit-scrollbar-thumb {
-    background: #ffd600;
-    border-radius: 4px;
-  }
-
-  .project-list-horizontal::-webkit-scrollbar-thumb:hover {
-    background: #e6c200;
-  }
-
-  /* Project Card for horizontal scroll */
-  .project-card {
-    flex: 0 0 300px;
-    text-decoration: none;
-    scroll-snap-align: start;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    border-radius: 12px;
-    overflow: hidden;
-    background: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  }
-
-  .project-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-  }
-
-  .project-card-image {
-    width: 100%;
-    height: 200px;
-    position: relative;
-    background-color: #333;
-  }
-
-  .project-card-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-  }
-
-  .project-card-title {
-    color: white;
-    margin: 0;
-    font-size: 1.2em;
-    font-weight: 700;
-  }
-
-  .project-card-info {
-    padding: 20px;
-  }
-
-  .project-card-desc {
-    color: #444c58;
+  .numeral {
     font-size: 0.9em;
-    line-height: 1.5;
-    margin: 0 0 16px 0;
+    margin-bottom: 8px;
   }
 
-  .project-card-link {
-    color: #0e0e0e;
-    font-size: 0.85em;
-    font-weight: 600;
-    transition: color 0.3s ease;
+  /* Aspect ratio for poster/A4 style (3:4 ratio) */
+  .aspectPoster {
+    width: 48vh;
+    height: 64vh;
+    max-width: 360px;
+    max-height: 480px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 8px;
+    transition: 0.3s ease;
   }
 
-  .project-card:hover .project-card-link {
-    color: #ffd600;
+  .building-img:hover {
+    transform: scale(1.02);
+  }
+
+  /* ========== PROJECTS SECTION ========== */
+  .project-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 36px;
+    padding: 20px 0;
+  }
+
+  .project-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .project {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-img:hover {
+    transform: scale(1.02);
   }
 
   /* Publications / etc. */
@@ -660,34 +546,16 @@ body {
     }
 
     /* Poster cards responsive */
-    .poster-card {
-      width: 240px;
-      height: 360px;
+    .aspectPoster {
+      width: 70vw;
+      height: calc(70vw * 1.33);
+      max-width: 300px;
+      max-height: 400px;
     }
 
-    .poster-overlay {
-      padding: 24px 16px;
-    }
-
-    .poster-title {
-      font-size: 1.3em;
-    }
-
-    /* Project cards responsive */
-    .project-card {
-      flex: 0 0 260px;
-    }
-
-    .project-card-image {
-      height: 160px;
-    }
-
-    .project-card-info {
-      padding: 16px;
-    }
-
-    .building-list {
-      justify-content: center;
+    .building-list,
+    .project-list {
+      justify-content: flex-start;
     }
   }
   

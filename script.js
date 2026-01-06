@@ -198,12 +198,6 @@ function addAnimationDelays(array, ms) {
         changeCss('.mainColorBackground-blur', 'background-color: rgba(0,0,0,0.5);');
         changeCss('#mainMenu .menu-options a::after', 'background: white;');
         changeCss('.addAnimatedUnderline::after', 'background: white;');
-        // Dark mode for project cards
-        changeCss('.project-card', 'background: #1e1e1e;');
-        changeCss('.project-card-desc', 'color: #CBCBCB;');
-        changeCss('.project-card-link', 'color: white;');
-        changeCss('.projects-scroll-container::after', 'background: linear-gradient(to left, #161616, transparent);');
-        changeCss('.project-list-horizontal::-webkit-scrollbar-track', 'background: #2a2a2a;');
         $('.addBlur').addClass('darkBlur');
         nightMode = true;
       } else {
