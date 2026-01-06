@@ -373,114 +373,27 @@ body {
     transform: scale(1.02);
   }
 
-  /* ========== PROJECTS HORIZONTAL SCROLL ========== */
-  .projects-scroll-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
+  /* ========== PROJECTS SECTION ========== */
+  .project-list {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 36px;
     padding: 20px 0;
   }
 
-  .projects-scroll-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 60px;
-    z-index: 2;
-    pointer-events: none;
-    background: linear-gradient(to left, white, transparent);
+  .project-list::-webkit-scrollbar {
+    display: none;
   }
 
-  .project-list-horizontal {
+  .project {
     display: flex;
-    gap: 24px;
-    overflow-x: auto;
-    padding: 20px 10px 30px 10px;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-    scrollbar-color: #ffd600 #f0f0f0;
+    flex-direction: column;
   }
 
-  .project-list-horizontal::-webkit-scrollbar {
-    height: 8px;
-  }
-
-  .project-list-horizontal::-webkit-scrollbar-track {
-    background: #f0f0f0;
-    border-radius: 4px;
-  }
-
-  .project-list-horizontal::-webkit-scrollbar-thumb {
-    background: #ffd600;
-    border-radius: 4px;
-  }
-
-  .project-list-horizontal::-webkit-scrollbar-thumb:hover {
-    background: #e6c200;
-  }
-
-  /* Project Card for horizontal scroll */
-  .project-card {
-    flex: 0 0 300px;
-    text-decoration: none;
-    scroll-snap-align: start;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    border-radius: 12px;
-    overflow: hidden;
-    background: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  }
-
-  .project-card:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-  }
-
-  .project-card-image {
-    width: 100%;
-    height: 200px;
-    position: relative;
-    background-color: #333;
-  }
-
-  .project-card-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-  }
-
-  .project-card-title {
-    color: white;
-    margin: 0;
-    font-size: 1.2em;
-    font-weight: 700;
-  }
-
-  .project-card-info {
-    padding: 20px;
-  }
-
-  .project-card-desc {
-    color: #444c58;
-    font-size: 0.9em;
-    line-height: 1.5;
-    margin: 0 0 16px 0;
-  }
-
-  .project-card-link {
-    color: #0e0e0e;
-    font-size: 0.85em;
-    font-weight: 600;
-    transition: color 0.3s ease;
-  }
-
-  .project-card:hover .project-card-link {
-    color: #ffd600;
+  .project-img:hover {
+    transform: scale(1.02);
   }
 
   /* Publications / etc. */
@@ -640,22 +553,9 @@ body {
       max-height: 400px;
     }
 
-    .building-list {
+    .building-list,
+    .project-list {
       justify-content: flex-start;
     }
-
-    /* Project cards responsive */
-    .project-card {
-      flex: 0 0 260px;
-    }
-
-    .project-card-image {
-      height: 160px;
-    }
-
-    .project-card-info {
-      padding: 16px;
-    }
-
   }
   
