@@ -8,12 +8,12 @@ body {
     margin: 0;
     font-family: "Chivo", sans-serif;
     transition: 0.6s cubic-bezier(0.785, 0.135, 0.15, 0.86);
-    background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1px);
     background-size: 20px 20px;
   }
 
   body.dark-dots {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   }
   
   ::selection {
