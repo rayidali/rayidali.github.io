@@ -199,7 +199,6 @@ function addAnimationDelays(array, ms) {
         changeCss('.mainColorBackground-blur', 'background-color: rgba(0,0,0,0.5);');
         changeCss('#mainMenu .menu-options a::after', 'background: white;');
         changeCss('.addAnimatedUnderline::after', 'background: white;');
-        changeCss('.poster-frame', 'background-color: #1e1e1e;');
         changeCss('.scroll-btn', 'background: rgba(30, 30, 30, 0.9); border-color: #333; color: #ccc;');
         $('.addBlur').addClass('darkBlur');
         nightMode = true;
