@@ -190,6 +190,7 @@ function addAnimationDelays(array, ms) {
       if (!nightMode) {
         // Turn dark
         $('#night-mode-icon').html(sunIcon);
+        $('body').addClass('dark-dots');
         changeCss('body', 'background-color: #161616;');
         changeCss('.darkText', 'color: white;');
         changeCss('.darkBackground', 'background-color: white;');
@@ -198,11 +199,14 @@ function addAnimationDelays(array, ms) {
         changeCss('.mainColorBackground-blur', 'background-color: rgba(0,0,0,0.5);');
         changeCss('#mainMenu .menu-options a::after', 'background: white;');
         changeCss('.addAnimatedUnderline::after', 'background: white;');
+        changeCss('.poster-frame', 'background-color: #1e1e1e;');
+        changeCss('.scroll-btn', 'background: rgba(30, 30, 30, 0.9); border-color: #333; color: #ccc;');
         $('.addBlur').addClass('darkBlur');
         nightMode = true;
       } else {
         // Turn light
         $('#night-mode-icon').html(moonIcon);
+        $('body').removeClass('dark-dots');
         $('#css-modifier-container').remove();
         $('.addBlur').removeClass('darkBlur');
         nightMode = false;
@@ -265,7 +269,8 @@ function addAnimationDelays(array, ms) {
         if (section) {
           const heading = section.querySelector('.stickySectionIndicator-heading');
           if (heading) {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+            // Only fade when content is significantly visible (50%+)
+            if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
               heading.classList.add('faded');
             } else {
               heading.classList.remove('faded');
@@ -273,7 +278,7 @@ function addAnimationDelays(array, ms) {
           }
         }
       });
-    }, { threshold: [0, 0.1, 0.5] });
+    }, { threshold: [0, 0.2, 0.4, 0.6] });
 
     sectionContents.forEach(content => {
       headingFadeObserver.observe(content);
