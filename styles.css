@@ -407,25 +407,46 @@ body {
 
   /* ========== PROJECTS SWIPER CAROUSEL ========== */
   .projects-carousel-wrapper {
-    width: 100%;
+    /* Break out of .contents margin to center on full viewport */
+    margin-left: -80px;
+    width: calc(100% + 80px);
     padding: 20px 0 60px;
     position: relative;
+    overflow: hidden;
   }
 
   .projects-swiper {
     width: 100%;
     padding-bottom: 50px;
+    overflow: visible;
   }
 
   .projects-swiper .swiper-slide {
-    width: 300px;
+    width: 280px;
     display: flex;
     flex-direction: column;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    transition: opacity 0.4s ease;
   }
 
-  .projects-swiper .swiper-slide-active {
-    transform: scale(1);
+  /* Smaller poster frames for carousel context */
+  .projects-swiper .poster-frame {
+    width: 280px;
+    height: 350px;
+    max-width: none;
+    max-height: none;
+    padding: 12px;
+  }
+
+  /* Hide text on non-active slides to prevent overlap clutter */
+  .projects-swiper .swiper-slide a.linkWithArrow,
+  .projects-swiper .swiper-slide p {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .projects-swiper .swiper-slide-active a.linkWithArrow,
+  .projects-swiper .swiper-slide-active p {
+    opacity: 1;
   }
 
   .projects-swiper .swiper-pagination {
@@ -556,6 +577,10 @@ body {
     .contents {
       margin-left: 64px;
     }
+    .projects-carousel-wrapper {
+      margin-left: -64px;
+      width: calc(100% + 64px);
+    }
     .aspectSquare {
       width: 40vw;
       height: 40vw;
@@ -614,8 +639,16 @@ body {
       justify-content: flex-start;
     }
 
+    .projects-carousel-wrapper {
+      margin-left: -16px;
+      width: calc(100% + 16px);
+    }
     .projects-swiper .swiper-slide {
-      width: 240px;
+      width: 220px;
+    }
+    .projects-swiper .poster-frame {
+      width: 220px;
+      height: 280px;
     }
   }
   
