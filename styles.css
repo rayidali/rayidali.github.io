@@ -477,7 +477,8 @@ body {
     top: 0;
     height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 12vh;
     z-index: 1;
   }
 
@@ -727,12 +728,12 @@ body {
       max-height: 300px;
     }
 
-    /* Poster frame responsive */
+    /* Poster frame responsive — consistent size across sections */
     .poster-frame {
-      width: 70vw;
-      height: calc(70vw * 1.33);
-      max-width: 280px;
-      max-height: 373px;
+      width: 55vw;
+      height: calc(55vw * 1.33);
+      max-width: 240px;
+      max-height: 320px;
       padding: 12px;
     }
 
@@ -740,12 +741,12 @@ body {
       justify-content: flex-start;
     }
 
-    /* Smaller poster frames for carousel slides on mobile */
+    /* Project carousel slides match the same poster size */
     .project-slide .poster-frame {
       width: 55vw;
       height: calc(55vw * 1.33);
-      max-width: 220px;
-      max-height: 293px;
+      max-width: 240px;
+      max-height: 320px;
       padding: 10px;
     }
 
@@ -755,7 +756,7 @@ body {
 
     .projects-swiper .swiper-slide {
       width: 55vw;
-      max-width: 220px;
+      max-width: 240px;
     }
   }
   
