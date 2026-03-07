@@ -428,13 +428,6 @@ body {
     transition: opacity 0.4s ease;
   }
 
-  /* Poster frames in carousel - keep the tall aspect ratio */
-  .projects-swiper .poster-frame {
-    width: 100%;
-    max-width: none;
-    max-height: none;
-  }
-
   /* Hide text on non-active slides to prevent overlap clutter */
   .projects-swiper .swiper-slide a.linkWithArrow,
   .projects-swiper .swiper-slide p {
