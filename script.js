@@ -200,7 +200,7 @@ function addAnimationDelays(array, ms) {
         changeCss('#mainMenu .menu-options a::after', 'background: white;');
         changeCss('.addAnimatedUnderline::after', 'background: white;');
         changeCss('.swiper-pagination-bullet', 'background-color: #ccc;');
-        changeCss('.rolling-text-line', 'color: white;');
+        changeCss('.rolling-text-line', 'color: #CBCBCB;');
         $('.addBlur').addClass('darkBlur');
         nightMode = true;
       } else {
@@ -260,7 +260,7 @@ function addAnimationDelays(array, ms) {
 
     // ---------- Section heading fade when content is in view ----------
     const sectionHeadings = document.querySelectorAll('.stickySectionIndicator-heading');
-    const sectionContents = document.querySelectorAll('.building-list, .projects-carousel-wrapper, .publication-list, .row, .rolling-text-section');
+    const sectionContents = document.querySelectorAll('.building-list, .projects-carousel-wrapper, .publication-list, .row');
 
     const headingFadeObserver = new IntersectionObserver(function(entries) {
       entries.forEach(entry => {
@@ -293,6 +293,10 @@ function addAnimationDelays(array, ms) {
       const numLines = lines.length;
       if (numLines === 0) return;
 
+      // Find the ABOUT section heading so we can fade it via scroll progress
+      const aboutHeading = section.closest('.section-withStickyIndicator')
+        .querySelector('.stickySectionIndicator-heading');
+
       const angleStep = 24;   // degrees between each line on the cylinder
       const radius = 220;     // cylinder radius in px
 
@@ -305,6 +309,15 @@ function addAnimationDelays(array, ms) {
         // Progress: 0 at start of section, 1 at end
         const scrolled = -rect.top;
         const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
+
+        // Fade the ABOUT heading when the user starts scrolling through
+        if (aboutHeading) {
+          if (progress > 0.02 && progress < 0.98) {
+            aboutHeading.classList.add('faded');
+          } else {
+            aboutHeading.classList.remove('faded');
+          }
+        }
 
         // Which line index is "centered" right now
         const centerIndex = progress * (numLines - 1);
