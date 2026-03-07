@@ -463,6 +463,11 @@ body {
   }
 
   /* ========== 3D ROLLING TEXT (About Section) ========== */
+  /* Disable sticky heading for the about section — rolling text has its own sticky */
+  .section-withStickyIndicator:has(.rolling-text-section) .stickySectionIndicator-container {
+    position: relative;
+  }
+
   .rolling-text-section {
     height: 280vh;
     position: relative;
