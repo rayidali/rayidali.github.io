@@ -300,7 +300,8 @@ function addAnimationDelays(array, ms) {
         : null;
 
       const angleStep = 10;   // degrees between each line on the cylinder
-      const radius = 100;     // cylinder radius in px
+      const isMobile = window.innerWidth <= 599;
+      const radius = isMobile ? 70 : 100; // cylinder radius in px (smaller on mobile)
 
       function update() {
         const rect = section.getBoundingClientRect();
