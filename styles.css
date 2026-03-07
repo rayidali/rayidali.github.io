@@ -421,17 +421,9 @@ body {
   }
 
   .projects-swiper .swiper-slide {
-    width: 300px;
+    width: auto;
     display: flex;
     flex-direction: column;
-  }
-
-  /* Fit poster-frame inside the 300px slide */
-  .projects-swiper .swiper-slide .poster-frame {
-    width: 100%;
-    height: 400px;
-    max-width: none;
-    max-height: none;
   }
 
   .projects-swiper .swiper-pagination {
@@ -633,10 +625,7 @@ body {
     }
 
     .projects-swiper .swiper-slide {
-      width: 240px;
-    }
-    .projects-swiper .swiper-slide .poster-frame {
-      height: 320px;
+      width: auto;
     }
   }
   
