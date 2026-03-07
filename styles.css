@@ -463,12 +463,6 @@ body {
   }
 
   /* ========== 3D ROLLING TEXT (About Section) ========== */
-  /* Constrains the ABOUT heading's sticky range so it scrolls away naturally,
-     just like other sections whose parents are short. */
-  .about-heading-region {
-    height: 100vh;
-  }
-
   .rolling-text-section {
     height: 280vh;
     position: relative;
