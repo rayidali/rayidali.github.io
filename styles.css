@@ -422,19 +422,17 @@ body {
   }
 
   .projects-swiper .swiper-slide {
-    width: 280px;
+    width: 360px;
     display: flex;
     flex-direction: column;
     transition: opacity 0.4s ease;
   }
 
-  /* Smaller poster frames for carousel context */
+  /* Poster frames in carousel - keep the tall aspect ratio */
   .projects-swiper .poster-frame {
-    width: 280px;
-    height: 350px;
+    width: 100%;
     max-width: none;
     max-height: none;
-    padding: 12px;
   }
 
   /* Hide text on non-active slides to prevent overlap clutter */
@@ -644,11 +642,7 @@ body {
       width: calc(100% + 16px);
     }
     .projects-swiper .swiper-slide {
-      width: 220px;
-    }
-    .projects-swiper .poster-frame {
-      width: 220px;
-      height: 280px;
+      width: 260px;
     }
   }
   
