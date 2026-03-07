@@ -200,6 +200,7 @@ function addAnimationDelays(array, ms) {
         changeCss('#mainMenu .menu-options a::after', 'background: white;');
         changeCss('.addAnimatedUnderline::after', 'background: white;');
         changeCss('.swiper-pagination-bullet', 'background-color: #ccc;');
+        changeCss('.rolling-text-line', 'color: white;');
         $('.addBlur').addClass('darkBlur');
         nightMode = true;
       } else {
@@ -259,7 +260,7 @@ function addAnimationDelays(array, ms) {
 
     // ---------- Section heading fade when content is in view ----------
     const sectionHeadings = document.querySelectorAll('.stickySectionIndicator-heading');
-    const sectionContents = document.querySelectorAll('.building-list, .projects-carousel-wrapper, .publication-list, .row');
+    const sectionContents = document.querySelectorAll('.building-list, .projects-carousel-wrapper, .publication-list, .row, .rolling-text-section');
 
     const headingFadeObserver = new IntersectionObserver(function(entries) {
       entries.forEach(entry => {
@@ -282,6 +283,62 @@ function addAnimationDelays(array, ms) {
     sectionContents.forEach(content => {
       headingFadeObserver.observe(content);
     });
+
+    // ---------- 3D Rolling Text (About Section) ----------
+    (function initRollingText() {
+      const section = document.getElementById('rollingTextSection');
+      if (!section) return;
+
+      const lines = section.querySelectorAll('.rolling-text-line');
+      const numLines = lines.length;
+      if (numLines === 0) return;
+
+      const angleStep = 24;   // degrees between each line on the cylinder
+      const radius = 220;     // cylinder radius in px
+
+      function update() {
+        const rect = section.getBoundingClientRect();
+        const sectionHeight = section.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const scrollRange = sectionHeight - viewportHeight;
+
+        // Progress: 0 at start of section, 1 at end
+        const scrolled = -rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
+
+        // Which line index is "centered" right now
+        const centerIndex = progress * (numLines - 1);
+
+        lines.forEach(function(line, i) {
+          var diff = i - centerIndex;
+          var angle = diff * angleStep;
+          var absAngle = Math.abs(angle);
+
+          // Opacity: cosine falloff so center is 1, ±90° is 0
+          var opacity = absAngle >= 90 ? 0 : Math.pow(Math.cos(angle * Math.PI / 180), 1.5);
+
+          // Place each line on the cylinder surface
+          // rotateX first (local rotation), then translateZ pushes it out to radius
+          line.style.transform = 'rotateX(' + (-angle) + 'deg) translateZ(' + radius + 'px)';
+          line.style.opacity = Math.max(0, opacity).toFixed(3);
+        });
+      }
+
+      // Run on scroll via rAF for smoothness
+      var ticking = false;
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          requestAnimationFrame(function() {
+            update();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // Initial render
+      update();
+    })();
 
     // ---------- Swiper.js Coverflow Carousel ----------
     // Adapted from Skiper49 Carousel_003

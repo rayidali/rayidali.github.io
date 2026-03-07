@@ -272,28 +272,34 @@
       <div class="stickySectionIndicator-container">
         <div class="stickySectionIndicator-heading">ABOUT</div>
       </div>
-      <div class="row">
-        <!-- Profile image (1:1 ratio) - new <img> approach -->
-        <div class="col col-30 fadeInUp card3D">
-          <div class="profile-image-container aspectSquare">
-            <img
-              src="rayid.jpg"
-              alt="Rayid"
-              class="profile-img"
-            />
-          </div>
-        </div>
-        <div class="col col-50 addBlur fadeInUp">
-          <div class="about-text">
-            <p class="readingText">
-              Hello, I am Rayid. I’m currently a computer science master’s graduate living
-              in NYC specializing in machine learning and data analytics. I’m
-              passionate about using AI and data‐driven solutions to 
-              solve complex problems and improve decision‐making processes.
-              <br /><br />
-              When I'm not working, I'm usually exploring the city, doomscrolling
-              and reading.
-            </p>
+      <div class="rolling-text-section" id="rollingTextSection">
+        <div class="rolling-text-sticky">
+          <div class="row" style="align-items: center;">
+            <!-- Profile image -->
+            <div class="col col-30 card3D">
+              <div class="profile-image-container aspectSquare">
+                <img src="rayid.jpg" alt="Rayid" class="profile-img" />
+              </div>
+            </div>
+            <!-- 3D Rolling Text -->
+            <div class="col col-50">
+              <div class="rolling-text-viewport">
+                <div class="rolling-text-line">Hello,</div>
+                <div class="rolling-text-line">I am Rayid.</div>
+                <div class="rolling-text-line">CS master’s graduate</div>
+                <div class="rolling-text-line">living in NYC.</div>
+                <div class="rolling-text-line">Machine learning.</div>
+                <div class="rolling-text-line">Data analytics.</div>
+                <div class="rolling-text-line">Passionate about</div>
+                <div class="rolling-text-line">using AI</div>
+                <div class="rolling-text-line">and data-driven</div>
+                <div class="rolling-text-line">solutions.</div>
+                <div class="rolling-text-line">When I’m not working,</div>
+                <div class="rolling-text-line">exploring the city,</div>
+                <div class="rolling-text-line">doomscrolling</div>
+                <div class="rolling-text-line">and reading.</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
