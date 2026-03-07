@@ -283,14 +283,21 @@ function addAnimationDelays(array, ms) {
       headingFadeObserver.observe(content);
     });
 
-    // ---------- Swiper.js Horizontal Scroll Carousel ----------
+    // ---------- Swiper.js Coverflow Carousel ----------
+    // Adapted from Skiper49 Carousel_003
     new Swiper('.projects-swiper', {
-      effect: 'slide',
+      effect: 'coverflow',
       grabCursor: true,
-      centeredSlides: false,
+      centeredSlides: true,
       slidesPerView: 'auto',
-      spaceBetween: 36,
-      freeMode: true,
+      loop: true,
+      coverflowEffect: {
+        rotate: 40,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
       pagination: {
         el: '.swiper-pagination',
         clickable: true,
