@@ -199,7 +199,7 @@ function addAnimationDelays(array, ms) {
         changeCss('.mainColorBackground-blur', 'background-color: rgba(0,0,0,0.5);');
         changeCss('#mainMenu .menu-options a::after', 'background: white;');
         changeCss('.addAnimatedUnderline::after', 'background: white;');
-        changeCss('.scroll-btn', 'background: rgba(30, 30, 30, 0.9); border-color: #333; color: #ccc;');
+        changeCss('.swiper-pagination-bullet', 'background-color: #ccc;');
         $('.addBlur').addClass('darkBlur');
         nightMode = true;
       } else {
@@ -259,7 +259,7 @@ function addAnimationDelays(array, ms) {
 
     // ---------- Section heading fade when content is in view ----------
     const sectionHeadings = document.querySelectorAll('.stickySectionIndicator-heading');
-    const sectionContents = document.querySelectorAll('.building-list, .project-list, .publication-list, .row');
+    const sectionContents = document.querySelectorAll('.building-list, .projects-carousel-wrapper, .publication-list, .row');
 
     const headingFadeObserver = new IntersectionObserver(function(entries) {
       entries.forEach(entry => {
@@ -283,20 +283,24 @@ function addAnimationDelays(array, ms) {
       headingFadeObserver.observe(content);
     });
 
-    // ---------- Horizontal scroll buttons ----------
-    $('.scroll-btn-left').click(function() {
-      const scrollList = $(this).siblings('.project-list, .building-list');
-      scrollList.animate({ scrollLeft: scrollList.scrollLeft() - 400 }, 300);
-    });
-
-    $('.scroll-btn-right').click(function() {
-      const scrollList = $(this).siblings('.project-list, .building-list');
-      scrollList.animate({ scrollLeft: scrollList.scrollLeft() + 400 }, 300);
-    });
-
-    // Hide scroll hint after user scrolls
-    $('.project-list, .building-list').on('scroll', function() {
-      $(this).siblings('.scroll-hint').addClass('hidden');
+    // ---------- Swiper.js Coverflow Carousel ----------
+    new Swiper('.projects-swiper', {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      loop: true,
+      coverflowEffect: {
+        rotate: 40,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
     });
   });
   

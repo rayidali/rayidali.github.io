@@ -405,72 +405,51 @@ body {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
   }
 
-  /* Scroll container with buttons and hint */
-  .scroll-container {
+  /* ========== PROJECTS SWIPER CAROUSEL ========== */
+  .projects-carousel-wrapper {
+    width: 100%;
+    padding: 20px 0 60px;
     position: relative;
   }
 
-  .scroll-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-100%);
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid #eee;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    font-size: 24px;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease, background 0.2s ease;
-    z-index: 5;
+  .projects-swiper {
+    width: 100%;
+    padding-bottom: 50px;
+  }
+
+  .projects-swiper .swiper-slide {
+    width: 300px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #333;
+    flex-direction: column;
+    transition: transform 0.4s ease, opacity 0.4s ease;
   }
 
-  .scroll-container:hover .scroll-btn {
-    opacity: 0.7;
+  .projects-swiper .swiper-slide-active {
+    transform: scale(1);
   }
 
-  .scroll-btn:hover {
-    opacity: 1 !important;
-    background: #ffd600;
+  .projects-swiper .swiper-pagination {
+    bottom: 0;
   }
 
-  .scroll-btn-left {
-    left: -20px;
+  .projects-swiper .swiper-pagination-bullet {
+    background-color: #888;
+    opacity: 0.4;
+    transition: all 0.3s ease;
   }
 
-  .scroll-btn-right {
-    right: -20px;
+  .projects-swiper .swiper-pagination-bullet-active {
+    background-color: #ffd600;
+    opacity: 1;
+    transform: scale(1.3);
   }
 
-  .scroll-hint {
-    text-align: center;
-    font-size: 0.8em;
-    margin-top: 8px;
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
+  .project-slide .poster-frame {
+    margin-bottom: 8px;
   }
 
-  .scroll-hint.hidden {
-    opacity: 0;
-  }
-
-  /* ========== PROJECTS SECTION ========== */
-  .project-list {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    gap: 36px;
-    padding: 20px 0;
-  }
-
-  .project-list::-webkit-scrollbar {
-    display: none;
+  .project-slide a.linkWithArrow {
+    margin-top: 4px;
   }
 
   /* Publications / etc. */
@@ -631,17 +610,12 @@ body {
       padding: 12px;
     }
 
-    .building-list,
-    .project-list {
+    .building-list {
       justify-content: flex-start;
     }
 
-    .scroll-btn {
-      display: none;
-    }
-
-    .scroll-hint {
-      font-size: 0.7em;
+    .projects-swiper .swiper-slide {
+      width: 240px;
     }
   }
   

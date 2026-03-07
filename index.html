@@ -16,6 +16,9 @@
     rel="stylesheet"
   />
 
+  <!-- Swiper.js CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
   <!-- Three.js -->
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/three.js/95/three.min.js"
@@ -23,6 +26,9 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   ></script>
+
+  <!-- Swiper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <!-- Your CSS -->
   <link rel="stylesheet" href="styles.css" />
@@ -147,72 +153,79 @@
         <div class="stickySectionIndicator-heading">PROJECTS</div>
       </div>
 
-      <!-- Projects Container - Horizontal Scroll with Poster Cards -->
-      <div class="scroll-container">
-        <button class="scroll-btn scroll-btn-left" aria-label="Scroll left">&#8249;</button>
-        <div class="project-list">
-          <!-- Project 1: pdf2video -->
-          <div class="project fadeInUp card3D">
-            <div class="numeral lightText">01</div>
-            <a href="https://pdf2video.onrender.com/" target="_blank" class="imageLink">
-              <div class="poster-frame">
-                <div class="poster-image" style="background-image: url('https://i.postimg.cc/L5L313W7/Screenshot-2026-01-06-at-6-33-38-PM.png');"></div>
-              </div>
-            </a>
-            <a href="https://pdf2video.onrender.com/" class="linkWithArrow darkText" target="_blank">pdf2video</a>
-            <p class="lightText">Transform PDF documents into engaging video presentations</p>
-          </div>
+      <!-- Projects Carousel - Swiper Coverflow -->
+      <div class="projects-carousel-wrapper fadeInUp">
+        <div class="swiper projects-swiper">
+          <div class="swiper-wrapper">
+            <!-- Project 1: pdf2video -->
+            <div class="swiper-slide project-slide">
+              <a href="https://pdf2video.onrender.com/" target="_blank" class="imageLink">
+                <div class="poster-frame">
+                  <div class="poster-image" style="background-image: url('https://i.postimg.cc/L5L313W7/Screenshot-2026-01-06-at-6-33-38-PM.png');"></div>
+                </div>
+              </a>
+              <a href="https://pdf2video.onrender.com/" class="linkWithArrow darkText" target="_blank">pdf2video</a>
+              <p class="lightText">Transform PDF documents into engaging video presentations</p>
+            </div>
 
-          <!-- Project 2: Cinechrony -->
-          <div class="project fadeInUp card3D">
-            <div class="numeral lightText">02</div>
-            <a href="https://movienight-kappa.vercel.app" target="_blank" class="imageLink">
-              <div class="poster-frame">
-                <div class="poster-image" style="background-image: url('https://i.postimg.cc/jSc0fH07/cinechrony-poster2-withbg.png');"></div>
-              </div>
-            </a>
-            <a href="https://movienight-kappa.vercel.app" class="linkWithArrow darkText" target="_blank">Cinechrony</a>
-            <p class="lightText">letterboxd but with shared watchlists</p>
-          </div>
+            <!-- Project 2: FireGPT -->
+            <div class="swiper-slide project-slide">
+              <a href="https://firegpt.onrender.com/" target="_blank" class="imageLink">
+                <div class="poster-frame">
+                  <div class="poster-image" style="background-image: url('https://i.postimg.cc/ryd2Lq68/Screenshot_2026_03_06_at_9_23_04_PM.png');"></div>
+                </div>
+              </a>
+              <a href="https://firegpt.onrender.com/" class="linkWithArrow darkText" target="_blank">FireGPT</a>
+              <p class="lightText">Talk to your DWG/DXF drawings using AI</p>
+            </div>
 
-          <!-- Project 3: RAG using DeepSeek -->
-          <div class="project fadeInUp card3D">
-            <div class="numeral lightText">03</div>
-            <a href="https://github.com/rayidali/RAG-System-for-Fire-Safety-Systems-Documents-Using-DeepSeek-R1" target="_blank" class="imageLink">
-              <div class="poster-frame">
-                <div class="poster-image" style="background-image: url('project1-icon.png');"></div>
-              </div>
-            </a>
-            <a href="https://github.com/rayidali/RAG-System-for-Fire-Safety-Systems-Documents-Using-DeepSeek-R1" class="linkWithArrow darkText" target="_blank">RAG using DeepSeek</a>
-            <p class="lightText">Retrieval-Augmented Generation with advanced semantic embeddings</p>
-          </div>
+            <!-- Project 3: Cinechrony -->
+            <div class="swiper-slide project-slide">
+              <a href="https://movienight-kappa.vercel.app" target="_blank" class="imageLink">
+                <div class="poster-frame">
+                  <div class="poster-image" style="background-image: url('https://i.postimg.cc/jSc0fH07/cinechrony-poster2-withbg.png');"></div>
+                </div>
+              </a>
+              <a href="https://movienight-kappa.vercel.app" class="linkWithArrow darkText" target="_blank">Cinechrony</a>
+              <p class="lightText">letterboxd but with shared watchlists</p>
+            </div>
 
-          <!-- Project 4: Amazon Recommendation -->
-          <div class="project fadeInUp card3D">
-            <div class="numeral lightText">04</div>
-            <a href="https://github.com/rayidali/Amazon-Recommendation-Engine-using-Complex-Networks" target="_blank" class="imageLink">
-              <div class="poster-frame">
-                <div class="poster-image" style="background-image: url('project2-icon.png');"></div>
-              </div>
-            </a>
-            <a href="https://github.com/rayidali/Amazon-Recommendation-Engine-using-Complex-Networks" class="linkWithArrow darkText" target="_blank">Amazon Recommendation Engine</a>
-            <p class="lightText">Collaborative filtering and deep learning for product suggestions</p>
-          </div>
+            <!-- Project 4: RAG using DeepSeek -->
+            <div class="swiper-slide project-slide">
+              <a href="https://github.com/rayidali/RAG-System-for-Fire-Safety-Systems-Documents-Using-DeepSeek-R1" target="_blank" class="imageLink">
+                <div class="poster-frame">
+                  <div class="poster-image" style="background-image: url('project1-icon.png');"></div>
+                </div>
+              </a>
+              <a href="https://github.com/rayidali/RAG-System-for-Fire-Safety-Systems-Documents-Using-DeepSeek-R1" class="linkWithArrow darkText" target="_blank">RAG using DeepSeek</a>
+              <p class="lightText">Retrieval-Augmented Generation with advanced semantic embeddings</p>
+            </div>
 
-          <!-- Project 5: NYC Crime Map -->
-          <div class="project fadeInUp card3D">
-            <div class="numeral lightText">05</div>
-            <a href="https://github.com/rayidali4/rayidali4.github.io/tree/main" target="_blank" class="imageLink">
-              <div class="poster-frame">
-                <div class="poster-image" style="background-image: url('project3-icon.png');"></div>
-              </div>
-            </a>
-            <a href="https://github.com/rayidali4/rayidali4.github.io/tree/main" class="linkWithArrow darkText" target="_blank">NYC Crime Map</a>
-            <p class="lightText">Interactive visualization of NYC crime data and hot spots</p>
+            <!-- Project 5: Amazon Recommendation -->
+            <div class="swiper-slide project-slide">
+              <a href="https://github.com/rayidali/Amazon-Recommendation-Engine-using-Complex-Networks" target="_blank" class="imageLink">
+                <div class="poster-frame">
+                  <div class="poster-image" style="background-image: url('project2-icon.png');"></div>
+                </div>
+              </a>
+              <a href="https://github.com/rayidali/Amazon-Recommendation-Engine-using-Complex-Networks" class="linkWithArrow darkText" target="_blank">Amazon Recommendation Engine</a>
+              <p class="lightText">Collaborative filtering and deep learning for product suggestions</p>
+            </div>
+
+            <!-- Project 6: NYC Crime Map -->
+            <div class="swiper-slide project-slide">
+              <a href="https://github.com/rayidali4/rayidali4.github.io/tree/main" target="_blank" class="imageLink">
+                <div class="poster-frame">
+                  <div class="poster-image" style="background-image: url('project3-icon.png');"></div>
+                </div>
+              </a>
+              <a href="https://github.com/rayidali4/rayidali4.github.io/tree/main" class="linkWithArrow darkText" target="_blank">NYC Crime Map</a>
+              <p class="lightText">Interactive visualization of NYC crime data and hot spots</p>
+            </div>
           </div>
+          <!-- Pagination dots -->
+          <div class="swiper-pagination"></div>
         </div>
-        <button class="scroll-btn scroll-btn-right" aria-label="Scroll right">&#8250;</button>
-        <div class="scroll-hint lightText">scroll →</div>
       </div>
     </div>
 
