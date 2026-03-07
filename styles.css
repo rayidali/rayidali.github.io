@@ -416,7 +416,6 @@ body {
     margin: 0 auto;
     padding: 20px 20px 60px;
     position: relative;
-    overflow: hidden;
   }
 
   .projects-swiper {
@@ -425,7 +424,8 @@ body {
   }
 
   .projects-swiper .swiper-slide {
-    width: auto;
+    width: 360px;
+    max-width: 360px;
     display: flex;
     flex-direction: column;
   }
@@ -468,7 +468,7 @@ body {
 
   /* ========== 3D ROLLING TEXT (About Section) ========== */
   .rolling-text-section {
-    height: 280vh;
+    height: 220vh;
     position: relative;
   }
 
@@ -616,6 +616,36 @@ body {
     }
   }
   
+  @media only screen and (max-width: 768px) and (min-width: 600px) {
+    .poster-frame {
+      width: 40vw;
+      height: calc(40vw * 1.33);
+      max-width: 300px;
+      max-height: 400px;
+      padding: 14px;
+    }
+    .projects-swiper .swiper-slide {
+      width: 40vw;
+      max-width: 300px;
+    }
+    .project-slide .poster-frame {
+      width: 35vw;
+      height: calc(35vw * 1.33);
+      max-width: 260px;
+      max-height: 346px;
+      padding: 12px;
+    }
+    .aspectSquare {
+      width: 35vw;
+      height: 35vw;
+      max-width: 300px;
+      max-height: 300px;
+    }
+    .rolling-text-section {
+      height: 200vh;
+    }
+  }
+
   @media only screen and (max-width: 599px) {
     .mobileOnly {
       display: inline;
@@ -663,7 +693,7 @@ body {
     }
 
     .rolling-text-section {
-      height: 220vh;
+      height: 160vh;
     }
     .rolling-text-sticky .row {
       flex-direction: column;
@@ -675,7 +705,7 @@ body {
       perspective: 250px;
     }
     .rolling-text-line {
-      font-size: 0.85em;
+      font-size: 1.1em;
       white-space: normal;
       text-align: left;
       padding: 0 8px;
@@ -691,10 +721,10 @@ body {
     }
 
     .aspectSquare {
-      width: 70vw;
-      height: 70vw;
-      max-width: 400px;
-      max-height: 400px;
+      width: 55vw;
+      height: 55vw;
+      max-width: 300px;
+      max-height: 300px;
     }
 
     /* Poster frame responsive */
@@ -720,12 +750,12 @@ body {
     }
 
     .projects-carousel-wrapper {
-      overflow: visible;
       padding: 20px 10px 60px;
     }
 
     .projects-swiper .swiper-slide {
-      width: auto;
+      width: 55vw;
+      max-width: 220px;
     }
   }
   
