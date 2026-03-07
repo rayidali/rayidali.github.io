@@ -656,6 +656,7 @@ body {
     /* Stack columns vertically on mobile */
     .col-30, .col-50 {
       flex-basis: 100%;
+      width: 100%;
     }
     .col-30 {
       margin-bottom: 24px;
@@ -666,7 +667,7 @@ body {
     }
     .rolling-text-sticky .row {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: stretch;
     }
     .rolling-text-viewport {
       width: 100%;
@@ -707,6 +708,20 @@ body {
 
     .building-list {
       justify-content: flex-start;
+    }
+
+    /* Smaller poster frames for carousel slides on mobile */
+    .project-slide .poster-frame {
+      width: 55vw;
+      height: calc(55vw * 1.33);
+      max-width: 220px;
+      max-height: 293px;
+      padding: 10px;
+    }
+
+    .projects-carousel-wrapper {
+      overflow: visible;
+      padding: 20px 10px 60px;
     }
 
     .projects-swiper .swiper-slide {
