@@ -299,9 +299,10 @@ function addAnimationDelays(array, ms) {
         ? aboutHeadingContainer.querySelector('.stickySectionIndicator-heading')
         : null;
 
-      const angleStep = 10;   // degrees between each line on the cylinder
+      const angleStep = 20;   // degrees between each line on the cylinder
       const isMobile = window.innerWidth <= 599;
-      const radius = isMobile ? 70 : 100; // cylinder radius in px (smaller on mobile)
+      const radius = isMobile ? 80 : 120; // cylinder radius in px (smaller on mobile)
+      const deadZone = 0.15;  // first 15% of scroll is static (image visible before text rolls)
 
       function update() {
         const rect = section.getBoundingClientRect();
@@ -316,11 +317,11 @@ function addAnimationDelays(array, ms) {
         // Heading: fade when rolling text is active, HIDE when it's done
         // so the heading can't appear in the trailing empty space
         if (aboutHeadingContainer) {
-          if (progress >= 0.85) {
+          if (progress >= 0.90) {
             // Rolling text nearly done — hide heading completely
             aboutHeadingContainer.style.visibility = 'hidden';
-          } else if (progress > 0.02) {
-            // Rolling text active — fade heading, covered by z-index anyway
+          } else if (progress > deadZone) {
+            // Rolling text active — fade heading
             aboutHeadingContainer.style.visibility = '';
             aboutHeading.classList.add('faded');
           } else {
@@ -330,8 +331,11 @@ function addAnimationDelays(array, ms) {
           }
         }
 
+        // Apply dead zone: first 15% of scroll keeps text static on line 0
+        const adjustedProgress = progress <= deadZone ? 0 : (progress - deadZone) / (1 - deadZone);
+
         // Which line index is "centered" right now
-        const centerIndex = progress * (numLines - 1);
+        const centerIndex = adjustedProgress * (numLines - 1);
 
         lines.forEach(function(line, i) {
           var diff = i - centerIndex;
