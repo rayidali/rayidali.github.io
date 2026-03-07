@@ -199,7 +199,8 @@ function addAnimationDelays(array, ms) {
         changeCss('.mainColorBackground-blur', 'background-color: rgba(0,0,0,0.5);');
         changeCss('#mainMenu .menu-options a::after', 'background: white;');
         changeCss('.addAnimatedUnderline::after', 'background: white;');
-        changeCss('.scroll-btn', 'background: rgba(30, 30, 30, 0.9); border-color: #333; color: #ccc;');
+        changeCss('.swiper-pagination-bullet', 'background-color: #ccc;');
+        changeCss('.rolling-text-line', 'color: #CBCBCB;');
         $('.addBlur').addClass('darkBlur');
         nightMode = true;
       } else {
@@ -259,7 +260,7 @@ function addAnimationDelays(array, ms) {
 
     // ---------- Section heading fade when content is in view ----------
     const sectionHeadings = document.querySelectorAll('.stickySectionIndicator-heading');
-    const sectionContents = document.querySelectorAll('.building-list, .project-list, .publication-list, .row');
+    const sectionContents = document.querySelectorAll('.building-list, .projects-carousel-wrapper, .publication-list, .row');
 
     const headingFadeObserver = new IntersectionObserver(function(entries) {
       entries.forEach(entry => {
@@ -283,20 +284,105 @@ function addAnimationDelays(array, ms) {
       headingFadeObserver.observe(content);
     });
 
-    // ---------- Horizontal scroll buttons ----------
-    $('.scroll-btn-left').click(function() {
-      const scrollList = $(this).siblings('.project-list, .building-list');
-      scrollList.animate({ scrollLeft: scrollList.scrollLeft() - 400 }, 300);
-    });
+    // ---------- 3D Rolling Text (About Section) ----------
+    (function initRollingText() {
+      const section = document.getElementById('rollingTextSection');
+      if (!section) return;
 
-    $('.scroll-btn-right').click(function() {
-      const scrollList = $(this).siblings('.project-list, .building-list');
-      scrollList.animate({ scrollLeft: scrollList.scrollLeft() + 400 }, 300);
-    });
+      const lines = section.querySelectorAll('.rolling-text-line');
+      const numLines = lines.length;
+      if (numLines === 0) return;
 
-    // Hide scroll hint after user scrolls
-    $('.project-list, .building-list').on('scroll', function() {
-      $(this).siblings('.scroll-hint').addClass('hidden');
+      // Find the ABOUT heading container so we can fade/hide it via scroll progress
+      const aboutHeadingContainer = section.querySelector('.stickySectionIndicator-container');
+      const aboutHeading = aboutHeadingContainer
+        ? aboutHeadingContainer.querySelector('.stickySectionIndicator-heading')
+        : null;
+
+      const angleStep = 10;   // degrees between each line on the cylinder
+      const isMobile = window.innerWidth <= 599;
+      const radius = isMobile ? 70 : 100; // cylinder radius in px (smaller on mobile)
+
+      function update() {
+        const rect = section.getBoundingClientRect();
+        const sectionHeight = section.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const scrollRange = sectionHeight - viewportHeight;
+
+        // Progress: 0 at start of section, 1 at end
+        const scrolled = -rect.top;
+        const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
+
+        // Heading: fade when rolling text is active, HIDE when it's done
+        // so the heading can't appear in the trailing empty space
+        if (aboutHeadingContainer) {
+          if (progress >= 0.85) {
+            // Rolling text nearly done — hide heading completely
+            aboutHeadingContainer.style.visibility = 'hidden';
+          } else if (progress > 0.02) {
+            // Rolling text active — fade heading, covered by z-index anyway
+            aboutHeadingContainer.style.visibility = '';
+            aboutHeading.classList.add('faded');
+          } else {
+            // Before rolling text — heading visible normally
+            aboutHeadingContainer.style.visibility = '';
+            aboutHeading.classList.remove('faded');
+          }
+        }
+
+        // Which line index is "centered" right now
+        const centerIndex = progress * (numLines - 1);
+
+        lines.forEach(function(line, i) {
+          var diff = i - centerIndex;
+          var angle = diff * angleStep;
+          var absAngle = Math.abs(angle);
+
+          // Opacity: cosine falloff so center is 1, ±90° is 0
+          var opacity = absAngle >= 90 ? 0 : Math.pow(Math.cos(angle * Math.PI / 180), 1.5);
+
+          // Place each line on the cylinder surface
+          // rotateX first (local rotation), then translateZ pushes it out to radius
+          line.style.transform = 'rotateX(' + (-angle) + 'deg) translateZ(' + radius + 'px)';
+          line.style.opacity = Math.max(0, opacity).toFixed(3);
+        });
+      }
+
+      // Run on scroll via rAF for smoothness
+      var ticking = false;
+      window.addEventListener('scroll', function() {
+        if (!ticking) {
+          requestAnimationFrame(function() {
+            update();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // Initial render
+      update();
+    })();
+
+    // ---------- Swiper.js Coverflow Carousel ----------
+    // Adapted from Skiper49 Carousel_003
+    new Swiper('.projects-swiper', {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      loop: true,
+      coverflowEffect: {
+        rotate: 40,
+        stretch: 0,
+        depth: 100,
+        modifier: 1,
+        slideShadows: true,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
     });
   });
   
