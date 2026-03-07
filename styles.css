@@ -42,7 +42,7 @@ body {
   .linkWithArrow:hover::after {
     padding-left: 16px;
   }
-  h1, h2, h4 {
+  h1, h2, h3, h4 {
     margin: 0;
     font-weight: normal;
   }
@@ -130,6 +130,9 @@ body {
     left: 24px;
     z-index: 1000;
     cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
   }
   .mline {
     width: 100%;

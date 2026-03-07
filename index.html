@@ -4,11 +4,30 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <title>Rayid Ali — Machine Learning &amp; Data Analytics Portfolio</title>
+  <meta name="description" content="Rayid Ali is a CS master's graduate in NYC specializing in machine learning, data analytics, and AI-driven solutions. View projects, publications, and more." />
+  <meta name="author" content="Rayid Ali" />
+  <link rel="canonical" href="https://rayidali.github.io/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rayidali.github.io/" />
+  <meta property="og:title" content="Rayid Ali — Machine Learning &amp; Data Analytics Portfolio" />
+  <meta property="og:description" content="CS master's graduate in NYC specializing in machine learning, data analytics, and AI-driven solutions. View projects, publications, and more." />
+  <meta property="og:image" content="https://rayidali.github.io/rayid.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Rayid Ali — ML &amp; Data Analytics Portfolio" />
+  <meta name="twitter:description" content="CS master's graduate in NYC specializing in machine learning, data analytics, and AI-driven solutions." />
+  <meta name="twitter:image" content="https://rayidali.github.io/rayid.jpg" />
+
   <link rel="icon" href="skull.svg" type="image/svg+xml" />
 
-
-  <!-- jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- Preconnect for external resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
   <!-- Google Fonts -->
   <link
@@ -19,38 +38,32 @@
   <!-- Swiper.js CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-  <!-- Three.js -->
-  <script
-    src="https://cdnjs.cloudflare.com/ajax/libs/three.js/95/three.min.js"
-    integrity="sha512-UmfbvG5m/DHC9U+18ytxInR41chHjvY5NX+Sd7GB16iO6xhyQ94pqUR+L0rFUqBqOcG7S4Ej1alx/dHz3cIhtA=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  ></script>
-
-  <!-- Swiper.js -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
   <!-- Your CSS -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Your Scripts -->
-  <script src="script.js" type="text/javascript"></script>
-  <script src="3D.js" type="text/javascript"></script>
-
-  <title>Hello, I am Rayid</title>
-
-  <!-- (Optional) Meta Data -->
-  <meta property="og:title" content="Rayid Ali Portfolio" />
-  <meta property="og:description" content="Machine Learning, Data Analytics" />
-  <meta
-    name="description"
-    content="Aspiring Data Analyst. This is my portfolio"
-  />
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Rayid Ali",
+    "url": "https://rayidali.github.io",
+    "image": "https://rayidali.github.io/rayid.jpg",
+    "jobTitle": "Machine Learning Engineer",
+    "description": "CS master's graduate in NYC specializing in machine learning, data analytics, and AI-driven solutions.",
+    "sameAs": [
+      "https://www.linkedin.com/in/rayidali",
+      "https://github.com/rayidali"
+    ],
+    "email": "mailto:rayidali3@gmail.com",
+    "knowsAbout": ["Machine Learning", "Data Analytics", "Artificial Intelligence", "Complex Networks", "Recommendation Systems"]
+  }
+  </script>
 </head>
 
 <body>
   <!-- ========== NAV MENU ========== -->
-  <div id="mainMenu" class="mainColorBackground-blur">
+  <nav id="mainMenu" class="mainColorBackground-blur" aria-label="Main navigation">
     <div class="mainMenu-container">
       <!-- Left side menu -->
       <div class="mainMenu-menu">
@@ -69,18 +82,18 @@
         </ul>
       </div>
     </div>
-  </div>
+  </nav>
 
   <!-- Hamburger buttons -->
-  <div id="hamburgerClose" class="menuButton unselectable">
+  <button id="hamburgerClose" class="menuButton unselectable" aria-label="Close menu">
     <div class="xline xline-t darkBackground"></div>
     <div class="xline xline-b darkBackground"></div>
-  </div>
-  <div id="hamburgerOpen" class="menuButton unselectable">
+  </button>
+  <button id="hamburgerOpen" class="menuButton unselectable" aria-label="Open menu">
     <div class="mline whiteBackground"></div>
     <div class="mline whiteBackground"></div>
     <div class="mline whiteBackground"></div>
-  </div>
+  </button>
 
   <!-- Side bar indicator -->
   <div class="utility-sidebar">
@@ -103,7 +116,7 @@
 
   <!-- ========== LANDING SECTION ========== -->
   <div data-id="welcome" class="switch"></div>
-  <div id="landing">
+  <header id="landing">
     <!-- 3D grid container (transparent) -->
     <div id="scene-container" class="bg"></div>
     <div class="fg">
@@ -111,20 +124,20 @@
         <h1 class="animateEntry">
           Hello, I am <span class="mainColorText emphasis">Rayid</span>
         </h1>
-        <h2 class="animateEntry">Welcome to my portfolio.</h2>
+        <p class="animateEntry" style="font-size: 1.25em; text-transform: uppercase; letter-spacing: 0.05em;">Welcome to my portfolio.</p>
       </div>
     </div>
-  </div>
+  </header>
 
   <div id="changeNavColor"></div>
 
   <!-- ========== CONTENT ========== -->
-  <div class="contents">
+  <main class="contents">
     <!-- ===== Currently Building ===== -->
     <div data-id="building" id="building" class="switch"></div>
-    <div class="section-withStickyIndicator fadeInUp">
+    <section class="section-withStickyIndicator fadeInUp" aria-labelledby="heading-building">
       <div class="stickySectionIndicator-container">
-        <div class="stickySectionIndicator-heading">CURRENTLY BUILDING</div>
+        <h2 id="heading-building" class="stickySectionIndicator-heading">CURRENTLY BUILDING</h2>
       </div>
 
       <!-- Building Projects Container - Poster Cards -->
@@ -144,13 +157,13 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- ===== Projects ===== -->
     <div data-id="projects" id="projects" class="switch"></div>
-    <div class="section-withStickyIndicator fadeInUp">
+    <section class="section-withStickyIndicator fadeInUp" aria-labelledby="heading-projects">
       <div class="stickySectionIndicator-container">
-        <div class="stickySectionIndicator-heading">PROJECTS</div>
+        <h2 id="heading-projects" class="stickySectionIndicator-heading">PROJECTS</h2>
       </div>
 
       <!-- Projects Carousel - Swiper Coverflow -->
@@ -227,13 +240,13 @@
           <div class="swiper-pagination"></div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- ===== Publications ===== -->
     <div data-id="publications" id="publications" class="switch"></div>
-    <div class="section-withStickyIndicator fadeInUp">
+    <section class="section-withStickyIndicator fadeInUp" aria-labelledby="heading-publications">
       <div class="stickySectionIndicator-container">
-        <div class="stickySectionIndicator-heading">PUBLICATIONS</div>
+        <h2 id="heading-publications" class="stickySectionIndicator-heading">PUBLICATIONS</h2>
       </div>
       <div class="publication-list">
         <div class="publication fadeInUp card3D">
@@ -243,13 +256,13 @@
             href="https://ieeexplore.ieee.org/document/9921383"
             target="_blank"
           >
-            <div class="publication-img aspectSquare" style="background-image: url('ieee-logo.png')"></div>
+            <div class="publication-img aspectSquare" role="img" aria-label="IEEE publication logo" style="background-image: url('ieee-logo.png')"></div>
           </a>
 
           <div class="publication-description addBlur">
-            <h2 class="darkText">
+            <h3 class="darkText">
               Leveraging Network Similarity Measures for Recommendation Systems
-            </h2>
+            </h3>
             <p class="readingText">
               A publication exploring graph-based approaches for recommender systems.
             </p>
@@ -264,14 +277,14 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- ===== About ===== -->
     <div data-id="about" id="about" class="switch"></div>
-    <div class="section-withStickyIndicator fadeInUp">
+    <section class="section-withStickyIndicator fadeInUp" aria-labelledby="heading-about">
       <div class="rolling-text-section" id="rollingTextSection">
         <div class="stickySectionIndicator-container">
-          <div class="stickySectionIndicator-heading">ABOUT</div>
+          <h2 id="heading-about" class="stickySectionIndicator-heading">ABOUT</h2>
         </div>
         <div class="rolling-text-sticky">
           <div class="row" style="align-items: center;">
@@ -303,21 +316,21 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- ===== Currently ===== -->
     <div data-id="currently" id="currently" class="switch"></div>
-    <div class="section-withStickyIndicator fadeInUp">
+    <section class="section-withStickyIndicator fadeInUp" aria-labelledby="heading-currently">
       <div class="stickySectionIndicator-container">
-        <div class="stickySectionIndicator-heading">CURRENTLY</div>
+        <h2 id="heading-currently" class="stickySectionIndicator-heading">CURRENTLY</h2>
       </div>
       <div class="row">
         <div class="col col-30 fadeInUp card3D">
-          <div class="book-cover aspectSquare" style="background-image: url('one-hundred-years.jpeg')"></div>
+          <div class="book-cover aspectSquare" role="img" aria-label="One Hundred Years of Solitude book cover" style="background-image: url('one-hundred-years.jpeg')"></div>
         </div>
         <div class="col col-50 addBlur fadeInUp">
           <div class="about-text">
-            <h2 class="darkText">One Hundred Years of Solitude</h2>
+            <h3 class="darkText">One Hundred Years of Solitude</h3>
             <p class="readingText">
               I am currently reading <i>One Hundred Years of Solitude</i> by 
               Gabriel García Márquez. 
@@ -325,11 +338,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- ===== Contact ===== -->
     <div data-id="contact" id="contact" class="switch"></div>
-    <div class="section-withStickyIndicator fadeInUp">
+    <section class="section-withStickyIndicator fadeInUp" aria-label="Contact">
       <div class="contact-container">
         <ul>
           <li><a href="mailto:rayidali3@gmail.com" class="darkText">Email</a></li>
@@ -337,8 +350,8 @@
           <li><a href="https://github.com/rayidali" class="darkText" target="_blank">GitHub</a></li>
         </ul>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <!-- ========== FOOTER ========== -->
   <footer>
@@ -346,5 +359,17 @@
       &copy; <span id="year">2025</span> Rayid
     </p>
   </footer>
+
+  <!-- Scripts at end of body for faster initial render -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/three.js/95/three.min.js"
+    integrity="sha512-UmfbvG5m/DHC9U+18ytxInR41chHjvY5NX+Sd7GB16iO6xhyQ94pqUR+L0rFUqBqOcG7S4Ej1alx/dHz3cIhtA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="script.js"></script>
+  <script src="3D.js"></script>
 </body>
 </html>
