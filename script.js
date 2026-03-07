@@ -297,8 +297,8 @@ function addAnimationDelays(array, ms) {
       const aboutHeading = section.closest('.section-withStickyIndicator')
         .querySelector('.stickySectionIndicator-heading');
 
-      const angleStep = 24;   // degrees between each line on the cylinder
-      const radius = 220;     // cylinder radius in px
+      const angleStep = 16;   // degrees between each line on the cylinder
+      const radius = 150;     // cylinder radius in px
 
       function update() {
         const rect = section.getBoundingClientRect();

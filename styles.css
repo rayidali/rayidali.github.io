@@ -478,8 +478,8 @@ body {
   }
 
   .rolling-text-viewport {
-    perspective: 500px;
-    height: 380px;
+    perspective: 400px;
+    height: 280px;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -489,8 +489,7 @@ body {
 
   .rolling-text-line {
     position: absolute;
-    font-family: "Chivo", sans-serif;
-    font-size: 1.6em;
+    font-size: 1em;
     font-weight: normal;
     color: #444c58;
     white-space: nowrap;
@@ -498,7 +497,7 @@ body {
     backface-visibility: hidden;
     will-change: transform, opacity;
     transition: none;
-    line-height: 1.4;
+    line-height: 1.5em;
   }
 
   /* Publications / etc. */
@@ -637,11 +636,11 @@ body {
       height: 220vh;
     }
     .rolling-text-viewport {
-      height: 300px;
-      perspective: 350px;
+      height: 220px;
+      perspective: 300px;
     }
     .rolling-text-line {
-      font-size: 1.2em;
+      font-size: 0.9em;
     }
     .contact-container ul {
       font-size: 2em;
