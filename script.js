@@ -293,9 +293,11 @@ function addAnimationDelays(array, ms) {
       const numLines = lines.length;
       if (numLines === 0) return;
 
-      // Find the ABOUT section heading so we can fade it via scroll progress
-      const aboutHeading = section.closest('.section-withStickyIndicator')
-        .querySelector('.stickySectionIndicator-heading');
+      // Find the ABOUT heading container so we can fade/hide it via scroll progress
+      const aboutHeadingContainer = section.querySelector('.stickySectionIndicator-container');
+      const aboutHeading = aboutHeadingContainer
+        ? aboutHeadingContainer.querySelector('.stickySectionIndicator-heading')
+        : null;
 
       const angleStep = 10;   // degrees between each line on the cylinder
       const radius = 100;     // cylinder radius in px
@@ -310,11 +312,19 @@ function addAnimationDelays(array, ms) {
         const scrolled = -rect.top;
         const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
 
-        // Fade the ABOUT heading when the user starts scrolling through
-        if (aboutHeading) {
-          if (progress > 0.02 && progress < 0.98) {
+        // Heading: fade when rolling text is active, HIDE when it's done
+        // so the heading can't appear in the trailing empty space
+        if (aboutHeadingContainer) {
+          if (progress >= 0.85) {
+            // Rolling text nearly done — hide heading completely
+            aboutHeadingContainer.style.visibility = 'hidden';
+          } else if (progress > 0.02) {
+            // Rolling text active — fade heading, covered by z-index anyway
+            aboutHeadingContainer.style.visibility = '';
             aboutHeading.classList.add('faded');
           } else {
+            // Before rolling text — heading visible normally
+            aboutHeadingContainer.style.visibility = '';
             aboutHeading.classList.remove('faded');
           }
         }
