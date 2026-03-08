@@ -694,7 +694,7 @@ body {
     }
 
     .rolling-text-section {
-      height: 160vh;
+      height: 280vh;
     }
     .rolling-text-sticky .row {
       flex-direction: column;
