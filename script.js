@@ -299,9 +299,9 @@ function addAnimationDelays(array, ms) {
         ? aboutHeadingContainer.querySelector('.stickySectionIndicator-heading')
         : null;
 
+      const angleStep = 10;   // degrees between each line on the cylinder
       const isMobile = window.innerWidth <= 599;
-      const lineSpacing = isMobile ? 34 : 44;  // px between each line
-      const deadZone = isMobile ? 0.30 : 0.15;
+      const radius = isMobile ? 70 : 100; // cylinder radius in px (smaller on mobile)
 
       function update() {
         const rect = section.getBoundingClientRect();
@@ -314,41 +314,36 @@ function addAnimationDelays(array, ms) {
         const progress = Math.max(0, Math.min(1, scrolled / scrollRange));
 
         // Heading: fade when rolling text is active, HIDE when it's done
+        // so the heading can't appear in the trailing empty space
         if (aboutHeadingContainer) {
-          if (progress >= 0.90) {
+          if (progress >= 0.85) {
+            // Rolling text nearly done — hide heading completely
             aboutHeadingContainer.style.visibility = 'hidden';
-          } else if (progress > deadZone) {
+          } else if (progress > 0.02) {
+            // Rolling text active — fade heading, covered by z-index anyway
             aboutHeadingContainer.style.visibility = '';
             aboutHeading.classList.add('faded');
           } else {
+            // Before rolling text — heading visible normally
             aboutHeadingContainer.style.visibility = '';
             aboutHeading.classList.remove('faded');
           }
         }
 
-        // Dead zone: image settles into view before text starts rolling
-        const adjustedProgress = progress <= deadZone ? 0 : (progress - deadZone) / (1 - deadZone);
-
         // Which line index is "centered" right now
-        const centerIndex = adjustedProgress * (numLines - 1);
+        const centerIndex = progress * (numLines - 1);
 
         lines.forEach(function(line, i) {
           var diff = i - centerIndex;
-          var absDiff = Math.abs(diff);
+          var angle = diff * angleStep;
+          var absAngle = Math.abs(angle);
 
-          // Vertical position: tight stacking
-          var yOffset = diff * lineSpacing;
+          // Opacity: cosine falloff so center is 1, ±90° is 0
+          var opacity = absAngle >= 90 ? 0 : Math.pow(Math.cos(angle * Math.PI / 180), 1.5);
 
-          // Scale: center line full size, shrinks outward
-          var scale = Math.max(0.55, 1 - absDiff * 0.065);
-
-          // Opacity: center bright, fades outward
-          var opacity = Math.max(0, 1 - absDiff * 0.18);
-
-          // Subtle tilt for 3D curvature feel (not a full cylinder)
-          var tilt = diff * 2.5;
-
-          line.style.transform = 'translateY(' + yOffset + 'px) scale(' + scale.toFixed(3) + ') rotateX(' + tilt + 'deg)';
+          // Place each line on the cylinder surface
+          // rotateX first (local rotation), then translateZ pushes it out to radius
+          line.style.transform = 'rotateX(' + (-angle) + 'deg) translateZ(' + radius + 'px)';
           line.style.opacity = Math.max(0, opacity).toFixed(3);
         });
       }

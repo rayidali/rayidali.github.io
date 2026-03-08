@@ -477,28 +477,28 @@ body {
     top: 0;
     height: 100vh;
     display: flex;
-    align-items: flex-start;
-    padding-top: 12vh;
+    align-items: center;
     z-index: 1;
   }
 
   .rolling-text-viewport {
-    height: 340px;
+    perspective: 300px;
+    height: 200px;
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    perspective: 600px;
   }
 
   .rolling-text-line {
     position: absolute;
-    font-size: 1.15em;
+    font-size: 1em;
     font-weight: normal;
     color: #444c58;
     white-space: nowrap;
     text-align: center;
+    backface-visibility: hidden;
     will-change: transform, opacity;
     transition: none;
     line-height: 1;
@@ -693,7 +693,7 @@ body {
     }
 
     .rolling-text-section {
-      height: 280vh;
+      height: 160vh;
     }
     .rolling-text-sticky .row {
       flex-direction: column;
@@ -701,13 +701,13 @@ body {
     }
     .rolling-text-viewport {
       width: 100%;
-      height: 280px;
-      perspective: 500px;
+      height: 160px;
+      perspective: 250px;
     }
     .rolling-text-line {
-      font-size: 1em;
+      font-size: 1.1em;
       white-space: normal;
-      text-align: center;
+      text-align: left;
       padding: 0 8px;
     }
     .contact-container ul {
@@ -727,12 +727,12 @@ body {
       max-height: 300px;
     }
 
-    /* Poster frame responsive — consistent size across sections */
+    /* Poster frame responsive */
     .poster-frame {
-      width: 55vw;
-      height: calc(55vw * 1.33);
-      max-width: 240px;
-      max-height: 320px;
+      width: 70vw;
+      height: calc(70vw * 1.33);
+      max-width: 280px;
+      max-height: 373px;
       padding: 12px;
     }
 
@@ -740,12 +740,12 @@ body {
       justify-content: flex-start;
     }
 
-    /* Project carousel slides match the same poster size */
+    /* Smaller poster frames for carousel slides on mobile */
     .project-slide .poster-frame {
       width: 55vw;
       height: calc(55vw * 1.33);
-      max-width: 240px;
-      max-height: 320px;
+      max-width: 220px;
+      max-height: 293px;
       padding: 10px;
     }
 
@@ -755,7 +755,7 @@ body {
 
     .projects-swiper .swiper-slide {
       width: 55vw;
-      max-width: 240px;
+      max-width: 220px;
     }
   }
   
