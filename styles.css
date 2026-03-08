@@ -693,7 +693,7 @@ body {
     }
 
     .rolling-text-section {
-      height: 160vh;
+      height: 260vh;
     }
     .rolling-text-sticky .row {
       flex-direction: column;
