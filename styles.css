@@ -483,13 +483,13 @@ body {
   }
 
   .rolling-text-viewport {
-    perspective: 200px;
-    height: 280px;
+    height: 340px;
     position: relative;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    perspective: 600px;
   }
 
   .rolling-text-line {
@@ -499,7 +499,6 @@ body {
     color: #444c58;
     white-space: nowrap;
     text-align: center;
-    backface-visibility: hidden;
     will-change: transform, opacity;
     transition: none;
     line-height: 1;
@@ -702,8 +701,8 @@ body {
     }
     .rolling-text-viewport {
       width: 100%;
-      height: 240px;
-      perspective: 180px;
+      height: 280px;
+      perspective: 500px;
     }
     .rolling-text-line {
       font-size: 1em;
