@@ -740,13 +740,13 @@ body {
       justify-content: flex-start;
     }
 
-    /* Smaller poster frames for carousel slides on mobile */
+    /* Match project poster frames to building section */
     .project-slide .poster-frame {
-      width: 55vw;
-      height: calc(55vw * 1.33);
-      max-width: 220px;
-      max-height: 293px;
-      padding: 10px;
+      width: 70vw;
+      height: calc(70vw * 1.33);
+      max-width: 280px;
+      max-height: 373px;
+      padding: 12px;
     }
 
     .projects-carousel-wrapper {
@@ -754,8 +754,8 @@ body {
     }
 
     .projects-swiper .swiper-slide {
-      width: 55vw;
-      max-width: 220px;
+      width: 70vw;
+      max-width: 280px;
     }
   }
   
