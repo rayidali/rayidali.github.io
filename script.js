@@ -299,10 +299,10 @@ function addAnimationDelays(array, ms) {
         ? aboutHeadingContainer.querySelector('.stickySectionIndicator-heading')
         : null;
 
-      const angleStep = 20;   // degrees between each line on the cylinder
+      const angleStep = 10;   // degrees between each line on the cylinder
       const isMobile = window.innerWidth <= 599;
-      const radius = isMobile ? 80 : 120; // cylinder radius in px (smaller on mobile)
-      const deadZone = isMobile ? 0.30 : 0.15;  // mobile needs bigger dead zone so image settles first
+      const radius = isMobile ? 70 : 100; // cylinder radius in px (smaller on mobile)
+      const deadZone = isMobile ? 0.35 : 0; // mobile: first 35% of scroll is static
 
       function update() {
         const rect = section.getBoundingClientRect();
@@ -320,8 +320,8 @@ function addAnimationDelays(array, ms) {
           if (progress >= 0.90) {
             // Rolling text nearly done — hide heading completely
             aboutHeadingContainer.style.visibility = 'hidden';
-          } else if (progress > deadZone) {
-            // Rolling text active — fade heading
+          } else if (progress > deadZone + 0.02) {
+            // Rolling text active — fade heading, covered by z-index anyway
             aboutHeadingContainer.style.visibility = '';
             aboutHeading.classList.add('faded');
           } else {
@@ -331,11 +331,11 @@ function addAnimationDelays(array, ms) {
           }
         }
 
-        // Apply dead zone: first 15% of scroll keeps text static on line 0
-        const adjustedProgress = progress <= deadZone ? 0 : (progress - deadZone) / (1 - deadZone);
+        // Dead zone: on mobile, image settles into view before text rolls
+        const adj = progress <= deadZone ? 0 : (progress - deadZone) / (1 - deadZone);
 
         // Which line index is "centered" right now
-        const centerIndex = adjustedProgress * (numLines - 1);
+        const centerIndex = adj * (numLines - 1);
 
         lines.forEach(function(line, i) {
           var diff = i - centerIndex;

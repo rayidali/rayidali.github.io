@@ -477,8 +477,7 @@ body {
     top: 0;
     height: 100vh;
     display: flex;
-    align-items: flex-start;
-    padding-top: 12vh;
+    align-items: center;
     z-index: 1;
   }
 
@@ -694,7 +693,7 @@ body {
     }
 
     .rolling-text-section {
-      height: 280vh;
+      height: 260vh;
     }
     .rolling-text-sticky .row {
       flex-direction: column;
@@ -728,12 +727,12 @@ body {
       max-height: 300px;
     }
 
-    /* Poster frame responsive — consistent size across sections */
+    /* Poster frame responsive */
     .poster-frame {
-      width: 55vw;
-      height: calc(55vw * 1.33);
-      max-width: 240px;
-      max-height: 320px;
+      width: 70vw;
+      height: calc(70vw * 1.33);
+      max-width: 280px;
+      max-height: 373px;
       padding: 12px;
     }
 
@@ -741,12 +740,12 @@ body {
       justify-content: flex-start;
     }
 
-    /* Project carousel slides match the same poster size */
+    /* Smaller poster frames for carousel slides on mobile */
     .project-slide .poster-frame {
       width: 55vw;
       height: calc(55vw * 1.33);
-      max-width: 240px;
-      max-height: 320px;
+      max-width: 220px;
+      max-height: 293px;
       padding: 10px;
     }
 
@@ -756,7 +755,7 @@ body {
 
     .projects-swiper .swiper-slide {
       width: 55vw;
-      max-width: 240px;
+      max-width: 220px;
     }
   }
   
