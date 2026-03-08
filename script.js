@@ -299,9 +299,9 @@ function addAnimationDelays(array, ms) {
         ? aboutHeadingContainer.querySelector('.stickySectionIndicator-heading')
         : null;
 
-      const angleStep = 12;   // degrees between each line on the cylinder
+      const angleStep = 6;    // tight line spacing like jakexia.com
       const isMobile = window.innerWidth <= 599;
-      const radius = isMobile ? 90 : 130; // cylinder radius in px (smaller on mobile)
+      const radius = isMobile ? 55 : 75;  // small radius = lines packed close
       const deadZone = isMobile ? 0.30 : 0.15;  // mobile needs bigger dead zone so image settles first
 
       function update() {
