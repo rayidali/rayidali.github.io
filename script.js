@@ -302,7 +302,7 @@ function addAnimationDelays(array, ms) {
       const angleStep = 10;   // degrees between each line on the cylinder
       const isMobile = window.innerWidth <= 599;
       const radius = isMobile ? 70 : 100; // cylinder radius in px (smaller on mobile)
-      const deadZone = isMobile ? 0.25 : 0; // mobile: first 25% of scroll is static
+      const deadZone = isMobile ? 0.35 : 0; // mobile: first 35% of scroll is static
 
       function update() {
         const rect = section.getBoundingClientRect();
