@@ -629,11 +629,11 @@ body {
       max-width: 300px;
     }
     .project-slide .poster-frame {
-      width: 35vw;
-      height: calc(35vw * 1.33);
-      max-width: 260px;
-      max-height: 346px;
-      padding: 12px;
+      width: 40vw;
+      height: calc(40vw * 1.33);
+      max-width: 300px;
+      max-height: 400px;
+      padding: 14px;
     }
     .aspectSquare {
       width: 35vw;
