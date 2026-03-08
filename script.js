@@ -299,9 +299,9 @@ function addAnimationDelays(array, ms) {
         ? aboutHeadingContainer.querySelector('.stickySectionIndicator-heading')
         : null;
 
-      const angleStep = 20;   // degrees between each line on the cylinder
+      const angleStep = 12;   // degrees between each line on the cylinder
       const isMobile = window.innerWidth <= 599;
-      const radius = isMobile ? 80 : 120; // cylinder radius in px (smaller on mobile)
+      const radius = isMobile ? 90 : 130; // cylinder radius in px (smaller on mobile)
       const deadZone = isMobile ? 0.30 : 0.15;  // mobile needs bigger dead zone so image settles first
 
       function update() {
@@ -342,8 +342,8 @@ function addAnimationDelays(array, ms) {
           var angle = diff * angleStep;
           var absAngle = Math.abs(angle);
 
-          // Opacity: cosine falloff so center is 1, ±90° is 0
-          var opacity = absAngle >= 90 ? 0 : Math.pow(Math.cos(angle * Math.PI / 180), 1.5);
+          // Opacity: steep cosine falloff — center lines bright, edges fade fast
+          var opacity = absAngle >= 90 ? 0 : Math.pow(Math.cos(angle * Math.PI / 180), 2.5);
 
           // Place each line on the cylinder surface
           // rotateX first (local rotation), then translateZ pushes it out to radius
