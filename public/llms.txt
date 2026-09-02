@@ -1,0 +1,27 @@
+# Rayid Ali
+
+> AI engineer in New York City. Builds AI products end to end and ships them, usually alone.
+
+Site: https://rayidali.com
+Contact: via the mail button on the site. GitHub: https://github.com/rayidali. LinkedIn: https://www.linkedin.com/in/rayidali
+
+## Now
+- AI engineer by day (applied LLM and computer vision pipelines in production).
+- Founder by night: Cinechrony, an iPhone and web app.
+
+## Projects
+- Cinechrony (https://www.cinechrony.com): keep the films you find scrolling. Share a reel and it pulls out every film into a watchlist you share with friends. Next.js, Swift, Capacitor, Postgres. Built solo.
+- iEdit (https://iedit.dev): an AI video editor that lives in iMessage. Text it clips and a vibe; it picks the cut, music, overlays and grade, then texts the video back. TypeScript, Claude, Shotstack.
+- pdf2video (https://github.com/rayidali/pdf2video): a research paper in, a narrated animated video presentation out. Python.
+
+## Publication
+- Ali, R. (2022). Leveraging Network Similarity Measures for Recommendation Systems. IEEE ICETCI 2022. https://ieeexplore.ieee.org/document/9921383
+
+## Education
+- MS, Computer Science, Clemson University (2024). Research with MIT Lincoln Laboratory on multi agent reinforcement learning.
+
+## Skills
+Python, TypeScript, Swift, Go, SQL, React, Next.js, FastAPI, Node, PyTorch, LLM and RAG pipelines (Claude, OpenAI, Gemini), pgvector, Pinecone, Postgres, BigQuery, Docker, Kubernetes, Terraform, GCP, AWS, Vercel.
+
+## Roles of interest
+AI engineer, product engineer, full-stack engineer, forward deployed engineer. Small teams, end to end ownership.

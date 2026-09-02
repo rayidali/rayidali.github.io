@@ -1,0 +1,417 @@
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="sketch" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="2.6" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="vig" aria-hidden="true"></div>
+<div class="dither" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<div id="boot" aria-hidden="true">
+  <pre id="bootlog">RAYID.EXE  v2026.09  (c) R. ALI
+</pre>
+  <div class="foot">press any key to skip</div>
+</div>
+
+<nav class="icons" aria-label="desktop">
+  <a href="#top"><svg viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" fill="#e6e2d6" stroke="#000"/><rect x="2" y="4" width="12" height="7" fill="#1b3ae6"/><rect x="5" y="13" width="6" height="2" fill="#7a7a8a"/></svg><span>my computer</span></a>
+  <a href="#work"><svg viewBox="0 0 16 16"><path d="M1 4h5l1 1h8v9H1z" fill="#f4d35e" stroke="#000"/><path d="M1 7h14v7H1z" fill="#e8c24a" stroke="#000"/></svg><span>projects</span></a>
+  <a href="#paper"><svg viewBox="0 0 16 16"><path d="M3 1h7l3 3v11H3z" fill="#fff" stroke="#000"/><path d="M5 6h6M5 8h6M5 10h4" stroke="#000"/></svg><span>paper.txt</span></a>
+  <a href="#play"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="#0a0f2c" stroke="#000"/><path d="M4 11l2-5 2 3 2-4 2 6" stroke="#b8ff57" fill="none"/></svg><span>now playing</span></a>
+  <a href="#mail"><svg viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" fill="#fff" stroke="#000"/><path d="M1 3l7 6 7-6" stroke="#000" fill="none"/></svg><span>send mail</span></a>
+  <a href="https://github.com/rayidali" target="_blank" rel="noopener" data-out="github"><svg viewBox="0 0 16 16"><rect x="2" y="1" width="12" height="14" fill="#1b3ae6" stroke="#000"/><rect x="5" y="1" width="6" height="5" fill="#e6e2d6"/><rect x="4" y="9" width="8" height="5" fill="#000"/></svg><span>github.dsk</span></a>
+</nav>
+
+<div class="taskbar" aria-label="taskbar">
+  <a class="start" href="#top"><svg viewBox="0 0 16 16" shape-rendering="crispEdges"><rect width="16" height="16" fill="#000a5c"/><rect x="1" y="1" width="14" height="14" fill="#1b3ae6"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="#efe8d6" stroke-width="1"/><g fill="#efe8d6"><rect x="5" y="3" width="5" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/><rect x="10" y="5" width="1" height="1"/><rect x="5" y="6" width="5" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="9" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="10" y="9" width="1" height="1"/><rect x="5" y="10" width="1" height="1"/><rect x="10" y="10" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="10" y="11" width="1" height="1"/></g><rect x="12" y="12" width="2" height="2" fill="#b8ff57"/></svg>rayid</a>
+  <div class="tabs">
+    <a class="tab on" href="#top">README.TXT</a>
+    <a class="tab" href="#story">HOW_I_WORK</a>
+    <a class="tab" href="#work">PROJECTS</a>
+    <a class="tab" href="#paper">PAPER</a>
+    <a class="tab" href="#mail">MAIL</a>
+  </div>
+  <div class="tray"><span class="led"></span><span>online</span><span id="pct">page 0%</span><span id="clock">00:00</span></div>
+</div>
+
+<div class="wrap">
+
+<section class="sec hero" id="top">
+<pre class="banner" aria-label="Rayid Ali">██████╗  █████╗ ██╗   ██╗██╗██████╗      █████╗ ██╗     ██╗
+██╔══██╗██╔══██╗╚██╗ ██╔╝██║██╔══██╗    ██╔══██╗██║     ██║
+██████╔╝███████║ ╚████╔╝ ██║██║  ██║    ███████║██║     ██║
+██╔══██╗██╔══██║  ╚██╔╝  ██║██║  ██║    ██╔══██║██║     ██║
+██║  ██║██║  ██║   ██║   ██║██████╔╝    ██║  ██║███████╗██║
+╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝╚═════╝     ╚═╝  ╚═╝╚══════╝╚═╝</pre>
+  <h1 class="hero-sub">
+    <span class="serif"><em>AI engineer</em>, New York City.</span>
+    <span class="vt">builds things with AI. ships them.</span>
+  </h1>
+
+  <div class="hero-grid">
+    <div class="hero-stack">
+      <div class="win readme rev">
+        <div class="tb"><svg class="ic" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect width="16" height="16" fill="#000a5c"/><rect x="1" y="1" width="14" height="14" fill="#1b3ae6"/><rect x="2" y="2" width="12" height="12" fill="none" stroke="#efe8d6" stroke-width="1"/><g fill="#efe8d6"><rect x="5" y="3" width="5" height="1"/><rect x="5" y="4" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="5" y="5" width="1" height="1"/><rect x="10" y="5" width="1" height="1"/><rect x="5" y="6" width="5" height="1"/><rect x="5" y="7" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="9" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="10" y="9" width="1" height="1"/><rect x="5" y="10" width="1" height="1"/><rect x="10" y="10" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="10" y="11" width="1" height="1"/></g><rect x="12" y="12" width="2" height="2" fill="#b8ff57"/></svg>C:\RAYID\README.TXT
+          <span class="b"><span>_</span><span>□</span><span>×</span></span></div>
+        <div class="menu"><span>File</span><span>Edit</span><span>View</span><span>Help</span></div>
+        <div class="body">
+          <p>Hey, I'm Rayid. I build things with AI and ship them. Full-stack when I have to be.</p>
+          <p>Currently an AI engineer by day, and a founder shipping an iPhone app by night.</p>
+          <p>Otherwise exploring the city or reading. Occasionally both.</p>
+          <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">
+            <a class="btn blue" href="#work">open projects</a>
+            <a class="btn" href="#mail">send mail</a>
+          </div>
+          <div class="links">
+            <a class="lk" href="https://github.com/rayidali" target="_blank" rel="noopener" data-out="github"><svg viewBox="0 0 16 16"><rect x="2" y="1" width="12" height="14" fill="#fff" stroke="#000"/><rect x="5" y="1" width="6" height="5" fill="#1b3ae6"/><rect x="4" y="9" width="8" height="5" fill="#000"/></svg>github.com/rayidali ↗</a>
+            <a class="lk" href="https://linkedin.com/in/rayidali" target="_blank" rel="noopener" data-out="linkedin"><svg viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="#1b3ae6" stroke="#000"/><rect x="4" y="6" width="2" height="6" fill="#fff"/><rect x="4" y="3" width="2" height="2" fill="#fff"/><path d="M8 6h2v1c1-1 4-1 4 2v3h-2V9c0-1-2-1-2 0v3H8z" fill="#fff"/></svg>linkedin.com/in/rayidali ↗</a>
+            <a class="lk" href="/resume" data-out="resume"><svg viewBox="0 0 16 16"><path d="M3 1h7l3 3v11H3z" fill="#fff" stroke="#000"/><path d="M5 6h6M5 8h6M5 10h4" stroke="#1b3ae6"/></svg>résumé.pdf ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="win dark term rev d2">
+        <div class="tb"><svg class="ic" viewBox="0 0 16 16"><rect x="1" y="2" width="14" height="12" fill="#000" stroke="#7fa0ff"/><path d="M4 6l3 2-3 2M8 10h4" stroke="#b8ff57" fill="none"/></svg>TERMINAL
+          <span class="b"><span>_</span><span>□</span><span>×</span></span></div>
+        <div class="body" id="term" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="hero-side">
+      <div class="riso px" data-depth="14" role="img" aria-label="a risograph print of Rayid">
+        <div class="p b"></div><div class="p y"></div>
+        <div class="lbl">RISO_TEST_01.PRN</div>
+      </div>
+
+      <div class="sticky px rev d1" data-depth="24" style="right:0;top:24px">
+        ships things.<br>drinks too much coffee.<br>answers email fast.<br><span style="font-size:20px">→ say hi below</span>
+      </div>
+
+      <div class="win dialog px rev d3" data-depth="18" style="right:10px;top:236px">
+        <div class="tb"><svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#f4d35e" stroke="#000"/><path d="M8 4v5M8 11v1" stroke="#000" stroke-width="2"/></svg>System message
+          <span class="b"><span>×</span></span></div>
+        <div class="body">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <svg width="34" height="34" viewBox="0 0 16 16" style="flex:none;shape-rendering:crispEdges"><circle cx="8" cy="8" r="7" fill="#1b3ae6" stroke="#000"/><path d="M8 4v1M6 7h2v5M6 12h4" stroke="#fff" stroke-width="2" fill="none"/></svg>
+            <div>This engineer is available for AI, product and full-stack roles. Continue?</div>
+          </div>
+          <div class="row"><a class="btn" href="#work">Yes</a><a class="btn" href="#mail">Also yes</a></div>
+        </div>
+      </div>
+
+      <svg class="doodle" style="left:196px;top:-6px;width:150px;height:90px" viewBox="0 0 150 90" aria-hidden="true">
+        <path d="M6 82C34 70 60 40 96 26c18-7 34-6 46-2" stroke="#f4d35e" stroke-width="2.2"/>
+        <path d="M126 12l18 12-20 10" stroke="#f4d35e" stroke-width="2.2"/>
+      </svg>
+      <svg class="doodle twinkle" style="right:-6px;top:-18px;width:40px;height:40px" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 2v36M2 20h36M8 8l24 24M32 8L8 32" stroke="#fff" stroke-width="2"/>
+      </svg>
+      <svg class="doodle twinkle" style="left:230px;bottom:150px;width:26px;height:26px;animation-delay:1.2s" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M20 2v36M2 20h36" stroke="#9fb4ff" stroke-width="2.4"/>
+      </svg>
+      <svg class="doodle" style="left:20px;bottom:-30px;width:190px;height:120px" viewBox="0 0 190 120" aria-hidden="true">
+        <path d="M22 78l6-52h118l6 52z" stroke="#9fb4ff" stroke-width="2"/>
+        <path d="M34 34h100v36H34z" stroke="#9fb4ff" stroke-width="1.6"/>
+        <path d="M6 80h178l-8 12H14z" stroke="#9fb4ff" stroke-width="2"/>
+        <path d="M70 44l10 8-10 8M86 60h20" stroke="#b8ff57" stroke-width="2"/>
+      </svg>
+      <div class="hand" style="position:absolute;left:214px;bottom:-16px;font-size:22px;color:#9fb4ff;transform:rotate(-4deg)">still my favourite machine</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="story">
+  <div class="head rev l">
+    <span class="vt">02 /</span>
+    <h2 class="serif" style="margin:0;font-weight:400">how I work</h2>
+    <span class="note">the whole story, one drawing</span>
+  </div>
+  <div class="story">
+    <div class="win flow rev l">
+      <div class="tb"><svg class="ic" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="#fff" stroke="#000"/><path d="M3 12l4-6 3 3 3-5" stroke="#1b3ae6" fill="none"/></svg>HOW_I_WORK.DRAWIO
+        <span class="b"><span>_</span><span>□</span><span>×</span></span></div>
+      <div class="body">
+        <svg viewBox="0 0 760 330" role="img" aria-label="idea, build it, ship it, listen to users, repeat" style="filter:url(#sketch)">
+          <g fill="none" stroke="#0a1440" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M28 44c60-4 110-2 150 2-2 30-1 52 2 76-60 3-100 2-152-2 3-28 2-50 0-76z"/>
+            <path d="M310 44c60-4 110-2 150 2-2 30-1 52 2 76-60 3-100 2-152-2 3-28 2-50 0-76z"/>
+            <path d="M590 44c50-4 90-2 130 2-2 30-1 52 2 76-50 3-80 2-132-2 3-28 2-50 0-76z"/>
+            <path d="M310 200c60-4 110-2 150 2-2 30-1 52 2 76-60 3-100 2-152-2 3-28 2-50 0-76z"/>
+            <path d="M180 82c40-6 80-4 128 0M296 76l14 6-14 8"/>
+            <path d="M462 82c40-6 80-4 126 0M576 76l14 6-14 8"/>
+            <path d="M656 124c6 40-2 80-40 104-60 34-150 22-230 10M396 236l-14 4 12 8"/>
+            <path d="M310 240c-90 10-200-10-220-100-6-30 0-60 14-80M100 66l4-14 10 10" stroke-dasharray="6 6"/>
+            <path d="M420 300c40 10 120 6 180-30 40-24 60-60 62-104M660 174l2 14-12-6" stroke="#1b3ae6"/>
+          </g>
+          <text x="104" y="92" text-anchor="middle">idea</text>
+          <text x="386" y="92" text-anchor="middle">build it</text>
+          <text x="656" y="92" text-anchor="middle">ship it</text>
+          <text x="386" y="248" text-anchor="middle">listen to users</text>
+          <text class="t2" x="104" y="112" text-anchor="middle">usually at 1am</text>
+          <text class="t2" x="386" y="112" text-anchor="middle">alone, end to end</text>
+          <text class="t2" x="656" y="112" text-anchor="middle">to real people</text>
+          <text class="t2" x="386" y="268" text-anchor="middle">then back to the top</text>
+          <text class="t2" x="560" y="318" text-anchor="middle" fill="#1b3ae6">repeat until it's good</text>
+          <text x="40" y="200" style="font-size:22px" fill="#d43a3a">(the 1am part is not a joke)</text>
+        </svg>
+      </div>
+    </div>
+
+    <div style="position:relative">
+<pre class="ascii globe" aria-hidden="true">        _____
+     ,-:` \;',`'-,
+   .'-;_,;  ':-;_,'.
+  /;   '/    ,  _`.-\
+ | '`. (`     /` ` \`|
+ |:.  `\`-.   \_   / |
+ |     (   `,  .`\ ;'|
+  \     | .'     `-'/
+   `.   ;/        .'
+     `'-._____.-'`</pre>
+      <div class="win skills rev r d2">
+        <div class="tb"><svg class="ic" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="#fff" stroke="#000"/><path d="M3 4h10M3 8h7M3 12h9" stroke="#1b3ae6"/></svg>SKILLS.TXT
+          <span class="b"><span>_</span><span>□</span><span>×</span></span></div>
+        <div class="body tight">
+<pre>python       <span class="bar">[██████████]</span>
+typescript   <span class="bar">[█████████░]</span>
+swift        <span class="bar">[███████░░░]</span>
+pytorch      <span class="bar">[████████░░]</span>
+next.js      <span class="bar">[█████████░]</span>
+fastapi      <span class="bar">[█████████░]</span>
+postgres     <span class="bar">[████████░░]</span>
+llm / rag    <span class="bar">[█████████░]</span>
+terraform    <span class="bar">[██████░░░░]</span>
+sleep        <span class="bar">[███░░░░░░░]</span></pre>
+        </div>
+      </div>
+      <div class="hand" style="margin-top:14px;font-size:22px;color:var(--yellow);transform:rotate(-1.5deg)">self assessed, honestly.</div>
+      <div class="win rev r d3" style="margin-top:22px">
+        <div class="tb"><svg class="ic" viewBox="0 0 16 16"><ellipse cx="8" cy="11" rx="4.2" ry="3.4" fill="#F56600"/><ellipse cx="3.2" cy="6.6" rx="1.6" ry="2" fill="#F56600"/><ellipse cx="6.4" cy="4.2" rx="1.6" ry="2.1" fill="#F56600"/><ellipse cx="9.8" cy="4.2" rx="1.6" ry="2.1" fill="#F56600"/><ellipse cx="12.9" cy="6.6" rx="1.6" ry="2" fill="#F56600"/></svg>EDUCATION.TXT
+          <span class="b"><span>_</span><span>×</span></span></div>
+        <div class="body tight" style="display:flex;gap:16px;align-items:center">
+          <svg width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="Clemson tiger paw" style="flex:none;transform:rotate(-18deg);filter:drop-shadow(2px 2px 0 rgba(0,0,0,.25))">
+            <ellipse cx="32" cy="42" rx="16" ry="13" fill="#F56600"/>
+            <ellipse cx="13" cy="26" rx="6" ry="8" fill="#F56600"/>
+            <ellipse cx="25" cy="16" rx="6.2" ry="8.4" fill="#F56600"/>
+            <ellipse cx="39" cy="16" rx="6.2" ry="8.4" fill="#F56600"/>
+            <ellipse cx="51" cy="26" rx="6" ry="8" fill="#F56600"/>
+          </svg>
+          <div class="vt" style="font-size:19px;line-height:1.35;color:#0a1440">
+            <div>MS, Computer Science</div>
+            <div>Clemson University · 2024</div>
+            <div style="color:#522D80;font-size:17px;margin-top:6px">research with MIT Lincoln Laboratory, multi agent RL</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="work">
+  <div class="head rev l">
+    <span class="vt">03 /</span>
+    <h2 class="serif" style="margin:0;font-weight:400">my projects</h2>
+    <span class="note">click any window to open it</span>
+  </div>
+  <pre class="rule rev">╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗</pre>
+  <div class="proj" style="margin-top:22px">
+
+    <a class="win rev pop" href="https://www.cinechrony.com" target="_blank" rel="noopener" data-out="cinechrony">
+      <div class="tb"><svg class="ic" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="#1b3ae6" stroke="#000"/><rect x="5" y="1" width="6" height="5" fill="#e6e2d6"/></svg>CINECHRONY.EXE
+        <span class="b"><span>_</span><span>□</span><span>×</span></span></div>
+      <span class="status">iphone + web</span>
+      <div class="shot">
+        <svg width="100%" height="100%" viewBox="0 0 320 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="320" height="210" fill="#0a0f2c"/>
+          <g stroke="#2f5cff" stroke-width="1" opacity=".4"><path d="M0 30h320M0 60h320M0 90h320M0 120h320M0 150h320M0 180h320M40 0v210M80 0v210M120 0v210M160 0v210M200 0v210M240 0v210M280 0v210"/></g>
+          <circle cx="160" cy="98" r="58" stroke="#efe8d6" stroke-width="8" fill="none"/>
+          <circle cx="160" cy="98" r="14" fill="#efe8d6"/>
+          <g fill="#0a0f2c"><circle cx="160" cy="56" r="11"/><circle cx="160" cy="140" r="11"/><circle cx="118" cy="98" r="11"/><circle cx="202" cy="98" r="11"/><circle cx="130" cy="68" r="11"/><circle cx="190" cy="128" r="11"/><circle cx="130" cy="128" r="11"/><circle cx="190" cy="68" r="11"/></g>
+          <g fill="#f4d35e"><rect x="20" y="186" width="14" height="8"/><rect x="48" y="186" width="14" height="8"/><rect x="76" y="186" width="14" height="8"/><rect x="104" y="186" width="14" height="8"/><rect x="132" y="186" width="14" height="8"/><rect x="160" y="186" width="14" height="8"/><rect x="188" y="186" width="14" height="8"/><rect x="216" y="186" width="14" height="8"/><rect x="244" y="186" width="14" height="8"/><rect x="272" y="186" width="14" height="8"/></g>
+          <text x="20" y="26" font-family="monospace" font-size="16" fill="#9fb4ff">movie night · 7 films · 14 hours watched</text>
+        </svg>
+      </div>
+      <div class="body">
+        <h3 class="pname">Cinechrony</h3>
+        <p class="pdesc">Keep the films you find scrolling. Share a reel to it and it pulls out every film, keeps it, and puts it on a list you share with friends. Built solo, web and native iOS.</p>
+        <div class="pmeta">NEXT.JS · SWIFT · CAPACITOR · POSTGRES</div>
+        <span class="btn blue">open ↗</span>
+      </div>
+    </a>
+
+    <a class="win rev pop d1" href="https://iedit.dev" target="_blank" rel="noopener" data-out="iedit">
+      <div class="tb"><svg class="ic" viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" fill="#fff" stroke="#000"/><path d="M4 6h8M4 9h5" stroke="#1b3ae6"/></svg>IEDIT.EXE
+        <span class="b"><span>_</span><span>□</span><span>×</span></span></div>
+      <span class="status" style="background:var(--yellow)">live · text it</span>
+      <div class="shot" style="background:#efe8d6">
+        <svg width="100%" height="100%" viewBox="0 0 320 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="320" height="210" fill="#efe8d6"/>
+          <rect x="24" y="22" width="190" height="42" rx="20" fill="#2f5cff"/><path d="M32 60l-10 12 22-8z" fill="#2f5cff"/>
+          <text x="42" y="48" font-family="monospace" font-size="13" fill="#fff">make it cinematic, slow mo</text>
+          <rect x="140" y="80" width="156" height="38" rx="18" fill="#d9d2bd"/><path d="M288 114l10 12-22-8z" fill="#d9d2bd"/>
+          <text x="156" y="104" font-family="monospace" font-size="13" fill="#0b0b0f">got it. on it.</text>
+          <rect x="24" y="140" width="272" height="50" fill="#0b0b0f"/>
+          <path d="M24 140l22-18h228l22 18z" fill="#2a2a2a"/>
+          <g stroke="#efe8d6" stroke-width="3"><path d="M50 124l12 16M94 124l12 16M138 124l12 16M182 124l12 16M226 124l12 16"/></g>
+          <path d="M150 154l22 11-22 11z" fill="#b8ff57"/>
+        </svg>
+      </div>
+      <div class="body">
+        <h3 class="pname">iEdit</h3>
+        <p class="pdesc">An AI video editor that lives in iMessage. Text it clips and a vibe; it picks the cut, the music, the overlays and the grade, then texts the video back.</p>
+        <div class="pmeta">TYPESCRIPT · CLAUDE · SHOTSTACK · IMESSAGE</div>
+        <span class="btn blue">open ↗</span>
+      </div>
+    </a>
+
+    <a class="win rev pop d2" href="https://github.com/rayidali/pdf2video" target="_blank" rel="noopener" data-out="pdf2video">
+      <div class="tb"><svg class="ic" viewBox="0 0 16 16"><path d="M3 1h7l3 3v11H3z" fill="#fff" stroke="#000"/><path d="M6 6l4 3-4 3z" fill="#1b3ae6"/></svg>PDF2VIDEO.EXE
+        <span class="b"><span>_</span><span>□</span><span>×</span></span></div>
+      <span class="status" style="background:#fff">open source</span>
+      <div class="shot" style="background:#f4d35e">
+        <svg width="100%" height="100%" viewBox="0 0 320 210" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="320" height="210" fill="#f4d35e"/>
+          <rect x="40" y="30" width="96" height="124" fill="#fff" stroke="#000" stroke-width="3"/>
+          <g stroke="#000" stroke-width="3"><path d="M56 56h64M56 72h64M56 88h44M56 104h64M56 120h34"/></g>
+          <path d="M146 92h50" stroke="#000" stroke-width="4" stroke-dasharray="7 7"/>
+          <path d="M190 84l14 8-14 8" stroke="#000" stroke-width="4" fill="none"/>
+          <circle cx="250" cy="92" r="40" fill="#000"/><path d="M238 72l30 20-30 20z" fill="#f4d35e"/>
+          <text x="40" y="186" font-family="monospace" font-size="18" fill="#000">paper.pdf  →  talk.mp4   [rendering 87%]</text>
+        </svg>
+      </div>
+      <div class="body">
+        <h3 class="pname">pdf2video</h3>
+        <p class="pdesc">A research paper goes in. A narrated, animated video presentation comes out. For people who would rather watch the paper than read it.</p>
+        <div class="pmeta">PYTHON · LLM PIPELINE · TTS · FFMPEG</div>
+        <span class="btn blue">open ↗</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="puzzle rev">
+    <div class="win">
+      <div class="tb"><svg class="ic" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="#fff" stroke="#000"/><path d="M1 6h14M1 11h14M6 1v14M11 1v14" stroke="#000"/></svg>PUZZLE.EXE
+        <span class="b"><span>_</span><span>□</span><span>×</span></span></div>
+      <div class="body tight"><div class="xg" id="xg" aria-label="word search">__XWORD__</div></div>
+    </div>
+    <div>
+      <div class="hand" style="font-size:30px;color:var(--cream);line-height:1.1;margin:8px 0 14px">find the stack hidden in the box.<br><span style="font-size:22px;color:#9fb4ff">hover a word and it lights up.</span></div>
+      <div class="win"><div class="body tight"><div class="wl" id="wl">__XWORDS__</div></div></div>
+      <div class="hand" style="margin-top:14px;font-size:20px;color:var(--yellow);transform:rotate(-2deg)">yes, "sleep" is not in there.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="paper">
+  <div class="head rev l">
+    <span class="vt">04 /</span>
+    <h2 class="serif" style="margin:0;font-weight:400">on paper</h2>
+    <span class="note">the one with the reviewers</span>
+  </div>
+  <article class="news rev pop">
+    <div class="stampd">PEER REVIEWED</div>
+    <div class="mast">NEWS!!!</div>
+    <div class="kick"><span>IEEE ICETCI · 2022</span><span>Vol. 1 · No. 1 · price: one citation</span></div>
+    <div class="cols">
+      <div class="fig">
+        <svg viewBox="0 0 320 260" role="img" aria-label="a product co-purchase graph">
+          <rect width="320" height="260" fill="#fff"/>
+          <g stroke="#0b0b0f" stroke-width="1.4">
+            <path d="M60 60L140 40L220 70L260 140L200 210L110 200L50 140Z"/><path d="M140 40L200 210M60 60L220 70M110 200L260 140M50 140L140 40M220 70L110 200"/>
+            <path d="M140 120L60 60M140 120L220 70M140 120L260 140M140 120L200 210M140 120L110 200M140 120L50 140M140 120L140 40"/>
+          </g>
+          <g fill="#0b0b0f"><circle cx="60" cy="60" r="7"/><circle cx="140" cy="40" r="7"/><circle cx="220" cy="70" r="7"/><circle cx="260" cy="140" r="7"/><circle cx="200" cy="210" r="7"/><circle cx="110" cy="200" r="7"/><circle cx="50" cy="140" r="7"/></g>
+          <circle cx="140" cy="120" r="12" fill="#1b3ae6"/>
+          <text x="30" y="246" font-family="monospace" font-size="11" fill="#333">fig. 1  similarity between nodes → what to recommend next</text>
+          <defs><pattern id="dots" width="4" height="4" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#000"/></pattern></defs>
+          <rect width="320" height="260" fill="url(#dots)" opacity=".22"/>
+        </svg>
+        <div class="cap">fig. 1: the graph does the recommending</div>
+      </div>
+      <div>
+        <h3>Leveraging Network Similarity Measures for Recommendation Systems</h3>
+        <p><b>R. Ali.</b> Product co-purchase data modeled as a graph, with node similarity measures from network science used to generate recommendations.</p>
+        <p>Started as a complex networks course project on Amazon data. Ended up at a conference. Still the reason I think in graphs.</p>
+        <a class="btn" href="https://ieeexplore.ieee.org/document/9921383" target="_blank" rel="noopener" data-out="ieee">read on IEEE Xplore ↗</a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="sec" id="play">
+  <div class="np">
+    <div class="win dark rev">
+      <div class="tb"><svg class="ic" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" fill="#0a0f2c" stroke="#7fa0ff"/><path d="M4 11l2-5 2 3 2-4 2 6" stroke="#b8ff57" fill="none"/></svg>NOW_READING.AMP
+        <span class="b"><span>_</span><span>×</span></span></div>
+      <div class="body">
+        <div class="vt" style="font-size:22px;color:var(--green)">▶ Love in the Time of Cholera</div>
+        <div class="vt" style="font-size:18px;color:#9fb4ff;margin-top:2px">Gabriel García Márquez · ch. 03 of 06</div>
+        <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="vt" style="font-size:17px;color:#9fb4ff;margin-top:12px;display:flex;justify-content:space-between"><span>⏮ ⏸ ⏭</span><span>128 kbps · stereo</span></div>
+      </div>
+    </div>
+    <div class="win rev d2">
+      <div class="tb"><svg class="ic" viewBox="0 0 16 16"><rect x="1" y="1" width="14" height="14" fill="#fff" stroke="#000"/><rect x="3" y="7" width="10" height="3" fill="#1b3ae6"/></svg>CURRENTLY.LOG
+        <span class="b"><span>_</span><span>×</span></span></div>
+      <div class="body">
+        <div class="vt" style="font-size:20px;line-height:1.35">
+          <div>building ......... cinechrony v2</div>
+          <div>reading .......... see left</div>
+          <div>walking .......... until the phone dies</div>
+          <div>coffee ........... <span style="color:var(--pen)">critical</span></div>
+        </div>
+        <div class="vt" style="font-size:17px;margin-top:14px;color:#4a5080">loading next thing...</div>
+        <div class="prog" aria-hidden="true"><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="mail">
+  <div class="head rev l">
+    <span class="vt">05 /</span>
+    <h2 class="serif" style="margin:0;font-weight:400">say hello</h2>
+    <span class="note">it opens your mail app, already filled in</span>
+  </div>
+  <div class="win mail rev pop">
+    <div class="tb"><svg class="ic" viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" fill="#fff" stroke="#000"/><path d="M1 3l7 6 7-6" stroke="#000" fill="none"/></svg>NEW MESSAGE
+      <span class="b"><span>_</span><span>□</span><span>×</span></span></div>
+    <div class="menu"><span>File</span><span>Edit</span><span>Insert</span><span>Format</span></div>
+    <div class="body">
+      <div class="form">
+        <label for="subj">To:</label><div class="field">rayid</div>
+        <label for="subj">Subject:</label><div class="field" id="subj">Hello Rayid, let's talk</div>
+        <label for="bodytxt">Body:</label><textarea id="bodytxt">Hi Rayid,
+
+I came across your portfolio and would love to chat about
+
+Best,
+</textarea>
+      </div>
+      <div class="row">
+        <a class="btn blue" href="https://github.com/rayidali" target="_blank" rel="noopener" data-out="github">github ↗</a>
+        <a class="btn blue" href="https://linkedin.com/in/rayidali" target="_blank" rel="noopener" data-out="linkedin">linkedin ↗</a>
+        <a class="btn" href="/resume" data-out="resume">résumé</a>
+        <a class="btn blue" id="sendbtn" href="#">send ✉</a>
+      </div>
+    </div>
+  </div>
+  <div class="hand" style="text-align:center;margin-top:26px;font-size:24px;color:var(--yellow)">replies within a day, usually faster.</div>
+  <div class="foot">built by hand · 2026 · <a href="/privacy">privacy</a> · <a href="/terms">terms</a> · <a href="#" id="cookiebtn">cookie settings</a></div>
+</section>
+</div>
+
+<div class="win hidden" id="consent" role="dialog" aria-label="cookie settings">
+  <div class="tb"><svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="#f4d35e" stroke="#000"/><path d="M8 4v5M8 11v1" stroke="#000" stroke-width="2"/></svg>Cookies?
+    <span class="b"><span id="consentx">×</span></span></div>
+  <div class="body">
+    This site runs cookieless analytics by default. With your OK it also records anonymous session replays (Microsoft Clarity) to see what works. <a href="/privacy" style="text-decoration:underline">details</a>
+    <div class="row"><a class="btn" href="#" id="consentno">no thanks</a><a class="btn blue" href="#" id="consentok">OK</a></div>
+  </div>
+</div>
