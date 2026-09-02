@@ -66,21 +66,21 @@ export async function GET(req: NextRequest) {
       return j.results || j.error || null;
     };
     facts.posthog = {
-      pageviews_and_unique_visitors: await hogql("select count(), count(distinct distinct_id) from events where event = '$pageview' and timestamp > now() - interval 7 day"),
-      previous_week: await hogql("select count(), count(distinct distinct_id) from events where event = '$pageview' and timestamp > now() - interval 14 day and timestamp <= now() - interval 7 day"),
-      top_referring_domains: await hogql("select properties.$referring_domain, count() from events where event = '$pageview' and timestamp > now() - interval 7 day group by 1 order by 2 desc limit 8"),
-      devices: await hogql("select properties.$device_type, count() from events where event = '$pageview' and timestamp > now() - interval 7 day group by 1 order by 2 desc"),
-      browsers: await hogql("select properties.$browser, count() from events where event = '$pageview' and timestamp > now() - interval 7 day group by 1 order by 2 desc limit 5"),
-      top_ref_codes: await hogql("select properties.ref, count(distinct distinct_id) from events where timestamp > now() - interval 7 day and properties.ref is not null group by 1 order by 2 desc limit 10"),
+      pageviews_and_unique_visitors: await hogql("select count(), count(distinct distinct_id) from events where event = '$pageview' and properties.$host like '%rayidali%' and timestamp > now() - interval 7 day"),
+      previous_week: await hogql("select count(), count(distinct distinct_id) from events where event = '$pageview' and properties.$host like '%rayidali%' and timestamp > now() - interval 14 day and timestamp <= now() - interval 7 day"),
+      top_referring_domains: await hogql("select properties.$referring_domain, count() from events where event = '$pageview' and properties.$host like '%rayidali%' and timestamp > now() - interval 7 day group by 1 order by 2 desc limit 8"),
+      devices: await hogql("select properties.$device_type, count() from events where event = '$pageview' and properties.$host like '%rayidali%' and timestamp > now() - interval 7 day group by 1 order by 2 desc"),
+      browsers: await hogql("select properties.$browser, count() from events where event = '$pageview' and properties.$host like '%rayidali%' and timestamp > now() - interval 7 day group by 1 order by 2 desc limit 5"),
+      top_ref_codes: await hogql("select properties.ref, count(distinct distinct_id) from events where properties.$host like '%rayidali%' and timestamp > now() - interval 7 day and properties.ref is not null group by 1 order by 2 desc limit 10"),
     };
   }
 
   /* ---------- Sentry ---------- */
   const snTok = process.env.SENTRY_AUTH_TOKEN, snOrg = process.env.SENTRY_ORG, snProj = process.env.SENTRY_PROJECT;
   if (snTok && snOrg && snProj) {
-    const r = await fetch(`https://sentry.io/api/0/projects/${snOrg}/${snProj}/issues/?statsPeriod=7d&query=is:unresolved&sort=freq`, { headers: { Authorization: `Bearer ${snTok}` } });
+    const r = await fetch(`https://sentry.io/api/0/projects/${snOrg}/${snProj}/issues/?statsPeriod=14d&query=is:unresolved&sort=freq`, { headers: { Authorization: `Bearer ${snTok}` } });
     const issues: any[] = await r.json().catch(() => []);
-    facts.sentry = Array.isArray(issues) ? issues.slice(0, 8).map((i) => ({ title: i.title, count: i.count, users: i.userCount, last: i.lastSeen, link: i.permalink })) : issues;
+    facts.sentry_last_14d = Array.isArray(issues) ? issues.slice(0, 8).map((i) => ({ title: i.title, count: i.count, users: i.userCount, last: i.lastSeen, link: i.permalink })) : issues;
   }
 
   /* ---------- make sense of it ---------- */
@@ -103,15 +103,21 @@ ${JSON.stringify(facts, null, 1).slice(0, 60000)}`;
   const anth = process.env.ANTHROPIC_API_KEY;
   const gem = process.env.GEMINI_API_KEY;
   if (anth) {
-    model = "claude-sonnet-5";
-    const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "x-api-key": anth, "anthropic-version": "2023-06-01", "content-type": "application/json" }, body: JSON.stringify({ model, max_tokens: 1500, messages: [{ role: "user", content: prompt }] }) });
-    const j: any = await r.json().catch(() => ({}));
-    text = j?.content?.[0]?.text || "";
-  } else if (gem) {
-    model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${gem}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
-    const j: any = await r.json().catch(() => ({}));
-    text = j?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    try {
+      const r = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "x-api-key": anth, "anthropic-version": "2023-06-01", "content-type": "application/json" }, body: JSON.stringify({ model: "claude-sonnet-5", max_tokens: 1500, messages: [{ role: "user", content: prompt }] }) });
+      const j: any = await r.json().catch(() => ({}));
+      text = j?.content?.[0]?.text || "";
+      if (text) model = "claude-sonnet-5"; else facts.model_error = { claude: j?.error?.message || r.status };
+    } catch (e) { facts.model_error = { claude: String(e) }; }
+  }
+  if (!text && gem) {
+    const m = process.env.GEMINI_MODEL || "gemini-2.5-flash";
+    try {
+      const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${gem}`, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }) });
+      const j: any = await r.json().catch(() => ({}));
+      text = j?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      if (text) model = m; else facts.model_error = { ...(facts.model_error as object || {}), gemini: j?.error?.message || r.status };
+    } catch (e) { facts.model_error = { ...(facts.model_error as object || {}), gemini: String(e) }; }
   }
   if (!text) text = "RAYID.EXE weekly report\n\nNo model configured, raw numbers:\n" + JSON.stringify(facts.site || facts, null, 1).slice(0, 3500);
   text = text.replace(/—/g, ",");
