@@ -220,7 +220,8 @@ export default function Desktop() {
     let scene3: Scene3 | null = null;
     const canvas = document.getElementById("bg") as HTMLCanvasElement | null;
     const nav = navigator as any;
-    const lowEnd = Boolean(nav.connection?.saveData) || (typeof nav.deviceMemory === "number" && nav.deviceMemory <= 2) || (typeof nav.hardwareConcurrency === "number" && nav.hardwareConcurrency <= 2);
+    /* privacy tools (DuckDuckGo extension, Firefox RFP, Tor, Brave) report exactly 2 cores on any machine, so only a single core counts as weak */
+    const lowEnd = Boolean(nav.connection?.saveData) || (typeof nav.deviceMemory === "number" && nav.deviceMemory <= 2) || (typeof nav.hardwareConcurrency === "number" && nav.hardwareConcurrency < 2);
     const startThree = () => {
       if (!canvas || reduce || lowEnd) { canvas?.classList.add("fallback"); return; }
       const go = () => import("./scene")
