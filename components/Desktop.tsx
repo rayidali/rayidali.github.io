@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import * as Sentry from "@sentry/nextjs";
 import { track } from "@/lib/track";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -18,7 +17,7 @@ export default function Desktop() {
   useEffect(() => {
     const cleanups: Array<() => void> = [];
     const on = (t: EventTarget, ev: string, fn: any, o?: any) => { t.addEventListener(ev, fn, o); cleanups.push(() => t.removeEventListener(ev, fn, o)); };
-    const safe = (name: string, fn: () => void) => { try { fn(); } catch (err) { console.error("desktop:" + name, err); try { Sentry.captureException(err, { tags: { block: name } }); } catch { /* ignore */ } } };
+    const safe = (name: string, fn: () => void) => { try { fn(); } catch (err) { console.error("desktop:" + name, err); try { (window as any).__sentry?.captureException(err, { tags: { block: name } }); } catch { /* ignore */ } } };
     const fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const small = window.innerWidth < 760;
@@ -72,18 +71,18 @@ export default function Desktop() {
       let li = 0;
       const nextLine = () => {
         if (booted || !log) return;
-        if (li < lines.length) { log.textContent += lines[li] + "\n"; li++; window.setTimeout(nextLine, li === lines.length ? 700 : 260); }
+        if (li < lines.length) { log.textContent += lines[li] + "\n"; li++; window.setTimeout(nextLine, li === lines.length ? 420 : 170); }
         else endBoot();
       };
       let seen = false;
       try { seen = sessionStorage.getItem("rayid.booted") === "1"; sessionStorage.setItem("rayid.booted", "1"); } catch { /* ignore */ }
       if (seen || reduce) window.setTimeout(endBoot, 0);
-      else { window.setTimeout(nextLine, 350); window.setTimeout(endBoot, 4200); }
+      else { window.setTimeout(nextLine, 200); window.setTimeout(endBoot, 2400); }
       on(window, "keydown", endBoot, { once: true });
       on(window, "pointerdown", endBoot, { once: true });
     });
     /* belt and braces: nothing may ever leave the boot screen up */
-    window.setTimeout(endBoot, 6000);
+    window.setTimeout(endBoot, 3500);
 
     /* ---------- reveals ---------- */
     safe("reveals", () => {
