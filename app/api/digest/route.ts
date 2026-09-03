@@ -12,6 +12,10 @@ export const maxDuration = 60;
  * to run it by hand.
  */
 export async function GET(req: NextRequest) {
+  try { return await run(req); } catch (e) { return NextResponse.json({ ok: false, error: String(e) }, { status: 500 }); }
+}
+
+async function run(req: NextRequest) {
   const secret = process.env.CRON_SECRET;
   const auth = req.headers.get("authorization") || "";
   if (!secret || (auth !== `Bearer ${secret}` && req.nextUrl.searchParams.get("key") !== secret)) return NextResponse.json({ error: "nope" }, { status: 401 });
@@ -48,7 +52,7 @@ export async function GET(req: NextRequest) {
       visits_by_ref: top((r) => (r.event === "page_view" ? label(r.ref) : null), 12),
       countries: top((r) => (r.event === "page_view" ? r.country : null)),
       cities: top((r) => (r.event === "page_view" ? r.city : null)),
-      referrers: top((r) => (r.event === "page_view" && r.referrer ? new URL(r.referrer).hostname : null)),
+      referrers: top((r) => { if (r.event !== "page_view" || !r.referrer) return null; try { return new URL(r.referrer).hostname; } catch { return String(r.referrer).slice(0, 60); } }),
       scroll_reached_100pct: count((r) => r.event === "scroll_depth" && (r.props as any)?.depth === 100),
       avg_seconds_per_section: Object.fromEntries(Object.entries(dwell).map(([k, v]) => [k, Math.round(v.reduce((a, b) => a + b, 0) / v.length / 1000)])),
       puzzle_words_found: count((r) => r.event === "puzzle_word"),
