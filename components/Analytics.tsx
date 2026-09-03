@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import posthog from "posthog-js";
 import { isOwner } from "@/lib/track";
 
 const CONSENT_KEY = "rayid.consent";
@@ -44,10 +43,10 @@ export default function Analytics() {
     (window as any).__ref = ref;
     if (isOwner()) { document.getElementById("consent")?.classList.add("hidden"); return; }
 
-    /* ---- PostHog, cookieless, proxied through /ingest ---- */
-    try {
-      const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-      if (key) {
+    /* ---- PostHog, cookieless, proxied through /ingest, loaded once the page is idle ---- */
+    const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+    if (key) {
+      const boot = () => import("posthog-js").then(({ default: posthog }) => {
         posthog.init(key, {
           api_host: "/ingest",
           ui_host: "https://us.posthog.com",
@@ -56,12 +55,17 @@ export default function Analytics() {
           capture_pageview: true,
           capture_pageleave: true,
           disable_session_recording: true,
+          disable_surveys: true,
+          capture_dead_clicks: false,
+          capture_performance: { web_vitals: false },
           autocapture: true,
         });
         if (ref) { posthog.register({ ref }); posthog.identify("ref:" + ref, { ref }); }
         (window as any).posthog = posthog;
-      }
-    } catch (e) { console.error("posthog", e); }
+      }).catch((e) => console.error("posthog", e));
+      const w = window as any;
+      if (typeof w.requestIdleCallback === "function") w.requestIdleCallback(boot, { timeout: 2500 }); else setTimeout(boot, 1200);
+    }
 
     /* ---- Clarity by default, with a visible way out ---- */
     const clarityId = process.env.NEXT_PUBLIC_CLARITY_ID || "";

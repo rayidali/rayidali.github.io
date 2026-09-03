@@ -90,7 +90,7 @@ export default async function Resume() {
           <header className="cvhead">
             <h1 className="serif">Rayid Ali</h1>
             <div className="cvcontact">
-              <span>New York, NY</span><span>864-765-4848</span>
+              <span>New York, NY</span>
               <a href="mailto:rayidali3@gmail.com">rayidali3@gmail.com</a>
               <a href="https://rayidali.com">rayidali.com</a>
               <a href="https://github.com/rayidali" target="_blank" rel="noopener">github.com/rayidali</a>

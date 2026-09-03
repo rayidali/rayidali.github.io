@@ -5,8 +5,8 @@ import "./globals.css";
 
 const serif = Instrument_Serif({ weight: "400", style: ["normal", "italic"], subsets: ["latin"], variable: "--font-serif", display: "swap" });
 const vt = VT323({ weight: "400", subsets: ["latin"], variable: "--font-vt", display: "swap" });
-const mono = Courier_Prime({ weight: ["400", "700"], style: ["normal", "italic"], subsets: ["latin"], variable: "--font-mono", display: "swap" });
-const hand = Caveat({ weight: ["500", "600", "700"], subsets: ["latin"], variable: "--font-hand", display: "swap" });
+const mono = Courier_Prime({ weight: ["400", "700"], subsets: ["latin"], variable: "--font-mono", display: "swap" });
+const hand = Caveat({ weight: "600", subsets: ["latin"], variable: "--font-hand", display: "swap" });
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL || "https://rayidali.com";
 const TITLE = "Rayid Ali · RAYID.EXE";

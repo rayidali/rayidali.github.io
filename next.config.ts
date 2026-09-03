@@ -35,4 +35,5 @@ export default withSentryConfig(nextConfig, {
   disableLogger: true,
   widenClientFileUpload: false,
   sourcemaps: { disable: !process.env.SENTRY_AUTH_TOKEN },
+  bundleSizeOptimizations: { excludeDebugStatements: true, excludeTracing: true, excludeReplayIframe: true, excludeReplayShadowDom: true },
 });
