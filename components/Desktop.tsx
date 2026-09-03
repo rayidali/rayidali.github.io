@@ -319,7 +319,7 @@ function buildScene(THREE: ThreeNS, canvas: HTMLCanvasElement, small: boolean): 
   const M = new THREE.Matrix4(), V = new THREE.Vector3(), Q = new THREE.Quaternion(), E = new THREE.Euler(), S = new THREE.Vector3();
   const pushEdges = (geo: InstanceType<ThreeNS["BufferGeometry"]>, into: number[], pos: [number, number, number], scale: [number, number, number] = [1, 1, 1], rot: [number, number, number] = [0, 0, 0]) => {
     M.compose(V.set(pos[0], pos[1], pos[2]), Q.setFromEuler(E.set(rot[0], rot[1], rot[2])), S.set(scale[0], scale[1], scale[2]));
-    const a = geo.getAttribute("position").array as ArrayLike<number>;
+    const a = (geo.getAttribute("position") as InstanceType<ThreeNS["BufferAttribute"]>).array as ArrayLike<number>;
     for (let i = 0; i < a.length; i += 3) { V.set(a[i], a[i + 1], a[i + 2]).applyMatrix4(M); into.push(V.x, V.y, V.z); }
   };
   const box = (into: number[], w: number, h: number, d: number, x: number, y: number, z: number) => pushEdges(unit, into, [x, y, z], [w, h, d]);

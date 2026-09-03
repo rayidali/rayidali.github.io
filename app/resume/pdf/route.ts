@@ -54,7 +54,7 @@ export async function GET(req: NextRequest) {
   } catch {
     return NextResponse.redirect(new URL("/resume.pdf", req.nextUrl.origin), 302);
   }
-  return new NextResponse(bytes, {
+  return new NextResponse(Buffer.from(bytes), {
     status: 200,
     headers: {
       "content-type": "application/pdf",
