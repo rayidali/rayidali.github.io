@@ -26,9 +26,9 @@ a{color:inherit;text-decoration:none}
   repeating-linear-gradient(to right,rgba(239,232,214,.06) 0 1px,transparent 1px 40px),
   repeating-linear-gradient(to bottom,rgba(239,232,214,.06) 0 1px,transparent 1px 40px),
   radial-gradient(ellipse at 62% 38%,#132066 0%,var(--ink) 38%,var(--navy) 82%)}
-.dither{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.22;mix-blend-mode:overlay;
+.dither{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.07;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='1' height='1' fill='%23fff'/%3E%3Crect x='2' y='2' width='1' height='1' fill='%23fff'/%3E%3C/svg%3E")}
-.grain{position:fixed;inset:-220%;z-index:3;pointer-events:none;opacity:.34;mix-blend-mode:overlay;
+.grain{position:fixed;inset:-12%;z-index:3;pointer-events:none;opacity:.09;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.92' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");
   animation:grainshift .65s steps(6) infinite}
 @keyframes grainshift{0%{transform:translate(0,0)}16%{transform:translate(-3%,2%)}33%{transform:translate(2%,-3%)}
@@ -231,6 +231,31 @@ pre.rule{margin:0;font-family:var(--font-ascii);font-size:13px;color:rgba(159,18
 .legal .body{font-size:15.5px;line-height:1.65}
 .legal h2{font-family:var(--font-vt),monospace;font-size:24px;margin:22px 0 8px;font-weight:400}
 .legal p,.legal li{margin:0 0 10px}
+
+/* ============ résumé page ============ */
+.cvwrap{position:relative;z-index:5;max-width:960px;margin:0 auto;padding:36px 22px 90px}
+.cvbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 18px}
+.cvbar+.cvbar{margin-top:22px}
+.cv .cvpaper{background:#fbf8f0;color:#14110f;padding:44px 52px 48px;margin:2px;font-size:14.5px;line-height:1.5;
+  background-image:repeating-linear-gradient(to bottom,transparent 0 30px,rgba(27,58,230,.05) 30px 31px)}
+.cvhead{text-align:center;border-bottom:3px double #14110f;padding-bottom:14px;margin-bottom:14px}
+.cvhead h1{font-size:44px;line-height:1;margin:0 0 10px;font-weight:400;letter-spacing:-.01em}
+.cvcontact{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 14px;font-family:var(--font-vt),monospace;font-size:18px;color:#2b2f4a}
+.cvcontact a{border-bottom:1px dotted #2b2f4a}
+.cv h2{font-size:22px;letter-spacing:.14em;text-transform:uppercase;margin:20px 0 8px;padding-bottom:3px;border-bottom:2px solid #14110f;color:var(--ink);font-weight:400}
+.cvskills{margin:0;display:grid;gap:4px}
+.cvskills div{display:grid;grid-template-columns:150px 1fr;gap:10px}
+.cvskills dt{font-weight:700;color:var(--ink)}
+.cvskills dd{margin:0}
+.cvitem{margin:0 0 12px}
+.cvrow{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.cvrow b{color:#14110f}
+.cvorg{color:#3a3f66}
+.cvwhen{margin-left:auto;font-size:18px;color:var(--blue);white-space:nowrap}
+.cv ul{margin:6px 0 0;padding-left:18px}
+.cv li{margin:0 0 4px}
+.cvnote{margin:4px 0 0;color:#3a3f66}
+@media (max-width:640px){.cv .cvpaper{padding:26px 18px 30px}.cvskills div{grid-template-columns:1fr}.cvwhen{margin-left:0}}
 
 /* ============ responsive ============ */
 @media (max-width:1000px){

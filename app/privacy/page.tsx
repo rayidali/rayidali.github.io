@@ -16,11 +16,12 @@ export default function Privacy() {
             <li><b>A first-party visit log.</b> The same events are stored in a database I run (Supabase), with your approximate city and country (derived from your IP by the hosting provider), your browser's user agent, and a one-way hash of your IP that I use only to tell visits apart. The IP itself is not stored.</li>
             <li><b>Tracked links.</b> If you arrived through a link like <code>/r/abc12</code>, that code is stored in a cookie for a year so I know which application or conversation a visit came from, and which résumé variant to show you. The code is opaque and maps to a label only I can see.</li>
             <li><b>Errors.</b> If something breaks, a technical error report goes to Sentry with no personal data.</li>
+            <li><b>Résumé.</b> Opening the résumé page, viewing the PDF, and downloading it are each logged (with the tracked-link code if you have one), because knowing who read it is the point of this site.</li>
           </ul>
 
-          <h2>What needs your OK</h2>
+          <h2>What you can switch off</h2>
           <ul>
-            <li><b>Session replay (Microsoft Clarity).</b> Only if you press OK on the cookie dialog. It records anonymous replays and heatmaps and sets its own cookies (<code>_clck</code>, <code>_clsk</code>). You can change your answer any time with "cookie settings" at the bottom of the page. Microsoft's terms: <a href="https://privacy.microsoft.com/privacystatement" rel="noopener" style={{ textDecoration: "underline" }}>privacy.microsoft.com</a>.</li>
+            <li><b>Session replay (Microsoft Clarity).</b> On by default. It records anonymous replays and heatmaps (no keystrokes, no form contents) and sets its own cookies (<code>_clck</code>, <code>_clsk</code>). Press "turn replays off" in the dialog, or "cookie settings" at the bottom of the page, and it stops. Microsoft's terms: <a href="https://privacy.microsoft.com/privacystatement" rel="noopener" style={{ textDecoration: "underline" }}>privacy.microsoft.com</a>.</li>
           </ul>
 
           <h2>What is not collected</h2>

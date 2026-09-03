@@ -26,7 +26,7 @@ export default async function Admin() {
     db.from("ref_codes").select("*").order("created_at", { ascending: false }),
     db.from("resumes").select("*").order("created_at", { ascending: false }),
     db.from("events").select("id", { count: "exact", head: true }).eq("event", "page_view").gte("ts", since),
-    db.from("events").select("id", { count: "exact", head: true }).eq("event", "resume_open").gte("ts", since),
+    db.from("events").select("id", { count: "exact", head: true }).in("event", ["resume_view", "resume_pdf", "resume_download"]).gte("ts", since),
   ]);
   const byRef = new Map<string, number>();
   (events || []).forEach((e) => { if (e.ref) byRef.set(e.ref, (byRef.get(e.ref) || 0) + 1); });
@@ -119,7 +119,7 @@ function detail(e: any): string {
   if (e.event === "scroll_depth") return `${p.depth}%`;
   if (e.event === "section_view") return `${p.section}`;
   if (e.event === "page_view") return `${p.w}×${p.h}${e.referrer ? " · from " + e.referrer : ""}`;
-  if (e.event === "resume_open") return `${p.variant}`;
+  if (e.event === "resume_pdf" || e.event === "resume_download") return `${p.variant}`;
   if (e.event === "puzzle_word") return `${p.word}`;
   return "";
 }

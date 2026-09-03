@@ -45,7 +45,9 @@ async function run(req: NextRequest) {
     facts.site = {
       page_views: count((r) => r.event === "page_view"),
       page_views_previous_week: prevViews ?? null,
-      resume_opens: count((r) => r.event === "resume_open"),
+      resume_page_views: count((r) => r.event === "resume_view"),
+      resume_pdf_opens: count((r) => r.event === "resume_pdf"),
+      resume_downloads: count((r) => r.event === "resume_download"),
       tracked_link_hits: count((r) => r.event === "ref_hit"),
       mail_clicks: count((r) => r.event === "mail_click"),
       outbound_clicks: top((r) => (r.event === "outbound_click" ? String((r.props as any)?.target) : null)),
