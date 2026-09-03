@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import posthog from "posthog-js";
+import { isOwner } from "@/lib/track";
 
 const CONSENT_KEY = "rayid.consent";
 
@@ -41,6 +42,7 @@ export default function Analytics() {
       }
     } catch { /* ignore */ }
     (window as any).__ref = ref;
+    if (isOwner()) { document.getElementById("consent")?.classList.add("hidden"); return; }
 
     /* ---- PostHog, cookieless, proxied through /ingest ---- */
     try {

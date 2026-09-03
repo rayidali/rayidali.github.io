@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
   const event = String(body?.event || "");
   if (!ALLOWED.has(event)) return new NextResponse(null, { status: 204 });
   const ua = req.headers.get("user-agent") || "";
-  if (BOT.test(ua)) return new NextResponse(null, { status: 204 });
+  if (BOT.test(ua) || req.cookies.get("owner")?.value === "1") return new NextResponse(null, { status: 204 });
   const db = adminClient();
   if (!db) return new NextResponse(null, { status: 204 });
 

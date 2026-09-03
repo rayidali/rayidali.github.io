@@ -41,7 +41,10 @@ export function refCode(): string | null {
   }
 }
 
+export function isOwner(): boolean { try { return /(?:^|;\s*)owner=1/.test(document.cookie); } catch { return false; } }
+
 export function track(event: string, props: Props = {}, opts: { beacon?: boolean } = {}) {
+  if (isOwner()) return;
   const payload = {
     event,
     props,

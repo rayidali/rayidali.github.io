@@ -19,6 +19,7 @@ export async function GET(req: NextRequest) {
   let variant = "fallback";
   let who = ref || "someone";
 
+  const owner = req.cookies.get("owner")?.value === "1";
   const db = adminClient();
   if (db) {
     try {
@@ -32,7 +33,7 @@ export async function GET(req: NextRequest) {
       if (!r && want !== "default") ({ data: r } = await db.from("resumes").select("file_url,variant").eq("active", true).eq("variant", "default").maybeSingle());
       if (r?.file_url) { fileUrl = r.file_url; variant = r.variant; }
       const ua = h.get("user-agent") || "";
-      if (!/bot|crawl|spider|preview|headless/i.test(ua)) {
+      if (!owner && !/bot|crawl|spider|preview|headless/i.test(ua)) {
         await db.from("events").insert({
           event: download ? "resume_download" : "resume_pdf", path: "/resume/pdf", ref, props: { variant, url: fileUrl },
           ua: ua.slice(0, 300), referrer: h.get("referer"), country: h.get("x-vercel-ip-country"), city: h.get("x-vercel-ip-city"),

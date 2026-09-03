@@ -12,6 +12,13 @@ export async function GET(req: NextRequest, ctx: { params: Promise<{ code: strin
   const dest = to === "resume" ? "/resume" : "/";
   const res = NextResponse.redirect(new URL(dest, req.nextUrl.origin), 302);
   if (!code) return res;
+  if (code === "me") {
+    /* the owner: mark this browser so none of its visits are logged */
+    res.cookies.set("owner", "1", { maxAge: 60 * 60 * 24 * 365, path: "/", sameSite: "lax" });
+    res.cookies.set("ref", "", { maxAge: 0, path: "/" });
+    return res;
+  }
+  if (req.cookies.get("owner")?.value === "1") return res;
   res.cookies.set("ref", code, { maxAge: 60 * 60 * 24 * 365, path: "/", sameSite: "lax" });
 
   const db = adminClient();

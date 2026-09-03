@@ -63,7 +63,7 @@ export default async function Resume() {
       const ck = await cookies(); const h = await headers();
       const ref = ck.get("ref")?.value || null;
       const ua = h.get("user-agent") || "";
-      if (!/bot|crawl|spider|preview|headless/i.test(ua)) {
+      if (ck.get("owner")?.value !== "1" && !/bot|crawl|spider|preview|headless/i.test(ua)) {
         await db.from("events").insert({ event: "resume_view", path: "/resume", ref, props: {}, ua: ua.slice(0, 300), referrer: h.get("referer"), country: h.get("x-vercel-ip-country"), city: h.get("x-vercel-ip-city") });
         if (ref) {
           const { data: rc } = await db.from("ref_codes").select("company,label").eq("code", ref).maybeSingle();
