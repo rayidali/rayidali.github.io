@@ -3,11 +3,13 @@
 import { useEffect } from "react";
 import * as THREE from "three";
 import { track } from "@/lib/track";
+import * as Sentry from "@sentry/nextjs";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 export default function Desktop() {
   useEffect(() => {
+    try {
     const fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const cleanups: Array<() => void> = [];
@@ -15,36 +17,6 @@ export default function Desktop() {
       t.addEventListener(ev, fn, o);
       cleanups.push(() => t.removeEventListener(ev, fn, o));
     };
-
-    /* ---------- boot ---------- */
-    const boot = document.getElementById("boot")!;
-    const log = document.getElementById("bootlog")!;
-    const lines = ["> loading portfolio ........ OK", "> mounting projects ........ OK", "> ascii art ................ OK", "> coffee ................... LOW", "> press any key to continue"];
-    let li = 0;
-    let booted = false;
-    const endBoot = () => {
-      if (booted) return;
-      booted = true;
-      boot.classList.add("off");
-      startTerm();
-    };
-    const nextLine = () => {
-      if (booted) return;
-      if (li < lines.length) {
-        log.textContent += lines[li] + "\n";
-        li++;
-        window.setTimeout(nextLine, li === lines.length ? 700 : 260);
-      } else endBoot();
-    };
-    const seen = (() => { try { return sessionStorage.getItem("rayid.booted") === "1"; } catch { return false; } })();
-    if (seen || reduce) endBoot();
-    else {
-      window.setTimeout(nextLine, 350);
-      window.setTimeout(endBoot, 4200);
-      try { sessionStorage.setItem("rayid.booted", "1"); } catch { /* ignore */ }
-    }
-    on(window, "keydown", endBoot, { once: true });
-    on(window, "pointerdown", endBoot, { once: true });
 
     /* ---------- terminal typing ---------- */
     const term = document.getElementById("term")!;
@@ -77,6 +49,36 @@ export default function Desktop() {
       };
       typeLine();
     }
+
+    /* ---------- boot ---------- */
+    const boot = document.getElementById("boot")!;
+    const log = document.getElementById("bootlog")!;
+    const lines = ["> loading portfolio ........ OK", "> mounting projects ........ OK", "> ascii art ................ OK", "> coffee ................... LOW", "> press any key to continue"];
+    let li = 0;
+    let booted = false;
+    const endBoot = () => {
+      if (booted) return;
+      booted = true;
+      boot.classList.add("off");
+      startTerm();
+    };
+    const nextLine = () => {
+      if (booted) return;
+      if (li < lines.length) {
+        log.textContent += lines[li] + "\n";
+        li++;
+        window.setTimeout(nextLine, li === lines.length ? 700 : 260);
+      } else endBoot();
+    };
+    const seen = (() => { try { return sessionStorage.getItem("rayid.booted") === "1"; } catch { return false; } })();
+    if (seen || reduce) endBoot();
+    else {
+      window.setTimeout(nextLine, 350);
+      window.setTimeout(endBoot, 4200);
+      try { sessionStorage.setItem("rayid.booted", "1"); } catch { /* ignore */ }
+    }
+    on(window, "keydown", endBoot, { once: true });
+    on(window, "pointerdown", endBoot, { once: true });
 
     /* ---------- reveals ---------- */
     const io = new IntersectionObserver((es) => {
@@ -397,6 +399,13 @@ export default function Desktop() {
     track("page_view", { ref: (window as any).__ref ?? null, w: window.innerWidth, h: window.innerHeight, referrer: document.referrer || null });
 
     return () => { cleanups.forEach((f) => f()); };
+    } catch (err) {
+      console.error("desktop effect failed", err);
+      try { Sentry.captureException(err); } catch { /* ignore */ }
+      document.getElementById("boot")?.classList.add("off");
+      document.querySelectorAll(".rev").forEach((el) => el.classList.add("in"));
+      return undefined;
+    }
   }, []);
 
   return null;
