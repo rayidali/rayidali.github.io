@@ -5,18 +5,22 @@ import posthog from "posthog-js";
 
 const CONSENT_KEY = "rayid.consent";
 
-/** Microsoft Clarity. Loads by default; "no thanks" revokes consent and stops it next time. */
-function loadClarity(id: string, ref: string | null) {
-  if (!id || (window as any).clarity) return;
-  (function (c: any, l: Document, a: string, r: string, i: string) {
-    c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-    const t = l.createElement(r) as HTMLScriptElement; t.async = true; t.src = "https://www.clarity.ms/tag/" + i;
-    const y = l.getElementsByTagName(r)[0]; y.parentNode!.insertBefore(t, y);
-  })(window, document, "clarity", "script", id);
-  try {
-    (window as any).clarity("consent");
-    if (ref) { (window as any).clarity("set", "ref", ref); (window as any).clarity("identify", "ref:" + ref); }
-  } catch { /* ignore */ }
+/** Microsoft Clarity. Loads by default; the tag CDN is flaky, so it retries. "no thanks" revokes consent. */
+function loadClarity(id: string, ref: string | null, attempt = 0) {
+  if (!id || (window as any).clarity?.v) return;
+  const w = window as any;
+  w.clarity = w.clarity || function () { (w.clarity.q = w.clarity.q || []).push(arguments); };
+  const t = document.createElement("script");
+  t.async = true;
+  t.src = "https://www.clarity.ms/tag/" + id + (attempt ? "?r=" + attempt : "");
+  t.onerror = () => { t.remove(); if (attempt < 3) window.setTimeout(() => loadClarity(id, ref, attempt + 1), [2000, 5000, 12000][attempt]); };
+  t.onload = () => {
+    try {
+      w.clarity("consent");
+      if (ref) { w.clarity("set", "ref", ref); w.clarity("identify", "ref:" + ref); }
+    } catch { /* ignore */ }
+  };
+  document.head.appendChild(t);
 }
 
 export default function Analytics() {
